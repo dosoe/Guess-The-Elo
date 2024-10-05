@@ -1,0 +1,27 @@
+name: guess_the_elo-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - jupyter 
+  - matplotlib >= 3.8
+  - openpyxl >= 3.0
+  - pandas >= 2.0
+  - pip >= 24.0
+  - pyarrow 
+  - py-xgboost
+  - scikit-learn >= 1.4
+  - sqlalchemy
+  - xgboost >= 2.0.3
+  - pmdarima >= 2.0
+  - pip:
+    - python-chess
+    - cinemagoer
+    - lxml
+    - pynytimes
+    - pyjokes == 0.6.0
+    - plotly == 5.24.0
+    - seaborn == 0.13.2
+    # Add any other pip packages here
