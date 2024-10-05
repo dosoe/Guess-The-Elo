@@ -1,0 +1,3092 @@
+[
+    {
+        "GameNumber": 1,
+        "WhiteElo": "2766",
+        "BlackElo": "2698",
+        "Opening": "King's Indian",
+        "Variation": "London system",
+        "Moves": [
+            "d4",
+            "Nf6",
+            "Nf3",
+            "g6",
+            "Bf4",
+            "Bg7",
+            "c3",
+            "d6",
+            "Nbd2",
+            "Nh5",
+            "Bg5",
+            "h6",
+            "Bh4",
+            "g5",
+            "Bg3",
+            "Nd7",
+            "e4",
+            "e6",
+            "Bd3",
+            "b6",
+            "Ng1",
+            "Nxg3",
+            "hxg3",
+            "Bb7",
+            "Ne2",
+            "Qe7",
+            "g4",
+            "c5",
+            "Nf1",
+            "a6",
+            "Ne3",
+            "b5",
+            "a4",
+            "b4",
+            "a5",
+            "O-O",
+            "O-O",
+            "Rfc8",
+            "d5",
+            "Ne5",
+            "Bc2",
+            "Rab8",
+            "cxb4",
+            "Ba8",
+            "bxc5",
+            "Rxc5",
+            "Bb3",
+            "Rb4",
+            "dxe6",
+            "fxe6",
+            "Nf5",
+            "Qd7",
+            "Ned4",
+            "d5",
+            "Nxg7",
+            "Kxg7",
+            "Qd2",
+            "Rb8",
+            "Rac1",
+            "Rxc1",
+            "Rxc1",
+            "Kg8",
+            "Qe3",
+            "Nf7",
+            "e5",
+            "Rc8",
+            "Re1",
+            "Bc6",
+            "Qd3",
+            "Nd8",
+            "Qxa6",
+            "Rb8",
+            "Qd3",
+            "Bb5",
+            "Nxb5",
+            "Qxb5",
+            "Qg6+",
+            "Kf8",
+            "Re3",
+            "Nf7",
+            "Rf3"
+        ],
+        "Average_CPL_White": 17.121951219512194,
+        "Average_CPL_Black": 24.325,
+        "MoveCPL": [
+            {
+                "MoveNumber": 1,
+                "Player": "White",
+                "Move": "d4",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 1,
+                "Player": "Black",
+                "Move": "Nf6",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "White",
+                "Move": "Nf3",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "Black",
+                "Move": "g6",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "White",
+                "Move": "Bf4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "Black",
+                "Move": "Bg7",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "White",
+                "Move": "c3",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "Black",
+                "Move": "d6",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "White",
+                "Move": "Nbd2",
+                "CPL": 14
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "Black",
+                "Move": "Nh5",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "White",
+                "Move": "Bg5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "Black",
+                "Move": "h6",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "White",
+                "Move": "Bh4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "Black",
+                "Move": "g5",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "White",
+                "Move": "Bg3",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "Black",
+                "Move": "Nd7",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "White",
+                "Move": "e4",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "Black",
+                "Move": "e6",
+                "CPL": 33
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "White",
+                "Move": "Bd3",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "Black",
+                "Move": "b6",
+                "CPL": 16
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "White",
+                "Move": "Ng1",
+                "CPL": 35
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "Black",
+                "Move": "Nxg3",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "White",
+                "Move": "hxg3",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "Black",
+                "Move": "Bb7",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "White",
+                "Move": "Ne2",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "Black",
+                "Move": "Qe7",
+                "CPL": 19
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "White",
+                "Move": "g4",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "Black",
+                "Move": "c5",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "White",
+                "Move": "Nf1",
+                "CPL": 37
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "Black",
+                "Move": "a6",
+                "CPL": 83
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "White",
+                "Move": "Ne3",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "Black",
+                "Move": "b5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "White",
+                "Move": "a4",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "Black",
+                "Move": "b4",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "White",
+                "Move": "a5",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "Black",
+                "Move": "O-O",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "White",
+                "Move": "O-O",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "Black",
+                "Move": "Rfc8",
+                "CPL": 36
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "White",
+                "Move": "d5",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "Black",
+                "Move": "Ne5",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "White",
+                "Move": "Bc2",
+                "CPL": 40
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "Black",
+                "Move": "Rab8",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "White",
+                "Move": "cxb4",
+                "CPL": 16
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "Black",
+                "Move": "Ba8",
+                "CPL": 76
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "White",
+                "Move": "bxc5",
+                "CPL": 35
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "Black",
+                "Move": "Rxc5",
+                "CPL": 37
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "White",
+                "Move": "Bb3",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "Black",
+                "Move": "Rb4",
+                "CPL": 101
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "White",
+                "Move": "dxe6",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "Black",
+                "Move": "fxe6",
+                "CPL": 22
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "White",
+                "Move": "Nf5",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "Black",
+                "Move": "Qd7",
+                "CPL": 62
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "White",
+                "Move": "Ned4",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "Black",
+                "Move": "d5",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "White",
+                "Move": "Nxg7",
+                "CPL": 30
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "Black",
+                "Move": "Kxg7",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "White",
+                "Move": "Qd2",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "Black",
+                "Move": "Rb8",
+                "CPL": 31
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "White",
+                "Move": "Rac1",
+                "CPL": 91
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "Black",
+                "Move": "Rxc1",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "White",
+                "Move": "Rxc1",
+                "CPL": 31
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "Black",
+                "Move": "Kg8",
+                "CPL": 24
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "White",
+                "Move": "Qe3",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "Black",
+                "Move": "Nf7",
+                "CPL": 24
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "White",
+                "Move": "e5",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "Black",
+                "Move": "Rc8",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "White",
+                "Move": "Re1",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "Black",
+                "Move": "Bc6",
+                "CPL": 47
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "White",
+                "Move": "Qd3",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "Black",
+                "Move": "Nd8",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "White",
+                "Move": "Qxa6",
+                "CPL": 24
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "Black",
+                "Move": "Rb8",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "White",
+                "Move": "Qd3",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "Black",
+                "Move": "Bb5",
+                "CPL": 38
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "White",
+                "Move": "Nxb5",
+                "CPL": 24
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "Black",
+                "Move": "Qxb5",
+                "CPL": 65
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "White",
+                "Move": "Qg6+",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "Black",
+                "Move": "Kf8",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "White",
+                "Move": "Re3",
+                "CPL": 110
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "Black",
+                "Move": "Nf7",
+                "CPL": 137
+            },
+            {
+                "MoveNumber": 41,
+                "Player": "White",
+                "Move": "Rf3",
+                "CPL": 62
+            }
+        ]
+    },
+    {
+        "GameNumber": 2,
+        "WhiteElo": "2715",
+        "BlackElo": "2637",
+        "Opening": "Sicilian",
+        "Variation": "Nimzovich-Rossolimo attack (without ...d6)",
+        "Moves": [
+            "e4",
+            "c5",
+            "Nf3",
+            "Nc6",
+            "Bb5",
+            "Nf6",
+            "Bxc6",
+            "dxc6",
+            "d3",
+            "Qc7",
+            "b3",
+            "g6",
+            "Bb2",
+            "Bg7",
+            "Be5",
+            "Qa5+",
+            "Bc3",
+            "Qc7",
+            "Be5",
+            "Qa5+",
+            "Nbd2",
+            "Bg4",
+            "O-O",
+            "Bxf3",
+            "Nxf3",
+            "O-O",
+            "Re1",
+            "Nh5",
+            "Bxg7",
+            "Nxg7",
+            "Qc1",
+            "f6",
+            "e5",
+            "f5",
+            "e6",
+            "Rf6",
+            "b4",
+            "cxb4",
+            "Qh6",
+            "g5",
+            "Qxg5",
+            "Qc5",
+            "Re2",
+            "Rg6",
+            "Qh4",
+            "Qd5",
+            "Kf1",
+            "Qd6",
+            "Ng5",
+            "h5",
+            "Rae1",
+            "Qc5",
+            "Nf7",
+            "Re8",
+            "h3",
+            "a5",
+            "Ne5",
+            "Rxe6",
+            "Qg5",
+            "Qd5",
+            "Ng6",
+            "Rxe2",
+            "Rxe2",
+            "Kf7",
+            "Nxe7",
+            "Qxa2",
+            "Qg6+",
+            "Kf8",
+            "Qf6+",
+            "Qf7",
+            "Qh6",
+            "Qa2",
+            "Qf6+",
+            "Qf7",
+            "Qh6",
+            "Qa2",
+            "Ng6+",
+            "Kf7",
+            "Rxe8",
+            "Kxe8",
+            "Qxg7",
+            "Qb1+",
+            "Ke2",
+            "Qxc2+",
+            "Ke3",
+            "Qc1+",
+            "Kf3",
+            "Qd1+",
+            "Kf4",
+            "Qd2+",
+            "Ke5",
+            "Qe2+",
+            "Kf6",
+            "Kd8",
+            "Ne5",
+            "Kc8",
+            "Qf8+",
+            "Kc7",
+            "Qe7+",
+            "Kc8",
+            "Qf8+",
+            "Kc7",
+            "Nc4",
+            "Qxd3",
+            "Qe7+",
+            "Kb8",
+            "Qe5+",
+            "Ka7",
+            "Qxa5+",
+            "Kb8",
+            "Qe5+",
+            "Ka8",
+            "Qa5+",
+            "Kb8",
+            "Qxb4",
+            "Qd4+",
+            "Ke6",
+            "Qd5+",
+            "Ke7",
+            "Qe4+",
+            "Kd7",
+            "Qxg2",
+            "Qf8+",
+            "Ka7",
+            "Kc8",
+            "Ka6",
+            "Qa3+",
+            "Kb5",
+            "Nd6+",
+            "Kb6",
+            "Qb4+",
+            "Ka6",
+            "Kb8",
+            "Qh2",
+            "Qa3+",
+            "Kb6",
+            "Qa7#"
+        ],
+        "Average_CPL_White": 2934.913043478261,
+        "Average_CPL_Black": 2964.823529411765,
+        "MoveCPL": [
+            {
+                "MoveNumber": 1,
+                "Player": "White",
+                "Move": "e4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 1,
+                "Player": "Black",
+                "Move": "c5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "White",
+                "Move": "Nf3",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "Black",
+                "Move": "Nc6",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "White",
+                "Move": "Bb5",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "Black",
+                "Move": "Nf6",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "White",
+                "Move": "Bxc6",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "Black",
+                "Move": "dxc6",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "White",
+                "Move": "d3",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "Black",
+                "Move": "Qc7",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "White",
+                "Move": "b3",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "Black",
+                "Move": "g6",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "White",
+                "Move": "Bb2",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "Black",
+                "Move": "Bg7",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "White",
+                "Move": "Be5",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "Black",
+                "Move": "Qa5+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "White",
+                "Move": "Bc3",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "Black",
+                "Move": "Qc7",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "White",
+                "Move": "Be5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "Black",
+                "Move": "Qa5+",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "White",
+                "Move": "Nbd2",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "Black",
+                "Move": "Bg4",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "White",
+                "Move": "O-O",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "Black",
+                "Move": "Bxf3",
+                "CPL": 23
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "White",
+                "Move": "Nxf3",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "Black",
+                "Move": "O-O",
+                "CPL": 25
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "White",
+                "Move": "Re1",
+                "CPL": 16
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "Black",
+                "Move": "Nh5",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "White",
+                "Move": "Bxg7",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "Black",
+                "Move": "Nxg7",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "White",
+                "Move": "Qc1",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "Black",
+                "Move": "f6",
+                "CPL": 22
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "White",
+                "Move": "e5",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "Black",
+                "Move": "f5",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "White",
+                "Move": "e6",
+                "CPL": 37
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "Black",
+                "Move": "Rf6",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "White",
+                "Move": "b4",
+                "CPL": 73
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "Black",
+                "Move": "cxb4",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "White",
+                "Move": "Qh6",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "Black",
+                "Move": "g5",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "White",
+                "Move": "Qxg5",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "Black",
+                "Move": "Qc5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "White",
+                "Move": "Re2",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "Black",
+                "Move": "Rg6",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "White",
+                "Move": "Qh4",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "Black",
+                "Move": "Qd5",
+                "CPL": 80
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "White",
+                "Move": "Kf1",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "Black",
+                "Move": "Qd6",
+                "CPL": 76
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "White",
+                "Move": "Ng5",
+                "CPL": 39
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "Black",
+                "Move": "h5",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "White",
+                "Move": "Rae1",
+                "CPL": 31
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "Black",
+                "Move": "Qc5",
+                "CPL": 51
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "White",
+                "Move": "Nf7",
+                "CPL": 21
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "Black",
+                "Move": "Re8",
+                "CPL": 197
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "White",
+                "Move": "h3",
+                "CPL": 145
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "Black",
+                "Move": "a5",
+                "CPL": 39
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "White",
+                "Move": "Ne5",
+                "CPL": 64
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "Black",
+                "Move": "Rxe6",
+                "CPL": 165
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "White",
+                "Move": "Qg5",
+                "CPL": 277
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "Black",
+                "Move": "Qd5",
+                "CPL": 58
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "White",
+                "Move": "Ng6",
+                "CPL": 31
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "Black",
+                "Move": "Rxe2",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "White",
+                "Move": "Rxe2",
+                "CPL": 14
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "Black",
+                "Move": "Kf7",
+                "CPL": 151
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "White",
+                "Move": "Nxe7",
+                "CPL": 220
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "Black",
+                "Move": "Qxa2",
+                "CPL": 189
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "White",
+                "Move": "Qg6+",
+                "CPL": 19
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "Black",
+                "Move": "Kf8",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "White",
+                "Move": "Qf6+",
+                "CPL": 196
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "Black",
+                "Move": "Qf7",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "White",
+                "Move": "Qh6",
+                "CPL": 46
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "Black",
+                "Move": "Qa2",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "White",
+                "Move": "Qf6+",
+                "CPL": 245
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "Black",
+                "Move": "Qf7",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "White",
+                "Move": "Qh6",
+                "CPL": 236
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "Black",
+                "Move": "Qa2",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "White",
+                "Move": "Ng6+",
+                "CPL": 309
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "Black",
+                "Move": "Kf7",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "White",
+                "Move": "Rxe8",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "Black",
+                "Move": "Kxe8",
+                "CPL": 266
+            },
+            {
+                "MoveNumber": 41,
+                "Player": "White",
+                "Move": "Qxg7",
+                "CPL": 111
+            },
+            {
+                "MoveNumber": 41,
+                "Player": "Black",
+                "Move": "Qb1+",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 42,
+                "Player": "White",
+                "Move": "Ke2",
+                "CPL": 14
+            },
+            {
+                "MoveNumber": 42,
+                "Player": "Black",
+                "Move": "Qxc2+",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 43,
+                "Player": "White",
+                "Move": "Ke3",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 43,
+                "Player": "Black",
+                "Move": "Qc1+",
+                "CPL": 18
+            },
+            {
+                "MoveNumber": 44,
+                "Player": "White",
+                "Move": "Kf3",
+                "CPL": 33
+            },
+            {
+                "MoveNumber": 44,
+                "Player": "Black",
+                "Move": "Qd1+",
+                "CPL": 75
+            },
+            {
+                "MoveNumber": 45,
+                "Player": "White",
+                "Move": "Kf4",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 45,
+                "Player": "Black",
+                "Move": "Qd2+",
+                "CPL": 158
+            },
+            {
+                "MoveNumber": 46,
+                "Player": "White",
+                "Move": "Ke5",
+                "CPL": 32
+            },
+            {
+                "MoveNumber": 46,
+                "Player": "Black",
+                "Move": "Qe2+",
+                "CPL": 453
+            },
+            {
+                "MoveNumber": 47,
+                "Player": "White",
+                "Move": "Kf6",
+                "CPL": 32
+            },
+            {
+                "MoveNumber": 47,
+                "Player": "Black",
+                "Move": "Kd8",
+                "CPL": 98934
+            },
+            {
+                "MoveNumber": 48,
+                "Player": "White",
+                "Move": "Ne5",
+                "CPL": 496
+            },
+            {
+                "MoveNumber": 48,
+                "Player": "Black",
+                "Move": "Kc8",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 49,
+                "Player": "White",
+                "Move": "Qf8+",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 49,
+                "Player": "Black",
+                "Move": "Kc7",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 50,
+                "Player": "White",
+                "Move": "Qe7+",
+                "CPL": 21
+            },
+            {
+                "MoveNumber": 50,
+                "Player": "Black",
+                "Move": "Kc8",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 51,
+                "Player": "White",
+                "Move": "Qf8+",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 51,
+                "Player": "Black",
+                "Move": "Kc7",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 52,
+                "Player": "White",
+                "Move": "Nc4",
+                "CPL": 316
+            },
+            {
+                "MoveNumber": 52,
+                "Player": "Black",
+                "Move": "Qxd3",
+                "CPL": 19
+            },
+            {
+                "MoveNumber": 53,
+                "Player": "White",
+                "Move": "Qe7+",
+                "CPL": 66
+            },
+            {
+                "MoveNumber": 53,
+                "Player": "Black",
+                "Move": "Kb8",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 54,
+                "Player": "White",
+                "Move": "Qe5+",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 54,
+                "Player": "Black",
+                "Move": "Ka7",
+                "CPL": 14
+            },
+            {
+                "MoveNumber": 55,
+                "Player": "White",
+                "Move": "Qxa5+",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 55,
+                "Player": "Black",
+                "Move": "Kb8",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 56,
+                "Player": "White",
+                "Move": "Qe5+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 56,
+                "Player": "Black",
+                "Move": "Ka8",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 57,
+                "Player": "White",
+                "Move": "Qa5+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 57,
+                "Player": "Black",
+                "Move": "Kb8",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 58,
+                "Player": "White",
+                "Move": "Qxb4",
+                "CPL": 16
+            },
+            {
+                "MoveNumber": 58,
+                "Player": "Black",
+                "Move": "Qd4+",
+                "CPL": 32
+            },
+            {
+                "MoveNumber": 59,
+                "Player": "White",
+                "Move": "Ke6",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 59,
+                "Player": "Black",
+                "Move": "Qd5+",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 60,
+                "Player": "White",
+                "Move": "Ke7",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 60,
+                "Player": "Black",
+                "Move": "Qe4+",
+                "CPL": 98
+            },
+            {
+                "MoveNumber": 61,
+                "Player": "White",
+                "Move": "Kd7",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 61,
+                "Player": "Black",
+                "Move": "Qxg2",
+                "CPL": 568
+            },
+            {
+                "MoveNumber": 62,
+                "Player": "White",
+                "Move": "Qf8+",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 62,
+                "Player": "Black",
+                "Move": "Ka7",
+                "CPL": 39
+            },
+            {
+                "MoveNumber": 63,
+                "Player": "White",
+                "Move": "Kc8",
+                "CPL": 621
+            },
+            {
+                "MoveNumber": 63,
+                "Player": "Black",
+                "Move": "Ka6",
+                "CPL": 30
+            },
+            {
+                "MoveNumber": 64,
+                "Player": "White",
+                "Move": "Qa3+",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 64,
+                "Player": "Black",
+                "Move": "Kb5",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 65,
+                "Player": "White",
+                "Move": "Nd6+",
+                "CPL": 98954
+            },
+            {
+                "MoveNumber": 65,
+                "Player": "Black",
+                "Move": "Kb6",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 66,
+                "Player": "White",
+                "Move": "Qb4+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 66,
+                "Player": "Black",
+                "Move": "Ka6",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 67,
+                "Player": "White",
+                "Move": "Kb8",
+                "CPL": 99616
+            },
+            {
+                "MoveNumber": 67,
+                "Player": "Black",
+                "Move": "Qh2",
+                "CPL": 99619
+            },
+            {
+                "MoveNumber": 68,
+                "Player": "White",
+                "Move": "Qa3+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 68,
+                "Player": "Black",
+                "Move": "Kb6",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 69,
+                "Player": "White",
+                "Move": "Qa7#",
+                "CPL": 0
+            }
+        ]
+    },
+    {
+        "GameNumber": 3,
+        "WhiteElo": "2733",
+        "BlackElo": "2637",
+        "Opening": "QGD",
+        "Variation": "exchange, Saemisch variation",
+        "Moves": [
+            "d4",
+            "d5",
+            "c4",
+            "e6",
+            "Nf3",
+            "Nf6",
+            "Nc3",
+            "Nbd7",
+            "cxd5",
+            "exd5",
+            "Bf4",
+            "c6",
+            "e3",
+            "Nh5",
+            "Bg5",
+            "Nhf6",
+            "Bd3",
+            "Bd6",
+            "O-O",
+            "O-O",
+            "Qc2",
+            "h6",
+            "Bh4",
+            "Re8",
+            "Rae1",
+            "Be7",
+            "Bg3",
+            "a5",
+            "Nb5",
+            "Bb4",
+            "Nc7",
+            "Bxe1",
+            "Nxa8",
+            "Bb4",
+            "a3",
+            "Bf8",
+            "Bc7",
+            "Qe7",
+            "Bxa5",
+            "Ne4",
+            "Nc7",
+            "Rd8",
+            "Nxd5",
+            "cxd5",
+            "Bxd8",
+            "Qxd8",
+            "Bxe4",
+            "dxe4",
+            "Qxe4",
+            "Nf6",
+            "Qd3",
+            "Qd5",
+            "Rc1",
+            "Be6",
+            "Nd2",
+            "Bf5",
+            "Qb3",
+            "Qa5",
+            "Nf3",
+            "Qa6",
+            "Ne5",
+            "Be6",
+            "Qd3",
+            "Qd6",
+            "e4",
+            "Nh5",
+            "g3",
+            "g6",
+            "Nc4",
+            "Qd8",
+            "d5",
+            "Bh3",
+            "e5",
+            "Bg7",
+            "Re1",
+            "b5",
+            "Nd6",
+            "Bxe5",
+            "Nxf7",
+            "Kxf7",
+            "Rxe5",
+            "Qf6",
+            "Qe3",
+            "Ng7",
+            "f4",
+            "Kg8",
+            "Qc5",
+            "Qa6",
+            "Re1",
+            "b4",
+            "axb4",
+            "Qd3",
+            "b5",
+            "Qd2",
+            "Qf2",
+            "Qxd5",
+            "b6",
+            "Nf5",
+            "Re5",
+            "Qd1+",
+            "Qe1",
+            "Qd4+",
+            "Qf2",
+            "Qd1+",
+            "Re1",
+            "Qd5",
+            "Qe2",
+            "Qc5+",
+            "Kh1",
+            "Nd6",
+            "g4",
+            "Qc6+",
+            "Kg1",
+            "Qxb6+",
+            "Qe3",
+            "Qxe3+",
+            "Rxe3",
+            "Bxg4",
+            "b4",
+            "Kf7",
+            "Re5",
+            "Bd7",
+            "Kf2",
+            "Kf6",
+            "h4",
+            "Bc6",
+            "Ke2",
+            "Bb5+",
+            "Kf3",
+            "Bc6+"
+        ],
+        "Average_CPL_White": 15.430769230769231,
+        "Average_CPL_Black": 15.092307692307692,
+        "MoveCPL": [
+            {
+                "MoveNumber": 1,
+                "Player": "White",
+                "Move": "d4",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 1,
+                "Player": "Black",
+                "Move": "d5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "White",
+                "Move": "c4",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "Black",
+                "Move": "e6",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "White",
+                "Move": "Nf3",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "Black",
+                "Move": "Nf6",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "White",
+                "Move": "Nc3",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "Black",
+                "Move": "Nbd7",
+                "CPL": 22
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "White",
+                "Move": "cxd5",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "Black",
+                "Move": "exd5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "White",
+                "Move": "Bf4",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "Black",
+                "Move": "c6",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "White",
+                "Move": "e3",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "Black",
+                "Move": "Nh5",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "White",
+                "Move": "Bg5",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "Black",
+                "Move": "Nhf6",
+                "CPL": 55
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "White",
+                "Move": "Bd3",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "Black",
+                "Move": "Bd6",
+                "CPL": 25
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "White",
+                "Move": "O-O",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "Black",
+                "Move": "O-O",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "White",
+                "Move": "Qc2",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "Black",
+                "Move": "h6",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "White",
+                "Move": "Bh4",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "Black",
+                "Move": "Re8",
+                "CPL": 23
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "White",
+                "Move": "Rae1",
+                "CPL": 31
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "Black",
+                "Move": "Be7",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "White",
+                "Move": "Bg3",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "Black",
+                "Move": "a5",
+                "CPL": 92
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "White",
+                "Move": "Nb5",
+                "CPL": 25
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "Black",
+                "Move": "Bb4",
+                "CPL": 78
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "White",
+                "Move": "Nc7",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "Black",
+                "Move": "Bxe1",
+                "CPL": 16
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "White",
+                "Move": "Nxa8",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "Black",
+                "Move": "Bb4",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "White",
+                "Move": "a3",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "Black",
+                "Move": "Bf8",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "White",
+                "Move": "Bc7",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "Black",
+                "Move": "Qe7",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "White",
+                "Move": "Bxa5",
+                "CPL": 20
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "Black",
+                "Move": "Ne4",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "White",
+                "Move": "Nc7",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "Black",
+                "Move": "Rd8",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "White",
+                "Move": "Nxd5",
+                "CPL": 36
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "Black",
+                "Move": "cxd5",
+                "CPL": 22
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "White",
+                "Move": "Bxd8",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "Black",
+                "Move": "Qxd8",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "White",
+                "Move": "Bxe4",
+                "CPL": 59
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "Black",
+                "Move": "dxe4",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "White",
+                "Move": "Qxe4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "Black",
+                "Move": "Nf6",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "White",
+                "Move": "Qd3",
+                "CPL": 16
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "Black",
+                "Move": "Qd5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "White",
+                "Move": "Rc1",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "Black",
+                "Move": "Be6",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "White",
+                "Move": "Nd2",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "Black",
+                "Move": "Bf5",
+                "CPL": 27
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "White",
+                "Move": "Qb3",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "Black",
+                "Move": "Qa5",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "White",
+                "Move": "Nf3",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "Black",
+                "Move": "Qa6",
+                "CPL": 35
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "White",
+                "Move": "Ne5",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "Black",
+                "Move": "Be6",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "White",
+                "Move": "Qd3",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "Black",
+                "Move": "Qd6",
+                "CPL": 41
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "White",
+                "Move": "e4",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "Black",
+                "Move": "Nh5",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "White",
+                "Move": "g3",
+                "CPL": 25
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "Black",
+                "Move": "g6",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "White",
+                "Move": "Nc4",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "Black",
+                "Move": "Qd8",
+                "CPL": 22
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "White",
+                "Move": "d5",
+                "CPL": 13
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "Black",
+                "Move": "Bh3",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "White",
+                "Move": "e5",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "Black",
+                "Move": "Bg7",
+                "CPL": 67
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "White",
+                "Move": "Re1",
+                "CPL": 30
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "Black",
+                "Move": "b5",
+                "CPL": 45
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "White",
+                "Move": "Nd6",
+                "CPL": 70
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "Black",
+                "Move": "Bxe5",
+                "CPL": 19
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "White",
+                "Move": "Nxf7",
+                "CPL": 33
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "Black",
+                "Move": "Kxf7",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 41,
+                "Player": "White",
+                "Move": "Rxe5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 41,
+                "Player": "Black",
+                "Move": "Qf6",
+                "CPL": 19
+            },
+            {
+                "MoveNumber": 42,
+                "Player": "White",
+                "Move": "Qe3",
+                "CPL": 135
+            },
+            {
+                "MoveNumber": 42,
+                "Player": "Black",
+                "Move": "Ng7",
+                "CPL": 115
+            },
+            {
+                "MoveNumber": 43,
+                "Player": "White",
+                "Move": "f4",
+                "CPL": 132
+            },
+            {
+                "MoveNumber": 43,
+                "Player": "Black",
+                "Move": "Kg8",
+                "CPL": 45
+            },
+            {
+                "MoveNumber": 44,
+                "Player": "White",
+                "Move": "Qc5",
+                "CPL": 69
+            },
+            {
+                "MoveNumber": 44,
+                "Player": "Black",
+                "Move": "Qa6",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 45,
+                "Player": "White",
+                "Move": "Re1",
+                "CPL": 68
+            },
+            {
+                "MoveNumber": 45,
+                "Player": "Black",
+                "Move": "b4",
+                "CPL": 18
+            },
+            {
+                "MoveNumber": 46,
+                "Player": "White",
+                "Move": "axb4",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 46,
+                "Player": "Black",
+                "Move": "Qd3",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 47,
+                "Player": "White",
+                "Move": "b5",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 47,
+                "Player": "Black",
+                "Move": "Qd2",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 48,
+                "Player": "White",
+                "Move": "Qf2",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 48,
+                "Player": "Black",
+                "Move": "Qxd5",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 49,
+                "Player": "White",
+                "Move": "b6",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 49,
+                "Player": "Black",
+                "Move": "Nf5",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 50,
+                "Player": "White",
+                "Move": "Re5",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 50,
+                "Player": "Black",
+                "Move": "Qd1+",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 51,
+                "Player": "White",
+                "Move": "Qe1",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 51,
+                "Player": "Black",
+                "Move": "Qd4+",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 52,
+                "Player": "White",
+                "Move": "Qf2",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 52,
+                "Player": "Black",
+                "Move": "Qd1+",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 53,
+                "Player": "White",
+                "Move": "Re1",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 53,
+                "Player": "Black",
+                "Move": "Qd5",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 54,
+                "Player": "White",
+                "Move": "Qe2",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 54,
+                "Player": "Black",
+                "Move": "Qc5+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 55,
+                "Player": "White",
+                "Move": "Kh1",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 55,
+                "Player": "Black",
+                "Move": "Nd6",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 56,
+                "Player": "White",
+                "Move": "g4",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 56,
+                "Player": "Black",
+                "Move": "Qc6+",
+                "CPL": 10
+            },
+            {
+                "MoveNumber": 57,
+                "Player": "White",
+                "Move": "Kg1",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 57,
+                "Player": "Black",
+                "Move": "Qxb6+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 58,
+                "Player": "White",
+                "Move": "Qe3",
+                "CPL": 20
+            },
+            {
+                "MoveNumber": 58,
+                "Player": "Black",
+                "Move": "Qxe3+",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 59,
+                "Player": "White",
+                "Move": "Rxe3",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 59,
+                "Player": "Black",
+                "Move": "Bxg4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 60,
+                "Player": "White",
+                "Move": "b4",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 60,
+                "Player": "Black",
+                "Move": "Kf7",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 61,
+                "Player": "White",
+                "Move": "Re5",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 61,
+                "Player": "Black",
+                "Move": "Bd7",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 62,
+                "Player": "White",
+                "Move": "Kf2",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 62,
+                "Player": "Black",
+                "Move": "Kf6",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 63,
+                "Player": "White",
+                "Move": "h4",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 63,
+                "Player": "Black",
+                "Move": "Bc6",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 64,
+                "Player": "White",
+                "Move": "Ke2",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 64,
+                "Player": "Black",
+                "Move": "Bb5+",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 65,
+                "Player": "White",
+                "Move": "Kf3",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 65,
+                "Player": "Black",
+                "Move": "Bc6+",
+                "CPL": 0
+            }
+        ]
+    },
+    {
+        "GameNumber": 4,
+        "WhiteElo": "2698",
+        "BlackElo": "2715",
+        "Opening": "Caro-Kann",
+        "Variation": "advance variation",
+        "Moves": [
+            "e4",
+            "c6",
+            "d4",
+            "d5",
+            "e5",
+            "Bf5",
+            "h4",
+            "a6",
+            "c4",
+            "dxc4",
+            "Bxc4",
+            "e6",
+            "Nc3",
+            "h6",
+            "Nge2",
+            "Nd7",
+            "Be3",
+            "Ne7",
+            "Ng3",
+            "Nb6",
+            "Bb3",
+            "Bh7",
+            "Qg4",
+            "a5",
+            "a3",
+            "a4",
+            "Ba2",
+            "Nf5",
+            "Rd1",
+            "Nd5",
+            "Bc1",
+            "Nxg3",
+            "Qxg3",
+            "Bc2",
+            "Rd2",
+            "Bf5",
+            "Bc4",
+            "Qb6",
+            "O-O",
+            "g6",
+            "h5",
+            "gxh5",
+            "Bd3",
+            "Ne7",
+            "Qh4",
+            "Rg8",
+            "Bxf5",
+            "Nxf5",
+            "Qxh5",
+            "Be7",
+            "Rd3",
+            "Rg6",
+            "d5",
+            "Ng7",
+            "Qh3",
+            "exd5",
+            "Be3",
+            "Qa6",
+            "Rfd1",
+            "h5",
+            "Ne2",
+            "Ne6",
+            "f4",
+            "Nc5",
+            "f5",
+            "Rg8",
+            "R3d2",
+            "Ne4",
+            "Rc2",
+            "Bg5",
+            "Bd4",
+            "O-O-O",
+            "Nc3",
+            "Kb8",
+            "Qf3",
+            "Qc4",
+            "Nxe4",
+            "Qxc2",
+            "Nd6",
+            "Bf4",
+            "Rf1",
+            "Rxd6",
+            "Rf2",
+            "Qc1+",
+            "Rf1",
+            "Qd2"
+        ],
+        "Average_CPL_White": 32.7906976744186,
+        "Average_CPL_Black": 24.372093023255815,
+        "MoveCPL": [
+            {
+                "MoveNumber": 1,
+                "Player": "White",
+                "Move": "e4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 1,
+                "Player": "Black",
+                "Move": "c6",
+                "CPL": 26
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "White",
+                "Move": "d4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 2,
+                "Player": "Black",
+                "Move": "d5",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "White",
+                "Move": "e5",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 3,
+                "Player": "Black",
+                "Move": "Bf5",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "White",
+                "Move": "h4",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 4,
+                "Player": "Black",
+                "Move": "a6",
+                "CPL": 33
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "White",
+                "Move": "c4",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 5,
+                "Player": "Black",
+                "Move": "dxc4",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "White",
+                "Move": "Bxc4",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 6,
+                "Player": "Black",
+                "Move": "e6",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "White",
+                "Move": "Nc3",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 7,
+                "Player": "Black",
+                "Move": "h6",
+                "CPL": 11
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "White",
+                "Move": "Nge2",
+                "CPL": 17
+            },
+            {
+                "MoveNumber": 8,
+                "Player": "Black",
+                "Move": "Nd7",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "White",
+                "Move": "Be3",
+                "CPL": 24
+            },
+            {
+                "MoveNumber": 9,
+                "Player": "Black",
+                "Move": "Ne7",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "White",
+                "Move": "Ng3",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 10,
+                "Player": "Black",
+                "Move": "Nb6",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "White",
+                "Move": "Bb3",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 11,
+                "Player": "Black",
+                "Move": "Bh7",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "White",
+                "Move": "Qg4",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 12,
+                "Player": "Black",
+                "Move": "a5",
+                "CPL": 23
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "White",
+                "Move": "a3",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 13,
+                "Player": "Black",
+                "Move": "a4",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "White",
+                "Move": "Ba2",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 14,
+                "Player": "Black",
+                "Move": "Nf5",
+                "CPL": 37
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "White",
+                "Move": "Rd1",
+                "CPL": 60
+            },
+            {
+                "MoveNumber": 15,
+                "Player": "Black",
+                "Move": "Nd5",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "White",
+                "Move": "Bc1",
+                "CPL": 27
+            },
+            {
+                "MoveNumber": 16,
+                "Player": "Black",
+                "Move": "Nxg3",
+                "CPL": 39
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "White",
+                "Move": "Qxg3",
+                "CPL": 73
+            },
+            {
+                "MoveNumber": 17,
+                "Player": "Black",
+                "Move": "Bc2",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "White",
+                "Move": "Rd2",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 18,
+                "Player": "Black",
+                "Move": "Bf5",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "White",
+                "Move": "Bc4",
+                "CPL": 3
+            },
+            {
+                "MoveNumber": 19,
+                "Player": "Black",
+                "Move": "Qb6",
+                "CPL": 41
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "White",
+                "Move": "O-O",
+                "CPL": 8
+            },
+            {
+                "MoveNumber": 20,
+                "Player": "Black",
+                "Move": "g6",
+                "CPL": 2
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "White",
+                "Move": "h5",
+                "CPL": 1
+            },
+            {
+                "MoveNumber": 21,
+                "Player": "Black",
+                "Move": "gxh5",
+                "CPL": 30
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "White",
+                "Move": "Bd3",
+                "CPL": 7
+            },
+            {
+                "MoveNumber": 22,
+                "Player": "Black",
+                "Move": "Ne7",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "White",
+                "Move": "Qh4",
+                "CPL": 20
+            },
+            {
+                "MoveNumber": 23,
+                "Player": "Black",
+                "Move": "Rg8",
+                "CPL": 16
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "White",
+                "Move": "Bxf5",
+                "CPL": 22
+            },
+            {
+                "MoveNumber": 24,
+                "Player": "Black",
+                "Move": "Nxf5",
+                "CPL": 34
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "White",
+                "Move": "Qxh5",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 25,
+                "Player": "Black",
+                "Move": "Be7",
+                "CPL": 61
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "White",
+                "Move": "Rd3",
+                "CPL": 29
+            },
+            {
+                "MoveNumber": 26,
+                "Player": "Black",
+                "Move": "Rg6",
+                "CPL": 63
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "White",
+                "Move": "d5",
+                "CPL": 68
+            },
+            {
+                "MoveNumber": 27,
+                "Player": "Black",
+                "Move": "Ng7",
+                "CPL": 23
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "White",
+                "Move": "Qh3",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 28,
+                "Player": "Black",
+                "Move": "exd5",
+                "CPL": 12
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "White",
+                "Move": "Be3",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 29,
+                "Player": "Black",
+                "Move": "Qa6",
+                "CPL": 109
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "White",
+                "Move": "Rfd1",
+                "CPL": 77
+            },
+            {
+                "MoveNumber": 30,
+                "Player": "Black",
+                "Move": "h5",
+                "CPL": 26
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "White",
+                "Move": "Ne2",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 31,
+                "Player": "Black",
+                "Move": "Ne6",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "White",
+                "Move": "f4",
+                "CPL": 57
+            },
+            {
+                "MoveNumber": 32,
+                "Player": "Black",
+                "Move": "Nc5",
+                "CPL": 54
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "White",
+                "Move": "f5",
+                "CPL": 59
+            },
+            {
+                "MoveNumber": 33,
+                "Player": "Black",
+                "Move": "Rg8",
+                "CPL": 73
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "White",
+                "Move": "R3d2",
+                "CPL": 23
+            },
+            {
+                "MoveNumber": 34,
+                "Player": "Black",
+                "Move": "Ne4",
+                "CPL": 61
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "White",
+                "Move": "Rc2",
+                "CPL": 239
+            },
+            {
+                "MoveNumber": 35,
+                "Player": "Black",
+                "Move": "Bg5",
+                "CPL": 15
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "White",
+                "Move": "Bd4",
+                "CPL": 32
+            },
+            {
+                "MoveNumber": 36,
+                "Player": "Black",
+                "Move": "O-O-O",
+                "CPL": 4
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "White",
+                "Move": "Nc3",
+                "CPL": 100
+            },
+            {
+                "MoveNumber": 37,
+                "Player": "Black",
+                "Move": "Kb8",
+                "CPL": 26
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "White",
+                "Move": "Qf3",
+                "CPL": 108
+            },
+            {
+                "MoveNumber": 38,
+                "Player": "Black",
+                "Move": "Qc4",
+                "CPL": 127
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "White",
+                "Move": "Nxe4",
+                "CPL": 186
+            },
+            {
+                "MoveNumber": 39,
+                "Player": "Black",
+                "Move": "Qxc2",
+                "CPL": 6
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "White",
+                "Move": "Nd6",
+                "CPL": 35
+            },
+            {
+                "MoveNumber": 40,
+                "Player": "Black",
+                "Move": "Bf4",
+                "CPL": 5
+            },
+            {
+                "MoveNumber": 41,
+                "Player": "White",
+                "Move": "Rf1",
+                "CPL": 36
+            },
+            {
+                "MoveNumber": 41,
+                "Player": "Black",
+                "Move": "Rxd6",
+                "CPL": 19
+            },
+            {
+                "MoveNumber": 42,
+                "Player": "White",
+                "Move": "Rf2",
+                "CPL": 23
+            },
+            {
+                "MoveNumber": 42,
+                "Player": "Black",
+                "Move": "Qc1+",
+                "CPL": 9
+            },
+            {
+                "MoveNumber": 43,
+                "Player": "White",
+                "Move": "Rf1",
+                "CPL": 0
+            },
+            {
+                "MoveNumber": 43,
+                "Player": "Black",
+                "Move": "Qd2",
+                "CPL": 0
+            }
+        ]
+    }
+]
