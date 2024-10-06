@@ -5,7 +5,6 @@ from multiprocessing import Pool, cpu_count
 from io import StringIO
 import os
 import csv
-
 # Global variable for the engine in each worker
 engine = None
 
@@ -69,19 +68,22 @@ def analyze_game_pgn(pgn_string, depth=15):
             else:
                 current_cpl = 0
 
-            # Assign CPL to the player who made the move
+            # **Corrected CPL Assignment:**
+            # board.turn represents the player who is about to move.
+            # Therefore, the CPL should be assigned to the player who just moved,
+            # which is the opposite of board.turn.
             if board.turn == chess.WHITE:
-                cpl_white.append(current_cpl)
-            else:
                 cpl_black.append(current_cpl)
+            else:
+                cpl_white.append(current_cpl)
 
             # Make the move
             board.push(move)
             move_number += 1
 
         # Compute average CPL per player
-        avg_cpl_white = sum(cpl_white) / len(cpl_white) if cpl_white else 0
-        avg_cpl_black = sum(cpl_black) / len(cpl_black) if cpl_black else 0
+        avg_cpl_white = round(sum(cpl_white) / len(cpl_white), 2) if cpl_white else 0
+        avg_cpl_black = round(sum(cpl_black) / len(cpl_black), 2) if cpl_black else 0
 
         # Prepare results
         results = {
@@ -93,7 +95,7 @@ def analyze_game_pgn(pgn_string, depth=15):
                 {
                     "MoveNumber": idx + 1,
                     "Move": move,
-                    "CPL": cpl_white[idx // 2] if (idx % 2 == 0) else cpl_black[idx // 2]
+                    "CPL": cpl_white[idx // 2] if (idx % 2 == 1) else cpl_black[idx // 2]
                 }
                 for idx, move in enumerate(moves)
             ],
@@ -106,6 +108,8 @@ def analyze_game_pgn(pgn_string, depth=15):
     except Exception as e:
         print(f"Error analyzing game: {e}")
         return None
+    
+    
 
 def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_file="analysis_results.csv"):
     """
@@ -160,36 +164,40 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         # Increment GameID
         current_game_id += 1
 
-        # Combine White and Black ratings
-        rating = f"{result['WhiteElo']} vs {result['BlackElo']}" if result["WhiteElo"] != "Unknown" and result["BlackElo"] != "Unknown" else "Unknown"
+        # Extract ratings
+        white_elo = result["WhiteElo"] if result["WhiteElo"] != "Unknown" else ""
+        black_elo = result["BlackElo"] if result["BlackElo"] != "Unknown" else ""
 
-        # Calculate ACPL separately
-        acpl_white = round(result["Average_CPL_White"], 2)
-        acpl_black = round(result["Average_CPL_Black"], 2)
+        # Opening and Variation
+        opening = result["Opening"]
+        variation = result["Variation"]
+
+        # Calculate ACPL as the average of white and black ACPLs
+        acpl = (result["Average_CPL_White"] + result["Average_CPL_Black"]) / 2
 
         # Iterate through each move and append to CSV rows
         for move in result["Moves"]:
             csv_rows.append([
-                current_game_id,                               # GameID
-                rating if move["MoveNumber"] == 1 else "",   # Rating
-                result["Opening"] if move["MoveNumber"] == 1 else "",    # Opening
-                result["Variation"] if move["MoveNumber"] == 1 else "",  # Variation
-                acpl_white if move["MoveNumber"] == 1 else "",  # ACPL_White
-                acpl_black if move["MoveNumber"] == 1 else "",  # ACPL_Black
-                move['MoveNumber'],                            # MoveNumber
-                move['Move'],                                  # Move
-                move['CPL']                                    # CPL
+                current_game_id,    # GameID
+                white_elo if move["MoveNumber"] == 1 else "",   # WhiteElo
+                black_elo if move["MoveNumber"] == 1 else "",   # BlackElo
+                opening if move["MoveNumber"] == 1 else "",     # Opening
+                variation if move["MoveNumber"] == 1 else "",   # Variation
+                acpl if move["MoveNumber"] == 1 else "",        # ACPL
+                "",                   # ACPL_Black (Deprecated or removed)
+                move['MoveNumber'],   # MoveNumber
+                move['Move'],         # Move
+                move['CPL']           # CPL
             ])
-            # No need to clear variables since we already set them only for the first move
 
         # Optional: Add a blank row or separator after each game for clarity
-        csv_rows.append([current_game_id + 1, "", "", "", "", "", "", "", ""])  # Adds a blank row
+        csv_rows.append([current_game_id + 1, "", "", "", "", "", "", "", "", ""])  # Adds a blank row
 
     # Write to CSV
     with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
         csv_writer = csv.writer(csvfile)
         # Write header
-        csv_writer.writerow(["GameID", "Rating", "Opening", "Variation", "ACPL_White", "ACPL_Black", "MoveNumber", "Move", "CPL"])
+        csv_writer.writerow(["GameID", "WhiteElo", "BlackElo", "Opening", "Variation", "ACPL", "ACPL_Black", "MoveNumber", "Move", "CPL"])
         # Write all game data
         csv_writer.writerows(csv_rows)
 
@@ -197,10 +205,10 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
 
 if __name__ == "__main__":
     stockfish_path = r"C:\Users\foivo\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
-    pgn_file_path = "Games/twic1560.pgn"
+    pgn_file_path = "Games/twic1559.pgn"
     analyze_pgn_file_parallel(
         pgn_file_path,
         stockfish_path,
         depth=14,
-        output_file="Analyzed_Games/twig1560_analyzed.csv"  # Specify your desired output file path
+        output_file="Analyzed_Games/twic1559_analyzed.csv"  # Specify your desired output file path
     )
