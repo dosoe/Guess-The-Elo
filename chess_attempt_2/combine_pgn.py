@@ -28,7 +28,7 @@ def combine_pgn_files(source_folder, output_file):
     print(f"All PGN files copied into {output_file}")
 
 # Example usage:
-source_folder = 'Games'  # Folder containing PGN files
+source_folder = 'utf8_games'  # Folder containing PGN files
 output_file = 'combined_games.pgn'  # Output file for the combined PGN
 
 combine_pgn_files(source_folder, output_file)

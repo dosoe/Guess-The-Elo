@@ -211,7 +211,7 @@ if __name__ == "__main__":
     stockfish_path = r"C:\Users\foivo\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
     
     # Option 1: Define the list of specific PGN files directly
-    specific_pgn_files = [f"Games/twic{num}.pgn" for num in range(1500, 1558 + 1)]
+    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1503, 1504 + 1)]
     #specific_pgn_files=["Games/example1.pgn", "Games/example3.pgn"]
     
     
