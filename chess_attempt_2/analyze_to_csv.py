@@ -5,6 +5,7 @@ from multiprocessing import Pool, cpu_count
 from io import StringIO
 import os
 import csv
+
 # Global variable for the engine in each worker
 engine = None
 
@@ -37,10 +38,19 @@ def analyze_game_pgn(pgn_string, depth=15):
             return None
 
         # Extract information
+        white_name = game.headers.get("White", "Unknown")
+        black_name = game.headers.get("Black", "Unknown")
         white_rating = game.headers.get("WhiteElo", "Unknown")
         black_rating = game.headers.get("BlackElo", "Unknown")
         opening = game.headers.get("Opening", "Unknown")
         variation = game.headers.get("Variation", "Unknown")
+        date = game.headers.get("Date", "Unknown")
+
+        # Extract year from date
+        if date != "Unknown" and len(date) >= 4:
+            year = date[:4]
+        else:
+            year = "Unknown"
 
         cpl_white = []
         cpl_black = []
@@ -87,6 +97,9 @@ def analyze_game_pgn(pgn_string, depth=15):
 
         # Prepare results
         results = {
+            "WhiteName": white_name,
+            "BlackName": black_name,
+            "Year": year,
             "WhiteElo": white_rating,
             "BlackElo": black_rating,
             "Opening": opening,
@@ -108,8 +121,19 @@ def analyze_game_pgn(pgn_string, depth=15):
     except Exception as e:
         print(f"Error analyzing game: {e}")
         return None
+
+
+def analyze_game_pgn_helper(args):
+    """
+    Helper function to unpack arguments for analyze_game_pgn.
     
+    Parameters:
+    - args (tuple): Tuple containing (pgn_string, depth)
     
+    Returns:
+    - dict: Analysis results
+    """
+    return analyze_game_pgn(*args)
 
 def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_file="analysis_results.csv"):
     """
@@ -164,7 +188,9 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         # Increment GameID
         current_game_id += 1
 
-        # Extract ratings
+        # Extract ratings and names
+        white_name = result["WhiteName"] if result["WhiteName"] != "Unknown" else ""
+        black_name = result["BlackName"] if result["BlackName"] != "Unknown" else ""
         white_elo = result["WhiteElo"] if result["WhiteElo"] != "Unknown" else ""
         black_elo = result["BlackElo"] if result["BlackElo"] != "Unknown" else ""
 
@@ -172,32 +198,51 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         opening = result["Opening"]
         variation = result["Variation"]
 
+        # Year
+        year = result["Year"] if result["Year"] != "Unknown" else ""
+
         # Calculate ACPL as the average of white and black ACPLs
-        acpl = (result["Average_CPL_White"] + result["Average_CPL_Black"]) / 2
+        acpl = round((result["Average_CPL_White"] + result["Average_CPL_Black"]) / 2, 2)
 
         # Iterate through each move and append to CSV rows
         for move in result["Moves"]:
             csv_rows.append([
-                current_game_id,    # GameID
-                white_elo if move["MoveNumber"] == 1 else "",   # WhiteElo
-                black_elo if move["MoveNumber"] == 1 else "",   # BlackElo
-                opening if move["MoveNumber"] == 1 else "",     # Opening
-                variation if move["MoveNumber"] == 1 else "",   # Variation
-                acpl if move["MoveNumber"] == 1 else "",        # ACPL
-                "",                   # ACPL_Black (Deprecated or removed)
-                move['MoveNumber'],   # MoveNumber
-                move['Move'],         # Move
-                move['CPL']           # CPL
+                current_game_id,                          # GameID
+                white_name if move["MoveNumber"] == 1 else "",   # WhiteName
+                white_elo if move["MoveNumber"] == 1 else "",    # WhiteElo
+                black_name if move["MoveNumber"] == 1 else "",   # BlackName
+                black_elo if move["MoveNumber"] == 1 else "",    # BlackElo
+                year if move["MoveNumber"] == 1 else "",         # Year
+                opening if move["MoveNumber"] == 1 else "",      # Opening
+                variation if move["MoveNumber"] == 1 else "",    # Variation
+                acpl if move["MoveNumber"] == 1 else "",         # ACPL
+                move['MoveNumber'],                               # MoveNumber
+                move['Move'],                                     # Move
+                move['CPL']                                       # CPL
             ])
 
         # Optional: Add a blank row or separator after each game for clarity
-        csv_rows.append([current_game_id + 1, "", "", "", "", "", "", "", "", ""])  # Adds a blank row
+        # Ensure the number of empty strings matches the number of columns (12)
+        csv_rows.append([current_game_id + 1, "", "", "", "", "", "", "", "", "", "", ""])  # Adds a blank row
 
     # Write to CSV
     with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
         csv_writer = csv.writer(csvfile)
         # Write header
-        csv_writer.writerow(["GameID", "WhiteElo", "BlackElo", "Opening", "Variation", "ACPL", "ACPL_Black", "MoveNumber", "Move", "CPL"])
+        csv_writer.writerow([
+            "GameID",
+            "WhiteName",
+            "WhiteElo",
+            "BlackName",
+            "BlackElo",
+            "Year",
+            "Opening",
+            "Variation",
+            "ACPL",
+            "MoveNumber",
+            "Move",
+            "CPL"
+        ])
         # Write all game data
         csv_writer.writerows(csv_rows)
 
@@ -205,10 +250,10 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
 
 if __name__ == "__main__":
     stockfish_path = r"C:\Users\foivo\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
-    pgn_file_path = "Games/twic1559.pgn"
+    pgn_file_path = "Games/example3.pgn"
     analyze_pgn_file_parallel(
         pgn_file_path,
         stockfish_path,
         depth=14,
-        output_file="Analyzed_Games/twic1559_analyzed.csv"  # Specify your desired output file path
+        output_file="Analyzed_Games/example5_analyzed.csv"  # Specify your desired output file path
     )
