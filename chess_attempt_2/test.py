@@ -5,7 +5,6 @@ from multiprocessing import Pool, cpu_count
 from io import StringIO
 import os
 import csv
-from tqdm import tqdm  # Import tqdm for progress bar
 
 # Global variable for the engine in each worker
 engine = None
@@ -39,10 +38,19 @@ def analyze_game_pgn(pgn_string, depth=15):
             return None
 
         # Extract information
+        white_name = game.headers.get("White", "Unknown")
+        black_name = game.headers.get("Black", "Unknown")
         white_rating = game.headers.get("WhiteElo", "Unknown")
         black_rating = game.headers.get("BlackElo", "Unknown")
         opening = game.headers.get("Opening", "Unknown")
         variation = game.headers.get("Variation", "Unknown")
+        date = game.headers.get("Date", "Unknown")
+
+        # Extract year from date
+        if date != "Unknown" and len(date) >= 4:
+            year = date[:4]
+        else:
+            year = "Unknown"
 
         cpl_white = []
         cpl_black = []
@@ -89,6 +97,9 @@ def analyze_game_pgn(pgn_string, depth=15):
 
         # Prepare results
         results = {
+            "WhiteName": white_name,
+            "BlackName": black_name,
+            "Year": year,
             "WhiteElo": white_rating,
             "BlackElo": black_rating,
             "Opening": opening,
@@ -110,6 +121,7 @@ def analyze_game_pgn(pgn_string, depth=15):
     except Exception as e:
         print(f"Error analyzing game: {e}")
         return None
+
 
 def analyze_game_pgn_helper(args):
     """
@@ -161,76 +173,87 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         # Prepare arguments for each game
         args = [(pgn_str, depth) for pgn_str in pgn_strings]
 
-        # Use imap_unordered with the helper function and wrap with tqdm for progress bar
-        results = pool.imap_unordered(analyze_game_pgn_helper, args)
+        # Use starmap to pass multiple arguments to the worker function
+        results = pool.starmap(analyze_game_pgn, args)
 
-        # Initialize list to store CSV rows
-        csv_rows = []
-        current_game_id = 0
+    # Prepare the CSV rows
+    csv_rows = []
+    current_game_id = 0
 
-        # Iterate through results with tqdm
-        for result in tqdm(results, total=len(args), desc="Analyzing Games"):
-            if result is None:
-                print(f"Game {current_game_id + 1}: Analysis failed.\n-----------------------------\n")
-                current_game_id += 1
-                continue
+    for idx, result in enumerate(results, start=1):
+        if result is None:
+            print(f"Game {idx}: Analysis failed.\n-----------------------------\n")
+            continue
 
-            # Increment GameID
-            current_game_id += 1
+        # Increment GameID
+        current_game_id += 1
 
-            # Extract ratings
-            white_elo = result["WhiteElo"] if result["WhiteElo"] != "Unknown" else ""
-            black_elo = result["BlackElo"] if result["BlackElo"] != "Unknown" else ""
+        # Extract ratings and names
+        white_name = result["WhiteName"] if result["WhiteName"] != "Unknown" else ""
+        black_name = result["BlackName"] if result["BlackName"] != "Unknown" else ""
+        white_elo = result["WhiteElo"] if result["WhiteElo"] != "Unknown" else ""
+        black_elo = result["BlackElo"] if result["BlackElo"] != "Unknown" else ""
 
-            # Opening and Variation
-            opening = result["Opening"]
-            variation = result["Variation"]
+        # Opening and Variation
+        opening = result["Opening"]
+        variation = result["Variation"]
 
-            # Calculate ACPL as the average of white and black ACPLs
-            acpl = round((result["Average_CPL_White"] + result["Average_CPL_Black"]) / 2, 2)
+        # Year
+        year = result["Year"] if result["Year"] != "Unknown" else ""
 
-            # Iterate through each move and append to CSV rows
-            for move in result["Moves"]:
-                csv_rows.append([
-                    current_game_id,    # GameID
-                    white_elo if move["MoveNumber"] == 1 else "",   # WhiteElo
-                    black_elo if move["MoveNumber"] == 1 else "",   # BlackElo
-                    opening if move["MoveNumber"] == 1 else "",     # Opening
-                    variation if move["MoveNumber"] == 1 else "",   # Variation
-                    acpl if move["MoveNumber"] == 1 else "",        # ACPL
-                    move['MoveNumber'],   # MoveNumber
-                    move['Move'],         # Move
-                    move['CPL']           # CPL
-                ])
-                # No need to clear variables since we already set them only for the first move
+        # Calculate ACPL as the average of white and black ACPLs
+        acpl = round((result["Average_CPL_White"] + result["Average_CPL_Black"]) / 2, 2)
 
-            # Optional: Add a blank row or separator after each game for clarity
-            csv_rows.append([current_game_id + 1, "", "", "", "", "", "", "", ""])  # Adds a blank row
+        # Iterate through each move and append to CSV rows
+        for move in result["Moves"]:
+            csv_rows.append([
+                current_game_id,                          # GameID
+                white_name if move["MoveNumber"] == 1 else "",   # WhiteName
+                white_elo if move["MoveNumber"] == 1 else "",    # WhiteElo
+                black_name if move["MoveNumber"] == 1 else "",   # BlackName
+                black_elo if move["MoveNumber"] == 1 else "",    # BlackElo
+                year if move["MoveNumber"] == 1 else "",         # Year
+                opening if move["MoveNumber"] == 1 else "",      # Opening
+                variation if move["MoveNumber"] == 1 else "",    # Variation
+                acpl if move["MoveNumber"] == 1 else "",         # ACPL
+                move['MoveNumber'],                               # MoveNumber
+                move['Move'],                                     # Move
+                move['CPL']                                       # CPL
+            ])
 
-    # Write to CSV after all games are processed
+        # Optional: Add a blank row or separator after each game for clarity
+        # Ensure the number of empty strings matches the number of columns (12)
+        csv_rows.append([current_game_id + 1, "", "", "", "", "", "", "", "", "", "", ""])  # Adds a blank row
+
+    # Write to CSV
     with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
         csv_writer = csv.writer(csvfile)
         # Write header
-        csv_writer.writerow(["GameID", "WhiteElo", "BlackElo", "Opening", "Variation", "ACPL", "MoveNumber", "Move", "CPL"])
+        csv_writer.writerow([
+            "GameID",
+            "WhiteName",
+            "WhiteElo",
+            "BlackName",
+            "BlackElo",
+            "Year",
+            "Opening",
+            "Variation",
+            "ACPL",
+            "MoveNumber",
+            "Move",
+            "CPL"
+        ])
         # Write all game data
         csv_writer.writerows(csv_rows)
 
     print(f"Analysis complete. Results saved to {output_file}.")
 
 if __name__ == "__main__":
-    # Specify the path to your Stockfish executable
     stockfish_path = r"C:\Users\foivo\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
-    
-    # Specify the path to your PGN file
     pgn_file_path = "Games/example3.pgn"
-    
-    # Specify the desired output CSV file path
-    output_csv_path = "Analyzed_Games/test.csv"
-    
-    # Start the analysis
     analyze_pgn_file_parallel(
         pgn_file_path,
         stockfish_path,
         depth=14,
-        output_file=output_csv_path  # Specify your desired output file path
+        output_file="Analyzed_Games/example5_analyzed.csv"  # Specify your desired output file path
     )
