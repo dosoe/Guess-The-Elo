@@ -250,10 +250,10 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
 
 if __name__ == "__main__":
     stockfish_path = r"C:\Users\foivo\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
-    pgn_file_path = "utf8_games/example3.pgn"
+    pgn_file_path = "utf8_games/example2.pgn"
     analyze_pgn_file_parallel(
         pgn_file_path,
         stockfish_path,
         depth=14,
-        output_file="Analyzed_Games/example5_analyzed.csv"  # Specify your desired output file path
+        output_file="Analyzed_Games/example2_analyzed.csv"  # Specify your desired output file path
     )

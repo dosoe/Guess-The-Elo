@@ -69,7 +69,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
-    max_workers = 16  # Adjust based on your CPU and memory
+    max_workers = 18  # Adjust based on your CPU and memory
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
 
@@ -114,8 +114,9 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         # Year
         year = result["Year"] if result["Year"] != "Unknown" else ""
 
-        # Calculate ACPL as the average of white and black ACPLs
-        acpl = round((result["Average_CPL_White"] + result["Average_CPL_Black"]) / 2, 2)
+        # Extract separate ACPLs
+        avg_cpl_white = result.get("Average_CPL_White", 0)
+        avg_cpl_black = result.get("Average_CPL_Black", 0)
 
         # Iterate through each move and append to CSV rows
         for move in result["Moves"]:
@@ -128,7 +129,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
                 year if move["MoveNumber"] == 1 else "",         # Year
                 opening if move["MoveNumber"] == 1 else "",      # Opening
                 variation if move["MoveNumber"] == 1 else "",    # Variation
-                acpl if move["MoveNumber"] == 1 else "",         # ACPL
+                avg_cpl_white if move["MoveNumber"] == 1 else "",  # Average_CPL_White
+                avg_cpl_black if move["MoveNumber"] == 1 else "",  # Average_CPL_Black
                 move['MoveNumber'],                               # MoveNumber
                 move['Move'],                                     # Move
                 move['CPL']                                       # CPL
@@ -154,7 +156,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
                 "Year",
                 "Opening",
                 "Variation",
-                "ACPL",
+                "Average_CPL_White",
+                "Average_CPL_Black",
                 "MoveNumber",
                 "Move",
                 "CPL"
@@ -210,9 +213,9 @@ if __name__ == "__main__":
     # Specify the path to your Stockfish executable
     stockfish_path = r"C:\Users\foivo\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
     
-    # Option 1: Define the list of specific PGN files directly
-    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1503, 1504 + 1)]
-    #specific_pgn_files=["Games/example1.pgn", "Games/example3.pgn"]
+    # Define the list of specific PGN files directly
+    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1503, 1540 + 1)]
+    #specific_pgn_files=["utf8_games/example2.pgn"]
     
     
     # Specify the output directory for analyzed CSV files
