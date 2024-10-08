@@ -16,6 +16,7 @@ dependencies:
   - sqlalchemy
   - xgboost >= 2.0.3
   - pmdarima >= 2.0
+  - chess
   - pip:
     - python-chess
     - cinemagoer
