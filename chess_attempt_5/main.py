@@ -68,7 +68,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
-    max_workers = cpu_count()  # Use the number of CPU cores
+    max_workers = 20  # Use the number of CPU cores
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
 
@@ -108,6 +108,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
 
         # Year
         year = result["Year"] if result["Year"] != "Unknown" else ""
+        # Result
+        result_value = result["Result"] if result["Result"] != "Unknown" else ""
 
         # Iterate through each move and append to CSV rows
         for move in result["Moves"]:
@@ -120,6 +122,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
                 year if move["MoveNumber"] == 1 else "",         # Year
                 opening if move["MoveNumber"] == 1 else "",      # Opening
                 variation if move["MoveNumber"] == 1 else "",    # Variation
+                result_value if move["MoveNumber"] == 1 else "",     # Result
                 move['MoveNumber'],                               # MoveNumber
                 move['Move'],                                     # Move
                 move['Evaluation']                                # Evaluation
@@ -144,6 +147,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
                 "Year",
                 "Opening",
                 "Variation",
+                "Result",
                 "MoveNumber",
                 "Move",
                 "Evaluation"
@@ -208,7 +212,7 @@ if __name__ == "__main__":
     specific_pgn_files = ["utf8_games/example20.pgn"]
     
     # Specify the output directory for analyzed CSV files
-    output_directory = "Analyzed_Games/"
+    output_directory = "Analyzed_Games"
     
     # Specify the depth for Stockfish analysis
     analysis_depth = 15  # Adjust based on your requirements and system capabilities
