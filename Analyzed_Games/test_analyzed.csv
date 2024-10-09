@@ -1,0 +1,17 @@
+GameID,WhiteName,WhiteElo,BlackName,BlackElo,Year,Opening,Variation,MoveNumber,Move,Evaluation
+1,"Navara,D",2706,"Svidler,P",2741,2012,Sicilian,"accelerated fianchetto, Maroczy bind, 6.Be3",1,d4,0.26
+1,,,,,,,,2,c5,0.78
+1,,,,,,,,3,dxc5,0.34
+1,,,,,,,,4,d6,1.62
+1,,,,,,,,5,cxd6,1.5
+1,,,,,,,,6,Qc7,8.45
+1,,,,,,,,7,dxc7,8.52
+1,,,,,,,,8,Bf5,M1
+1,,,,,,,,9,Qd6,6.25
+1,,,,,,,,10,exd6,6.01
+1,,,,,,,,11,e4,5.83
+1,,,,,,,,12,Bxe4,9.49
+1,,,,,,,,13,Bg5,1.86
+1,,,,,,,,14,Bxg2,M1
+1,,,,,,,,15,c8=Q#,-M0
+,,,,,,,,,,
