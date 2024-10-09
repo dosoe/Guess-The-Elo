@@ -210,12 +210,16 @@ if __name__ == "__main__":
     # Set up logging
     setup_logging()
 
-    # Specify the path to your Stockfish executable
-    stockfish_path = r"C:\Users\foivo\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
+    # Fetch the Stockfish path from environment variable
+    stockfish_path = os.getenv('STOCKFISH_PATH')
+    
+    if not stockfish_path:
+        logging.error("STOCKFISH_PATH environment variable is not set.")
+        exit(1)
     
     # Define the list of specific PGN files directly
-    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1503, 1540 + 1)]
-    #specific_pgn_files=["utf8_games/example2.pgn"]
+    #specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1503, 1540 + 1)]
+    specific_pgn_files=["utf8_games/example2.pgn"]
     
     
     # Specify the output directory for analyzed CSV files

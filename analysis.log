@@ -42029,3 +42029,18 @@
 2024-10-08 13:29:24,764 - INFO - Starting analysis for file: utf8_games/twic1508.pgn
 2024-10-08 13:29:24,765 - INFO - Starting analysis for file: utf8_games/twic1508.pgn
 2024-10-08 13:29:50,796 - INFO - Using 18 worker(s) for analysis.
+2024-10-08 20:17:15,990 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:18:31,482 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:18:37,818 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:18:42,008 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:21:10,274 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:30:56,918 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:32:15,301 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:33:37,719 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:33:43,444 - ERROR - STOCKFISH_PATH environment variable is not set.
+2024-10-08 20:36:06,143 - INFO - Starting analysis for file: utf8_games/example2.pgn
+2024-10-08 20:36:06,143 - INFO - Starting analysis for file: utf8_games/example2.pgn
+2024-10-08 20:36:06,164 - INFO - Using 1 worker(s) for analysis.
+2024-10-08 20:36:10,593 - INFO - Game 1 analyzed successfully.
+2024-10-08 20:36:10,594 - INFO - Analysis complete for file: utf8_games/example2.pgn. Results saved to Analyzed_Games/example2_analyzed.csv.
+2024-10-08 20:36:10,594 - INFO - Completed analysis for file: utf8_games/example2.pgn. Results saved to Analyzed_Games/example2_analyzed.csv.
