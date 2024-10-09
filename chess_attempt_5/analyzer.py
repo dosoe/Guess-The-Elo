@@ -28,7 +28,7 @@ def analyze_game_pgn(pgn_string, depth=15):
         opening = game.headers.get("Opening", "Unknown")
         variation = game.headers.get("Variation", "Unknown")
         date = game.headers.get("Date", "Unknown")
-
+        result_value = game.headers.get("Result", "Unknown")
         # Extract year from date
         if date != "Unknown" and len(date) >= 4:
             year = date[:4]
@@ -89,6 +89,7 @@ def analyze_game_pgn(pgn_string, depth=15):
             "BlackElo": black_rating,
             "Opening": opening,
             "Variation": variation,
+            "Result": result_value,
             "Moves": moves
         }
 
