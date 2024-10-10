@@ -69,7 +69,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
-    max_workers = 15  # Use the number of CPU cores
+
+    max_workers = 18  # Use the number of CPU cores
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
 
@@ -102,7 +103,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         black_name = result["BlackName"] if result["BlackName"] != "Unknown" else ""
         white_elo = result["WhiteElo"] if result["WhiteElo"] != "Unknown" else ""
         black_elo = result["BlackElo"] if result["BlackElo"] != "Unknown" else ""
-
+        white_fide_id = result.get("WhiteFideId", "")
+        black_fide_id = result.get("BlackFideId", "")
         # Opening and Variation
         opening = result["Opening"]
         variation = result["Variation"]
@@ -120,6 +122,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
                 white_elo if move["MoveNumber"] == 1 else "",    # WhiteElo
                 black_name if move["MoveNumber"] == 1 else "",   # BlackName
                 black_elo if move["MoveNumber"] == 1 else "",    # BlackElo
+                white_fide_id if move["MoveNumber"] == 1 else "",    # WhiteFideId
+                black_fide_id if move["MoveNumber"] == 1 else "",    # BlackFideId
                 year if move["MoveNumber"] == 1 else "",         # Year
                 opening if move["MoveNumber"] == 1 else "",      # Opening
                 variation if move["MoveNumber"] == 1 else "",    # Variation
@@ -145,6 +149,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
                 "WhiteElo",
                 "BlackName",
                 "BlackElo",
+                "WhiteFideId",
+                "BlackFideId",
                 "Year",
                 "Opening",
                 "Variation",
@@ -202,24 +208,21 @@ if __name__ == "__main__":
     setup_logging()
 
     # Fetch the Stockfish path from environment variable
-    # stockfish_path = os.getenv('STOCKFISH_PATH')
-    stockfish_path = '/usr/games/stockfish'
+    stockfish_path = os.getenv('STOCKFISH_PATH')
     
     if not stockfish_path:
         logging.error("STOCKFISH_PATH environment variable is not set.")
         exit(1)
     
     # Define the list of specific PGN files directly
-    #specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1550, 1555 + 1)]
-    # specific_pgn_files = ["../utf8_games/example20.pgn"]
-    specific_pgn_files = glob.glob("../utf8_games/twic11*.pgn")
-    # print(specific_pgn_files)
+    #specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1500, 1555 + 1)]
+    specific_pgn_files = ["utf8_games/example3.pgn"]
     
     # Specify the output directory for analyzed CSV files
     output_directory = "Analyzed_Games"
     
     # Specify the depth for Stockfish analysis
-    analysis_depth = 16  # Adjust based on your requirements and system capabilities
+    analysis_depth = 14  # Adjust based on your requirements and system capabilities
     
     # Start processing specific PGN files
     process_specific_pgn_files(
