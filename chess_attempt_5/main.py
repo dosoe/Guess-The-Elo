@@ -8,6 +8,7 @@ from multiprocessing import Pool, cpu_count
 from analyzer import analyze_game_pgn
 from engine import init_engine
 import glob
+from tqdm import tqdm
 
 def setup_logging():
     """
@@ -69,10 +70,16 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
+<<<<<<< HEAD
 
     max_workers = 18  # Use the number of CPU cores
+=======
+    max_workers = 30  # Use the number of CPU cores
+>>>>>>> f833623 (get percentage bar, name files by depth)
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
+
+    logging.info(f"Analysing {len(pgn_strings)} games.")
 
     # Create a pool of worker processes
     try:
@@ -81,7 +88,17 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
             args = [(pgn_str, depth) for pgn_str in pgn_strings]
 
             # Use starmap to pass multiple arguments to the worker function
-            results = pool.starmap(analyze_game_pgn, args)
+            # results = pool.starmap(analyze_game_pgn, args)
+
+            # result_list_tqdm = []
+            # for result in tqdm(pool.imap(func=analyze_game_pgn, iterable=args), total=len(args)):
+            #     result_list_tqdm.append(result)
+
+            jobs = [pool.apply_async(func=analyze_game_pgn, args=(*argument,)) if isinstance(argument, tuple) else pool.apply_async(func=analyze_game_pgn, args=(argument,)) for argument in args]
+            pool.close()
+            result_list_tqdm = []
+            for job in tqdm(jobs):
+                result_list_tqdm.append(job.get())
     except Exception as e:
         logging.exception("Error during multiprocessing")
         return
@@ -90,7 +107,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
     csv_rows = []
     current_game_id = 0
 
-    for idx, result in enumerate(results, start=1):
+    for idx, result in enumerate(result_list_tqdm, start=1):
         if result is None:
             logging.warning(f"Game {idx}: Analysis failed.")
             continue
@@ -187,7 +204,7 @@ def process_specific_pgn_files(specific_pgn_files, stockfish_path, depth=15, out
         # Define the output CSV file path based on PGN file name
         output_csv_path = os.path.join(
             output_directory,
-            f"{os.path.splitext(os.path.basename(pgn_file))[0]}_analyzed.csv"
+            f"{os.path.splitext(os.path.basename(pgn_file))[0]}_{depth}_analyzed.csv"
         )
         
         logging.info(f"Starting analysis for file: {pgn_file}")
