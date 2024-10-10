@@ -29,6 +29,8 @@ def analyze_game_pgn(pgn_string, depth=15):
         variation = game.headers.get("Variation", "Unknown")
         date = game.headers.get("Date", "Unknown")
         result_value = game.headers.get("Result", "Unknown")
+        white_fide_id = game.headers.get("WhiteFideId", "")
+        black_fide_id = game.headers.get("BlackFideId", "")
         # Extract year from date
         if date != "Unknown" and len(date) >= 4:
             year = date[:4]
@@ -84,6 +86,8 @@ def analyze_game_pgn(pgn_string, depth=15):
         results = {
             "WhiteName": white_name,
             "BlackName": black_name,
+            "WhiteFideId": white_fide_id,
+            "BlackFideId": black_fide_id,
             "Year": year,
             "WhiteElo": white_rating,
             "BlackElo": black_rating,
