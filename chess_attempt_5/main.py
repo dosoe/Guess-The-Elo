@@ -70,12 +70,8 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
-<<<<<<< HEAD
-
-    max_workers = 18  # Use the number of CPU cores
-=======
     max_workers = 30  # Use the number of CPU cores
->>>>>>> f833623 (get percentage bar, name files by depth)
+
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
 
