@@ -206,6 +206,9 @@ def process_specific_pgn_files(specific_pgn_files, stockfish_path, depth=15, out
             output_directory,
             f"{os.path.splitext(os.path.basename(pgn_file))[0]}_{depth}_analyzed.csv"
         )
+        if os.path.isfile(output_csv_path):
+            logging.info(f"PGN already processed: {pgn_file}")
+            continue
         
         logging.info(f"Starting analysis for file: {pgn_file}")
         
