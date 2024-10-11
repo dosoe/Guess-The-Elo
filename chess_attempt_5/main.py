@@ -13,24 +13,28 @@ def setup_logging():
     Sets up logging to file and console.
     """
     logger = logging.getLogger()
-    if not logger.handlers:
-        logger.setLevel(logging.INFO)
+    logger.setLevel(logging.INFO)
 
-        # Create handlers
-        c_handler = logging.StreamHandler()
-        f_handler = logging.FileHandler('analysis.log')
+    # Remove all handlers associated with the root logger object
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
 
-        c_handler.setLevel(logging.INFO)
-        f_handler.setLevel(logging.INFO)
+    # Create handlers
+    c_handler = logging.StreamHandler()
+    f_handler = logging.FileHandler('analysis.log')
 
-        # Create formatter and add it to handlers
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-        c_handler.setFormatter(formatter)
-        f_handler.setFormatter(formatter)
+    c_handler.setLevel(logging.INFO)
+    f_handler.setLevel(logging.INFO)
 
-        # Add handlers to the logger
-        logger.addHandler(c_handler)
-        logger.addHandler(f_handler)
+    # Create formatter and add it to handlers
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    c_handler.setFormatter(formatter)
+    f_handler.setFormatter(formatter)
+
+    # Add handlers to the logger
+    logger.addHandler(c_handler)
+    logger.addHandler(f_handler)
+
 
 def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_file="analysis_results.csv"):
     """
@@ -68,7 +72,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
-    max_workers = 18  # Use the number of CPU cores
+    max_workers = 10  # Use the number of CPU cores
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
 
@@ -213,14 +217,14 @@ if __name__ == "__main__":
         exit(1)
     
     # Define the list of specific PGN files directly
-    #specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1500, 1555 + 1)]
-    specific_pgn_files = ["utf8_games/example3.pgn"]
+    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1512, 1555 + 1)]
+    #specific_pgn_files = ["utf8_games/example20.pgn"]
     
     # Specify the output directory for analyzed CSV files
     output_directory = "Analyzed_Games"
     
     # Specify the depth for Stockfish analysis
-    analysis_depth = 14  # Adjust based on your requirements and system capabilities
+    analysis_depth = 15  # Adjust based on your requirements and system capabilities
     
     # Start processing specific PGN files
     process_specific_pgn_files(
