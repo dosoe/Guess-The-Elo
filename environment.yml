@@ -17,6 +17,7 @@ dependencies:
   - xgboost >= 2.0.3
   - pmdarima >= 2.0
   - chess
+  - tqdm
   - pip:
     - python-chess
     - cinemagoer
