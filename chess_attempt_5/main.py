@@ -65,7 +65,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
                 exporter = chess.pgn.StringExporter(headers=True, variations=True, comments=True)
                 pgn_str = game.accept(exporter)
                 pgn_strings.append(pgn_str)
-    except Exception as e:
+    except Exception:
         logging.exception(f"Failed to read PGN file {pgn_file_path}")
         return
 
@@ -99,7 +99,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
             result_list_tqdm = []
             for job in tqdm(jobs):
                 result_list_tqdm.append(job.get())
-    except Exception as e:
+    except Exception:
         logging.exception("Error during multiprocessing")
         return
 
@@ -179,7 +179,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
             # Write all game data
             csv_writer.writerows(csv_rows)
         logging.info(f"Analysis complete for file: {pgn_file_path}. Results saved to {output_file}.")
-    except Exception as e:
+    except Exception:
         logging.exception(f"Failed to write to CSV file {output_file}")
         return
 
@@ -235,7 +235,7 @@ if __name__ == "__main__":
         exit(1)
     
     # Define the list of specific PGN files directly
-    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1512, 1555 + 1)]
+    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1524, 1555 + 1)]
     #specific_pgn_files = ["utf8_games/example20.pgn"]
     
     # Specify the output directory for analyzed CSV files
