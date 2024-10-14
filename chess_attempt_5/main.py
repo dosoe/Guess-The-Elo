@@ -231,19 +231,19 @@ if __name__ == "__main__":
         exit(1)
     
     # Define the list of specific PGN files directly
-    #specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1500, 1555 + 1)]
-    specific_pgn_files = ["utf8_games/example3.pgn"]
+    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1554, 1559 + 1)]
+    #specific_pgn_files = ["utf8_games/example20.pgn"]
     
     # Specify the output directory for analyzed CSV files
     output_directory = "Analyzed_Games"
     
     # Specify the depth for Stockfish analysis
-    analysis_depth = 14  # Adjust based on your requirements and system capabilities
+    analysis_depth = 15  # Adjust based on your requirements and system capabilities
     
     # Start processing specific PGN files
     process_specific_pgn_files(
         specific_pgn_files=specific_pgn_files,
         stockfish_path=stockfish_path,
-        depth=analysis_depth,
+        depth=analysis_depth,  
         output_directory=output_directory
     )
