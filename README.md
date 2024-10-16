@@ -2,8 +2,9 @@
  Given a list of chess games of a player, the goal is to predict their elo rating. 
 
 # Database: 
-As a start, we'll be using the games found in https://theweekinchess.com/twic.
+As a start, we'll be using the games found in https://theweekinchess.com/twic. That includes approximately 2.8 million games.
 We will analyze them using Stockfish (https://stockfishchess.org/). Future plans is to perhaps use leela zero https://lczero.org/ 
+We have another database from https://shop.chessok.com/index.php?main_page=index&cPath=7_54 of 5 million games, but those will not be analyzed. They may be used to study the openings.
 
 # Methodology: 
 1. We will try to find a relationship of Average CentiPawn Loss (ACPL) with the elo rating of players
