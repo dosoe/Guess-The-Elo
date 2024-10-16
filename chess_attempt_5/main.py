@@ -235,7 +235,7 @@ if __name__ == "__main__":
         exit(1)
     
     # Define the list of specific PGN files directly
-    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1556, 1560 + 1)]
+    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1540, 1549 + 1)]
     #specific_pgn_files = ["utf8_games/example20.pgn"]
     
     # Specify the output directory for analyzed CSV files
