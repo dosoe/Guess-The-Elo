@@ -228,7 +228,7 @@ if __name__ == "__main__":
     setup_logging()
 
     # Fetch the Stockfish path from environment variable
-    stockfish_path = os.getenv('STOCKFISH_PATH')
+    stockfish_path = os.getenv('STOCKFISH_PATH') 
     
     if not stockfish_path:
         logging.error("STOCKFISH_PATH environment variable is not set.")
@@ -248,6 +248,6 @@ if __name__ == "__main__":
     process_specific_pgn_files(
         specific_pgn_files=specific_pgn_files,
         stockfish_path=stockfish_path,
-        depth=analysis_depth,
+        depth=analysis_depth,  
         output_directory=output_directory
     )
