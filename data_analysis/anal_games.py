@@ -92,7 +92,7 @@ if __name__ == "__main__":
     game_ended=True
     game_used=True
     game=0
-    for filename in glob.glob("../Analyzed_Games/*"):
+    for filename in glob.glob("../Analyzed_Games/twic*.csv"):
         print(filename)
         data=pd.read_csv(filename)
         if not 'WhiteFideId' in data:
