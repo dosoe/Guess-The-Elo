@@ -104,8 +104,7 @@ if __name__ == "__main__":
         ind=0
         while ind<len(data):
             # reads game and returns index of last line of the game (empty line)
-            ind,game=read_game(data,ind,functions=[functions_anal.MovesWhite,
-                                                functions_anal.MovesBlack,
+            ind,game=read_game(data,ind,functions=[functions_anal.MovesBlack,
                                                 functions_anal.WhiteAvgEvaluation,
                                                 functions_anal.BlackAvgEvaluation])
             ind+=1
@@ -123,9 +122,9 @@ if __name__ == "__main__":
                 games['Opening'].append(game['Opening'])
                 games['Variation'].append(game['Variation'])
                 games['Result'].append(game['Result'])
-                games['WhiteAvgEvaluation'].append(game['WhiteAvgEvaluation'])
+                games['WhiteAvgEvaluation'].append(game['WhiteAvgEvaluation'][1]) # that function has more than one output
+                games['MovesWhite'].append(game['WhiteAvgEvaluation'][0])
                 games['BlackAvgEvaluation'].append(game['BlackAvgEvaluation'])
-                games['MovesWhite'].append(game['MovesWhite'])
                 games['MovesBlack'].append(game['MovesBlack'])
                 games['LineStart'].append(game['LineStart'])
                 games['LineEnd'].append(game['LineEnd'])
