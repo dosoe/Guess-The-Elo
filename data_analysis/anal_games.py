@@ -11,6 +11,11 @@ def read_game(data,ind,functions=[]):
     None if the game is not valid. This happens
     either because one of the players doesn't have a fide id (it's a bot)
     or because the game has no moves
+
+    Takes functions as input, these will be applied to each game
+    Examples can be found in functions_anal.py
+    Function outputs are stored in 
+    game[function_name] (fetched with function.__name__)
     """
     game={}
     gameid=data.loc[ind,"GameID"]
@@ -18,7 +23,6 @@ def read_game(data,ind,functions=[]):
     if np.isnan(data.loc[ind,"WhiteFideId"]) or np.isnan(data.loc[ind,"BlackFideId"]):
         game_used=False
     if game_used:
-        game['File']=filename
         game['GameID']=data.loc[ind,"GameID"]
         game['WhiteName']=data.loc[ind,"WhiteName"]
         game['BlackName']=data.loc[ind,"BlackName"]
@@ -102,7 +106,7 @@ if __name__ == "__main__":
                                                 functions_anal.BlackAvgEvaluation])
             ind+=1
             if game:
-                games['File'].append(game['File'])
+                games['File'].append(filename)
                 games['GameID'].append(game['GameID'])
                 games['WhiteName'].append(game['WhiteName'])
                 games['BlackName'].append(game['BlackName'])
