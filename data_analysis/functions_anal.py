@@ -1,4 +1,23 @@
-
+"""
+Functions to apply to games
+Functions take as input a 
+game: dictionary with the following keys: 
+game['GameID']
+game['WhiteName']
+game['BlackName']
+game['WhiteElo']
+game['BlackElo']
+game['LineStart']
+game['WhiteFideId']
+game['BlackFideId']
+game['Year']
+game['Opening']
+game['Variation']
+game['Result']
+game['Moves']
+game["Evaluations"]
+I believe these are self-explanatory. 
+"""
 
 def WhiteAvgEvaluation(game):
     evals=game['Evaluations']
