@@ -2,7 +2,7 @@
 Functions to apply to games
 Functions take as input a 
 game: dictionary with the following keys: 
-game['GameID']
+game['GameID']    # gameid of the game in the file
 game['WhiteName']
 game['BlackName']
 game['WhiteElo']
@@ -28,17 +28,9 @@ def WhiteAvgEvaluation(game):
             mv+=1.
             ev_sum+=evals[i]
     if mv==0:
-        return -100
+        return 0,-100
     else:
-        return ev_sum/mv
-
-def MovesWhite(game):
-    mv=0
-    for i in range(len(game['Moves'])):
-        if i%2==0:
-            mv+=1.
-
-    return mv
+        return mv,ev_sum/mv # functions can have more than one output
 
 def BlackAvgEvaluation(game):
     evals=game['Evaluations']
