@@ -7,7 +7,10 @@ def read_game(data,ind,functions=[]):
     """
     df: csv that contains the games
     ind: the line we are in right now
+    functions: a list of functions to be applied on the game
     return:
+    ind: The index of the line we ended on
+    game: a dictionary of the game preperties, including the result of functions
     None if the game is not valid. This happens
     either because one of the players doesn't have a fide id (it's a bot)
     or because the game has no moves
@@ -61,7 +64,7 @@ def read_game(data,ind,functions=[]):
         for function in functions:
             game[function.__name__]=function(game)
         
-        game['LineEnd']=ind-1
+        game['LineEnd']=ind
     if game_used:
         return ind,game
     else:
@@ -70,9 +73,9 @@ def read_game(data,ind,functions=[]):
 if __name__ == "__main__":
 
     games={}
-    games['File']=[]
-    games['GameID']=[]
-    games['WhiteName']=[]
+    games['File']=[] # file containing the game
+    games['GameID']=[] # index of the game in that file
+    games['WhiteName']=[] 
     games['BlackName']=[]
     games['WhiteElo']=[]
     games['BlackElo']=[]
@@ -82,12 +85,12 @@ if __name__ == "__main__":
     games['Opening']=[]
     games['Variation']=[]
     games['Result']=[]
-    games['WhiteAvgEvaluation']=[]
+    games['WhiteAvgEvaluation']=[] # output of example functions
     games['BlackAvgEvaluation']=[]
     games['MovesWhite']=[]
     games['MovesBlack']=[]
-    games['LineStart']=[]
-    games['LineEnd']=[]
+    games['LineStart']=[] # first line of the game in the csv
+    games['LineEnd']=[]   # last line of the game in the csv 
 
     game_ended=True
     game_used=True
@@ -100,11 +103,12 @@ if __name__ == "__main__":
             continue
         ind=0
         while ind<len(data):
-            ind,game=read_game(data,ind,functions=[functions_anal.MovesWhite,
-                                                functions_anal.MovesBlack,
+            # reads game and returns index of last line of the game (empty line)
+            ind,game=read_game(data,ind,functions=[functions_anal.MovesBlack,
                                                 functions_anal.WhiteAvgEvaluation,
                                                 functions_anal.BlackAvgEvaluation])
             ind+=1
+            # puts output of read_game in a dictionary that will be converted into csv at the end
             if game:
                 games['File'].append(filename)
                 games['GameID'].append(game['GameID'])
@@ -118,9 +122,9 @@ if __name__ == "__main__":
                 games['Opening'].append(game['Opening'])
                 games['Variation'].append(game['Variation'])
                 games['Result'].append(game['Result'])
-                games['WhiteAvgEvaluation'].append(game['WhiteAvgEvaluation'])
+                games['WhiteAvgEvaluation'].append(game['WhiteAvgEvaluation'][1]) # that function has more than one output
+                games['MovesWhite'].append(game['WhiteAvgEvaluation'][0])
                 games['BlackAvgEvaluation'].append(game['BlackAvgEvaluation'])
-                games['MovesWhite'].append(game['MovesWhite'])
                 games['MovesBlack'].append(game['MovesBlack'])
                 games['LineStart'].append(game['LineStart'])
                 games['LineEnd'].append(game['LineEnd'])
