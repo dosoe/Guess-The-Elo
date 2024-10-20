@@ -30,9 +30,9 @@ def WhiteAvgEvaluation(game):
             mv+=1.
             ev_sum+=evals[i]
     if mv==0:
-        return 0,-100
+        return {'WhiteAvgEvaluation':-100,'MovesWhite':0}
     else:
-        return {'WhiteAvgEvaluation':ev_sum/mv,'MovesWhite':ev_sum/mv} # functions can have more than one output
+        return {'WhiteAvgEvaluation':ev_sum/mv,'MovesWhite':mv} # functions can have more than one output
 
 def BlackAvgEvaluation(game):
     evals=game['Evaluations']
@@ -43,7 +43,7 @@ def BlackAvgEvaluation(game):
             mv+=1.
             ev_sum+=evals[i]
     if mv==0:
-        return -100
+        return {'BlackAvgEvaluation':-100}
     else:
         return {'BlackAvgEvaluation':ev_sum/mv}
 
