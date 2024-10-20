@@ -84,6 +84,7 @@ def process_one_file(filename,functions=[]):
     """
 
     games={}
+    games['File']=[]
 
     data=pd.read_csv(filename)
     if not 'WhiteFideId' in data:
@@ -142,7 +143,7 @@ if __name__ == "__main__":
                functions_anal.WhiteAvgEvaluation,
                functions_anal.BlackAvgEvaluation]
     
-    outfile='../Analyzed_Games/players.csv'
+    outfile='../Analyzed_Games/games.csv'
 
     filenames = glob.glob("../Analyzed_Games/twic*.csv")
 
