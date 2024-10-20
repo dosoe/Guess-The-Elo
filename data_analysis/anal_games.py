@@ -65,6 +65,8 @@ def read_game(data,ind,functions=[]):
             out_tmp=function(game)
             for key in out_tmp:
                 game[key]=out_tmp[key]
+        del game['Moves']
+        del game['Evaluations']
         
         game['LineEnd']=ind
     if game_used:
