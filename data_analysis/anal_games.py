@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import glob
+import glob,os
 import functions_anal
 
 def read_game(data,ind,functions=[]):
@@ -62,7 +62,9 @@ def read_game(data,ind,functions=[]):
         game['Moves']=game_moves
         game["Evaluations"]=game_evals
         for function in functions:
-            game[function.__name__]=function(game)
+            out_tmp=function(game)
+            for key in out_tmp:
+                game[key]=out_tmp[key]
         
         game['LineEnd']=ind
     if game_used:
@@ -70,67 +72,78 @@ def read_game(data,ind,functions=[]):
     else:
         return ind,None
 
-if __name__ == "__main__":
+def process_one_file(filename,functions=[]):
+    """
+    Processes one file
+    inputs:
+    filename: name of the file to process
+    functions: list of functions to apply to each game
+    
+    outputs:
+    games: DataFrame containing the outputs
+    """
 
     games={}
-    games['File']=[] # file containing the game
-    games['GameID']=[] # index of the game in that file
-    games['WhiteName']=[] 
-    games['BlackName']=[]
-    games['WhiteElo']=[]
-    games['BlackElo']=[]
-    games['WhiteFideId']=[]
-    games['BlackFideId']=[]
-    games['Year']=[]
-    games['Opening']=[]
-    games['Variation']=[]
-    games['Result']=[]
-    games['WhiteAvgEvaluation']=[] # output of example functions
-    games['BlackAvgEvaluation']=[]
-    games['MovesWhite']=[]
-    games['MovesBlack']=[]
-    games['LineStart']=[] # first line of the game in the csv
-    games['LineEnd']=[]   # last line of the game in the csv 
 
-    game_ended=True
-    game_used=True
-    game=0
-    for filename in glob.glob("../Analyzed_Games/twic*.csv"):
-        print(filename)
-        data=pd.read_csv(filename)
-        if not 'WhiteFideId' in data:
-            print(filename,'has no fide ids')
+    data=pd.read_csv(filename)
+    if not 'WhiteFideId' in data:
+        print(filename,'has no fide ids')
+        return
+    ind=0
+    while ind<len(data):
+        # reads game and returns index of last line of the game (empty line)
+        ind,game=read_game(data,ind,functions=functions)
+        ind+=1
+        # puts output of read_game in a dictionary that will be converted into csv at the end
+        if game:
+            games['File'].append(filename)
+            for key in game:
+                if key in games:
+                    games[key].append(game[key])
+                else:
+                    games[key]=[game[key]]
+    return pd.DataFrame(games)
+
+def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
+    """
+    Processes all files, saves results in outfile as csv
+    inputs:
+    outfile: name of the file to store all the outputs
+    filenames: List of files to process
+    functions: List of functions to apply to the games
+    skip_if_processed: if True and outfile already exists, skips a file if already processed
+
+    outputs: 
+    None
+    """
+    found=False
+    if os.path.isfile(outfile):
+        found=True
+        df=pd.read_csv(outfile)
+    
+    for file in filenames:
+        if found and file in df['File'].values and skip_if_processed:
             continue
-        ind=0
-        while ind<len(data):
-            # reads game and returns index of last line of the game (empty line)
-            ind,game=read_game(data,ind,functions=[functions_anal.MovesBlack,
-                                                functions_anal.WhiteAvgEvaluation,
-                                                functions_anal.BlackAvgEvaluation])
-            ind+=1
-            # puts output of read_game in a dictionary that will be converted into csv at the end
-            if game:
-                games['File'].append(filename)
-                games['GameID'].append(game['GameID'])
-                games['WhiteName'].append(game['WhiteName'])
-                games['BlackName'].append(game['BlackName'])
-                games['WhiteElo'].append(game['WhiteElo'])
-                games['BlackElo'].append(game['BlackElo'])
-                games['WhiteFideId'].append(game['WhiteFideId'])
-                games['BlackFideId'].append(game['BlackFideId'])
-                games['Year'].append(game['Year'])
-                games['Opening'].append(game['Opening'])
-                games['Variation'].append(game['Variation'])
-                games['Result'].append(game['Result'])
-                games['WhiteAvgEvaluation'].append(game['WhiteAvgEvaluation'][1]) # that function has more than one output
-                games['MovesWhite'].append(game['WhiteAvgEvaluation'][0])
-                games['BlackAvgEvaluation'].append(game['BlackAvgEvaluation'])
-                games['MovesBlack'].append(game['MovesBlack'])
-                games['LineStart'].append(game['LineStart'])
-                games['LineEnd'].append(game['LineEnd'])
+        else:
+            df_new=process_one_file(file,functions)
 
-        
-    for key in games:
-        print(key,len(games[key]))
-    games_df=pd.DataFrame(games)
-    games_df.to_csv('../Analyzed_Games/games.csv')
+            if found:
+                df=pd.concat([df, df_new])
+            else:
+                df=df_new
+                found=True
+            df.to_csv(outfile)
+    
+    return
+
+if __name__ == "__main__":
+
+    functions=[functions_anal.MovesBlack,
+               functions_anal.WhiteAvgEvaluation,
+               functions_anal.BlackAvgEvaluation]
+    
+    outfile='../Analyzed_Games/players.csv'
+
+    filenames = glob.glob("../Analyzed_Games/twic*.csv")
+
+    process_all_files(outfile,filenames,functions,skip_if_processed=True)
