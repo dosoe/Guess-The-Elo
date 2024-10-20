@@ -2,7 +2,7 @@
 import requests
 import pandas as pd
 import numpy as np
-import sys
+import sys,os
 try: 
     from BeautifulSoup import BeautifulSoup
 except ImportError:
@@ -35,35 +35,64 @@ def get_player_info(fide_id):
 if __name__ == "__main__":
     data=pd.read_csv('../Analyzed_Games/games.csv')
     allfideids=np.append(data['WhiteFideId'].to_numpy(dtype=int),data['BlackFideId'].to_numpy(dtype=int))
-    players={}
-    name=[]
-    # rank=[] # not always defined if I understand correctly, also inconsistent in the parsing of the fide website
-    fed=[]
-    fide=[]
-    B_Year=[]
-    sex=[]
-    title=[]
+
     print(len(np.unique(allfideids)))
-    for fideid in np.unique(allfideids):
+
+    found=False
+    if os.path.isfile('../Analyzed_Games/players.csv'):
+        found=True
+        df=pd.read_csv('../Analyzed_Games/players.csv')
+
+    if not found:
+        players={}
+        name=[]
+        # rank=[] # not always defined if I understand correctly, also inconsistent in the parsing of the fide website
+        fed=[]
+        fide=[]
+        B_Year=[]
+        sex=[]
+        title=[]
+
+    for i,fideid in enumerate(np.unique(allfideids)):
+
+        if found and fideid in df['FideID'].values:
+            continue
+        
         print(fideid)
         out=get_player_info(fideid)
 
         if out:
 
-            name.append(out['Name'])
-            # rank.append(out[''])
-            fed.append(out['Federation:'])
-            fide.append(out['FIDE ID:'])
-            B_Year.append(out['B-Year:'])
-            sex.append(out['Sex:'])
-            title.append(out['FIDE title:'])
-    
-    players['Name']=name
-    players['Federation']=fed
-    players['FideID']=fide
-    players['B_Year']=B_Year
-    players['Sex']=sex
-    players['Title']=title
-    df=pd.DataFrame(players)
-    df.to_csv('../Analyzed_Games/players.csv')
+            if found:
+                df_new_row = pd.DataFrame({ 'Name': [out['Name']], 
+                                            'Federation': [out['Federation:']],
+                                            'FideID': [out['FIDE ID:']],
+                                            'B_Year': [out['B-Year:']],
+                                            'Sex': [out['Sex:']],
+                                            'Title': [out['FIDE title:']]
+                                            })
+                df = pd.concat([df, df_new_row])
+            if not found:
+                name.append(out['Name'])
+                # rank.append(out[''])
+                fed.append(out['Federation:'])
+                fide.append(out['FIDE ID:'])
+                B_Year.append(out['B-Year:'])
+                sex.append(out['Sex:'])
+                title.append(out['FIDE title:'])
+            
+
+        if not found and i%100==0:
+            players['Name']=name
+            players['Federation']=fed
+            players['FideID']=fide
+            players['B_Year']=B_Year
+            players['Sex']=sex
+            players['Title']=title
+            df=pd.DataFrame(players)
+            df.to_csv('../Analyzed_Games/players.csv')
+            found=True
+        elif i%100==0:
+            df.to_csv('../Analyzed_Games/players.csv')
+
 

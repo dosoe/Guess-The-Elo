@@ -17,6 +17,8 @@ game['Result']
 game['Moves']
 game["Evaluations"]
 I believe these are self-explanatory. 
+
+Output of functions needs to be a dictionary. Each key of the dictionary will create a new row in the output DataFrame, so it needs to be compatible with it (for example, no lists)
 """
 
 def WhiteAvgEvaluation(game):
@@ -28,9 +30,9 @@ def WhiteAvgEvaluation(game):
             mv+=1.
             ev_sum+=evals[i]
     if mv==0:
-        return 0,-100
+        return {'WhiteAvgEvaluation':-100,'MovesWhite':0}
     else:
-        return mv,ev_sum/mv # functions can have more than one output
+        return {'WhiteAvgEvaluation':ev_sum/mv,'MovesWhite':mv} # functions can have more than one output
 
 def BlackAvgEvaluation(game):
     evals=game['Evaluations']
@@ -41,13 +43,13 @@ def BlackAvgEvaluation(game):
             mv+=1.
             ev_sum+=evals[i]
     if mv==0:
-        return -100
+        return {'BlackAvgEvaluation':-100}
     else:
-        return ev_sum/mv
+        return {'BlackAvgEvaluation':ev_sum/mv}
 
 def MovesBlack(game):
     mv=0
     for i in range(len(game['Moves'])):
         if i%2==1:
             mv+=1.
-    return mv
+    return {'MovesBlack':mv}
