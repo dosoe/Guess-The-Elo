@@ -2,3 +2,5 @@ Analyzed_Games/lichess_db_eval.jsonl
 utf8_huge_games/
 *pycache*
 */*pycache*
+huge_analyzed_games
+personal_playing_around
