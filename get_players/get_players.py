@@ -15,11 +15,14 @@ def get_player_info(fide_id):
     else:
         print(response.status_code) 
         return
-    parsed_html = BeautifulSoup(response.text)
+    parsed_html = BeautifulSoup(response.text, "html.parser")
 
-    first_check=parsed_html.body.find(string="No record found please check ID number")
-    if first_check: # no player with that Fide ID found
-        print(first_check,fide_id)
+    try:
+        first_check=parsed_html.body.find(string="No record found please check ID number")
+        if first_check: # no player with that Fide ID found
+            print(first_check,fide_id)
+            return None
+    except AttributeError:
         return None
 
     out={}
