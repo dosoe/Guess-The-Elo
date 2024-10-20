@@ -17,6 +17,8 @@ game['Result']
 game['Moves']
 game["Evaluations"]
 I believe these are self-explanatory. 
+
+Output of functions needs to be a dictionary. Each key of the dictionary will create a new row in the output DataFrame, so it needs to be compatible with it (for example, no lists)
 """
 
 def WhiteAvgEvaluation(game):
