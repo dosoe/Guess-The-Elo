@@ -23,7 +23,10 @@ def read_game(data,ind,functions=[]):
     game={}
     gameid=data.loc[ind,"GameID"]
     game_used=True
-    if np.isnan(data.loc[ind,"WhiteFideId"]) or np.isnan(data.loc[ind,"BlackFideId"]):
+    try:
+        if np.isnan(float(data.loc[ind,"WhiteFideId"])) or np.isnan(float(data.loc[ind,"BlackFideId"])):
+            game_used=False
+    except ValueError:
         game_used=False
     if game_used:
         game['GameID']=data.loc[ind,"GameID"]
@@ -33,16 +36,16 @@ def read_game(data,ind,functions=[]):
         game['BlackElo']=data.loc[ind,"BlackElo"]
         game['LineStart']=ind
         try:
-            game['WhiteFideId']=data.loc[ind,"WhiteFideId"]
-            game['BlackFideId']=data.loc[ind,"BlackFideId"]
+            game['WhiteFideId']=int(data.loc[ind,"WhiteFideId"])
+            game['BlackFideId']=int(data.loc[ind,"BlackFideId"])
         except:
-            game['WhiteFideId']=0
-            game['BlackFideId']=0
-            pass
+            game_used=False
         game['Year']=data.loc[ind,"Year"]
         game['Opening']=data.loc[ind,"Opening"]
         game['Variation']=data.loc[ind,"Variation"]
         game['Result']=data.loc[ind,"Result"]
+        if game['Result']=='*':
+            game_used=False
         game_moves=[]
         game_evals=[]
 
@@ -124,7 +127,8 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
         found=True
         df=pd.read_csv(outfile)
     
-    for file in filenames:
+    for i,file in enumerate(filenames):
+        print(file)
         if found and file in df['File'].values and skip_if_processed:
             continue
         else:
@@ -135,7 +139,8 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
             else:
                 df=df_new
                 found=True
-            df.to_csv(outfile)
+            if i%20==0:
+                df.to_csv(outfile)
     
     return
 

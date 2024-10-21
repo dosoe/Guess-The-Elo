@@ -19,6 +19,8 @@ def analyze_game_pgn(pgn_string, depth=15):
         game = chess.pgn.read_game(StringIO(pgn_string))
         if game is None:
             return None
+        if len(game.errors)>0:
+            return None
 
         # Extract information
         white_name = game.headers.get("White", "Unknown")
