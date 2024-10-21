@@ -15,11 +15,14 @@ def get_player_info(fide_id):
     else:
         print(response.status_code) 
         return
-    parsed_html = BeautifulSoup(response.text)
+    parsed_html = BeautifulSoup(response.text, "html.parser")
 
-    first_check=parsed_html.body.find(string="No record found please check ID number")
-    if first_check: # no player with that Fide ID found
-        print(first_check,fide_id)
+    try:
+        first_check=parsed_html.body.find(string="No record found please check ID number")
+        if first_check: # no player with that Fide ID found
+            print(first_check,fide_id)
+            return None
+    except AttributeError:
         return None
 
     out={}
@@ -52,6 +55,8 @@ if __name__ == "__main__":
         B_Year=[]
         sex=[]
         title=[]
+    
+    tags=['Name','Federation','FideID','B_Year','Sex','Title']
 
     for i,fideid in enumerate(np.unique(allfideids)):
 
@@ -71,7 +76,7 @@ if __name__ == "__main__":
                                             'Sex': [out['Sex:']],
                                             'Title': [out['FIDE title:']]
                                             })
-                df = pd.concat([df, df_new_row])
+                df = pd.concat([df[tags], df_new_row[tags]])
             if not found:
                 name.append(out['Name'])
                 # rank.append(out[''])
@@ -94,5 +99,6 @@ if __name__ == "__main__":
             found=True
         elif i%100==0:
             df.to_csv('../Analyzed_Games/players.csv')
+    df.to_csv('../Analyzed_Games/players.csv')
 
 
