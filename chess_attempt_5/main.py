@@ -74,7 +74,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
-    max_workers = 30  # Use the number of CPU cores
+    max_workers = 10  # Use the number of CPU cores
 
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
@@ -153,7 +153,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         # Optional: Add a blank row or separator after each game for clarity
         csv_rows.append([""] * 12)  # Adjusted number of empty fields
 
-        logging.info(f"Game {current_game_id} analyzed successfully.")
+        # logging.info(f"Game {current_game_id} analyzed successfully.")
 
     # Write to CSV
     try:
@@ -228,7 +228,7 @@ if __name__ == "__main__":
     setup_logging()
 
     # Fetch the Stockfish path from environment variable
-    stockfish_path = os.getenv('STOCKFISH_PATH')
+    stockfish_path = os.getenv('STOCKFISH_PATH') 
     
     if not stockfish_path:
         logging.error("STOCKFISH_PATH environment variable is not set.")
@@ -242,6 +242,7 @@ if __name__ == "__main__":
     output_directory = "Analyzed_Games"
     
     # Specify the depth for Stockfish analysis
+    analysis_depth = 16  # Adjust based on your requirements and system capabilities
     analysis_depth = 16  # Adjust based on your requirements and system capabilities
     
     # Start processing specific PGN files
