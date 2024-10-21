@@ -61,7 +61,7 @@ def read_game(data,ind,functions=[]):
                     game_evals.append(7)
         ind+=1
     
-    if game_used:
+    if game_used and len(functions)>0:
         game['Moves']=game_moves
         game["Evaluations"]=game_evals
         for function in functions: # apply functions to games
@@ -154,6 +154,16 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
     return
 
 if __name__ == "__main__":
+
+    filenames = sorted(glob.glob("../Analyzed_Games/twic*.csv"))
+
+    functions=[functions_anal.MovesBlack,
+               functions_anal.WhiteAvgEvaluation,
+               functions_anal.BlackAvgEvaluation]
+    
+    outfile='../Analyzed_Games/games.csv'
+
+    process_all_files(outfile,filenames,[],skip_if_processed=True)
 
     filenames = sorted(glob.glob("../Analyzed_Games/twic*.csv"))[:10]
 
