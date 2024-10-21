@@ -18,7 +18,10 @@ game['Moves']
 game["Evaluations"]
 I believe these are self-explanatory. 
 
-Output of functions needs to be a dictionary. Each key of the dictionary will create a new row in the output DataFrame, so it needs to be compatible with it (for example, no lists)
+Output of functions needs to be a dictionary, or None. Each key of the dictionary will create a new row in the output DataFrame, so it needs to be compatible with it (for example, no lists)
+If the output is None, the game is rejected (can be used for cleanup)
+
+Functions can have additional arbuments, they need to be provided in an additional dictionary of arguments
 """
 
 def WhiteAvgEvaluation(game):
@@ -53,3 +56,34 @@ def MovesBlack(game):
         if i%2==1:
             mv+=1.
     return {'MovesBlack':mv}
+
+def NmoveMove(game,additional_inputs):
+    """
+    Example of function with additional arguments
+    takes a game and a dictionary containing the additional inputs
+    returns a dictionary
+    In this example, returns a dictionary containing the move number n, with n=additional_inputs['movenum']
+    and if the game has less than n moves, the game is rejected
+    """
+    # gives move number n, with n=additional_inputs['movenum']
+    movenum=additional_inputs['movenum']
+    if len(game['Moves'])>=movenum:
+        return {'Move_'+str(movenum):game['Moves'][movenum-1]}
+    else:
+        return None
+
+def Cleanup(game):
+    """
+    Example of function just for cleaning up
+    takes a game
+    returns either None if the game is rejected or an empty dictionary
+    In this example, we reject games played by Magnus Carlsen
+    """
+    if int(game["WhiteFideId"])==1503014 or int(game["BlackFideId"])==1503014:
+        return None
+    else:
+        return {}
+
+# remove games with no fide ids for one or other player
+# games where result is *
+# games with less than 15 moves which are draws (?)

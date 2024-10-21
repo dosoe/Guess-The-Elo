@@ -23,12 +23,12 @@ def read_game(data,ind,functions=[]):
     game={}
     gameid=data.loc[ind,"GameID"]
     game_used=True
-    try:
+    try: # reject games with no Fide ID for black or white
         if np.isnan(float(data.loc[ind,"WhiteFideId"])) or np.isnan(float(data.loc[ind,"BlackFideId"])):
             game_used=False
-    except ValueError:
+    except ValueError: # reject games where the file does not have FideIDs
         game_used=False
-    if game_used:
+    if game_used: # read game metadata
         game['GameID']=data.loc[ind,"GameID"]
         game['WhiteName']=data.loc[ind,"WhiteName"]
         game['BlackName']=data.loc[ind,"BlackName"]
@@ -49,7 +49,7 @@ def read_game(data,ind,functions=[]):
         game_moves=[]
         game_evals=[]
 
-    while ind<len(data) and data.loc[ind,"GameID"]==gameid:            
+    while ind<len(data) and data.loc[ind,"GameID"]==gameid: # read game moves      
         if game_used:
             game_moves.append(data.loc[ind,"Move"])
             try:
@@ -64,9 +64,15 @@ def read_game(data,ind,functions=[]):
     if game_used:
         game['Moves']=game_moves
         game["Evaluations"]=game_evals
-        for function in functions:
-            out_tmp=function(game)
-            for key in out_tmp:
+        for function in functions: # apply functions to games
+            if callable(function): # function is actually a function
+                out_tmp=function(game)
+            else: # function is a tuple containing the function and a dictionary containing additional inputs
+                out_tmp=function[0](game,function[1])
+            if out_tmp is None: # if output is None, game is rejected
+                game_used=False
+                continue
+            for key in out_tmp: # put outputs of functions to games
                 game[key]=out_tmp[key]
         del game['Moves']
         del game['Evaluations']
@@ -129,6 +135,8 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
     
     for i,file in enumerate(filenames):
         print(file)
+        print(file in df['File'].values)
+        print(np.unique(df['File'].values))
         if found and file in df['File'].values and skip_if_processed:
             continue
         else:
@@ -141,17 +149,30 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
                 found=True
             if i%20==0:
                 df.to_csv(outfile)
+    df.to_csv(outfile)
     
     return
 
 if __name__ == "__main__":
 
+    filenames = sorted(glob.glob("../Analyzed_Games/twic*.csv"))[:10]
+
     functions=[functions_anal.MovesBlack,
                functions_anal.WhiteAvgEvaluation,
                functions_anal.BlackAvgEvaluation]
     
-    outfile='../Analyzed_Games/games.csv'
+    outfile='../Analyzed_Games/avgeval_example.csv'
 
-    filenames = glob.glob("../Analyzed_Games/twic*.csv")
+    process_all_files(outfile,filenames,functions,skip_if_processed=True)
+
+    functions=[functions_anal.Cleanup]
+    
+    outfile='../Analyzed_Games/cleanup_example.csv'
+
+    process_all_files(outfile,filenames,functions,skip_if_processed=True)
+
+    functions=[(functions_anal.NmoveMove,{'movenum':5})]
+    
+    outfile='../Analyzed_Games/additional_inputs_example.csv'
 
     process_all_files(outfile,filenames,functions,skip_if_processed=True)
