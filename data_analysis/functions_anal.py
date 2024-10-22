@@ -14,8 +14,8 @@ game['Year']
 game['Opening']
 game['Variation']
 game['Result']
-game['Moves']
-game["Evaluations"]
+game['Move']
+game["Evaluation"]
 I believe these are self-explanatory. 
 
 Output of functions needs to be a dictionary, or None. Each key of the dictionary will create a new row in the output DataFrame, so it needs to be compatible with it (for example, no lists)
@@ -25,10 +25,10 @@ Functions can have additional arbuments, they need to be provided in an addition
 """
 
 def WhiteAvgEvaluation(game):
-    evals=game['Evaluations']
+    evals=game['Evaluation']
     ev_sum=0
     mv=0
-    for i in range(len(game['Moves'])):
+    for i in range(len(game['Move'])):
         if i%2==0:
             mv+=1.
             ev_sum+=evals[i]
@@ -38,10 +38,10 @@ def WhiteAvgEvaluation(game):
         return {'WhiteAvgEvaluation':ev_sum/mv,'MovesWhite':mv} # functions can have more than one output
 
 def BlackAvgEvaluation(game):
-    evals=game['Evaluations']
+    evals=game['Evaluation']
     ev_sum=0
     mv=0
-    for i in range(len(game['Moves'])):
+    for i in range(len(game['Move'])):
         if i%2==1:
             mv+=1.
             ev_sum+=evals[i]
@@ -52,7 +52,7 @@ def BlackAvgEvaluation(game):
 
 def MovesBlack(game):
     mv=0
-    for i in range(len(game['Moves'])):
+    for i in range(len(game['Move'])):
         if i%2==1:
             mv+=1.
     return {'MovesBlack':mv}
@@ -67,7 +67,7 @@ def NmoveMove(game,additional_inputs):
     """
     # gives move number n, with n=additional_inputs['movenum']
     movenum=additional_inputs['movenum']
-    if len(game['Moves'])>=movenum:
+    if len(game['Move'])>=movenum:
         return {'Move_'+str(movenum):game['Moves'][movenum-1]}
     else:
         return None
@@ -77,9 +77,11 @@ def Cleanup(game):
     Example of function just for cleaning up
     takes a game
     returns either None if the game is rejected or an empty dictionary
-    In this example, we reject games played by Magnus Carlsen
+    In this example, we reject games with no known results or games with less than 15 moves
     """
-    if int(game["WhiteFideId"])==1503014 or int(game["BlackFideId"])==1503014:
+    if game['Result']=='*':
+        return None
+    if len(game['Move'])<15:
         return None
     else:
         return {}
