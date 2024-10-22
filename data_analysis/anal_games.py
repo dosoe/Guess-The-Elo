@@ -163,6 +163,7 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,g
         if found and file in df['File'].values and skip_if_processed:
             continue
         else:
+            print(file)
             df_new=process_one_file(file,functions,game_wise=game_wise)
 
             if found:
