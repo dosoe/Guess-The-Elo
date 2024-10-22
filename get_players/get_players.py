@@ -95,10 +95,10 @@ if __name__ == "__main__":
             players['Sex']=sex
             players['Title']=title
             df=pd.DataFrame(players)
-            df.to_csv('../Analyzed_Games/players.csv')
+            df.to_csv('../Analyzed_Games/players.csv',index=False)
             found=True
         elif i%100==0:
-            df.to_csv('../Analyzed_Games/players.csv')
-    df.to_csv('../Analyzed_Games/players.csv')
+            df.to_csv('../Analyzed_Games/players.csv',index=False)
+    df.to_csv('../Analyzed_Games/players.csv',index=False)
 
 
