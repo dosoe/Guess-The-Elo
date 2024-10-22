@@ -171,8 +171,8 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,g
                 df=df_new
                 found=True
             if i%20==0:
-                df.to_csv(outfile)
-    df.to_csv(outfile)
+                df.to_csv(outfile,index=False)
+    df.to_csv(outfile,index=False)
     
     return
 
@@ -190,8 +190,8 @@ def rewrite_all_files(suffix,filenames=[],functions=[],skip_if_processed=True,ga
             continue
         
         df_new=process_one_file(file,functions,game_wise=game_wise)
-        
-        df_new.to_csv(outfile)
+        if df_new:
+            df_new.to_csv(outfile,index=False)
     
     return
 
