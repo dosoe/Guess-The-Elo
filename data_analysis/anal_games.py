@@ -3,7 +3,7 @@ import pandas as pd
 import glob,os
 import functions_anal
 
-def read_game(data,ind,functions=[]):
+def read_game(data,ind,functions=[],game_wise=True):
     """
     df: csv that contains the games
     ind: the line we are in right now
@@ -14,8 +14,11 @@ def read_game(data,ind,functions=[]):
     None if the game is not valid. This happens
     either because one of the players doesn't have a fide id (it's a bot)
     or because the game has no moves
+    game_wise: are the outputs game-wise, i e one value per game, or move-wise i e one value per move
 
-    Takes functions as input, these will be applied to each game
+    Takes functions as input, these will be applied to each game if game_wise=True 
+    or to each move if game_wise=False
+
     Examples can be found in functions_anal.py
     Function outputs are stored in 
     game[function_name] (fetched with function.__name__)
@@ -61,9 +64,9 @@ def read_game(data,ind,functions=[]):
                     game_evals.append(7)
         ind+=1
     
-    if game_used and len(functions)>0:
-        game['Moves']=game_moves
-        game["Evaluations"]=game_evals
+    if game_used:
+        game['Move']=game_moves
+        game["Evaluation"]=game_evals
         for function in functions: # apply functions to games
             if callable(function): # function is actually a function
                 out_tmp=function(game)
@@ -74,28 +77,41 @@ def read_game(data,ind,functions=[]):
                 continue
             for key in out_tmp: # put outputs of functions to games
                 game[key]=out_tmp[key]
-        del game['Moves']
-        del game['Evaluations']
+        if game_wise:
+            del game['Move']
+            del game['Evaluation']
         
         game['LineEnd']=ind
     if game_used:
-        return ind,game
+        if game_wise:
+            return ind,game
+        else:
+            out={}
+            for key in ['WhiteName','BlackName','WhiteElo','BlackElo','WhiteFideId','BlackFideId','Year','Opening','Variation','Result']:
+                out[key]=[game[key]]+(len(game['Move'])-1)*['']
+                out['Move']=game['Move']
+                out['Evaluation']=game['Evaluation']
+                out['GameID']=(len(game['Move']))*[game['GameID']]
+                out['MoveNumber']=list(range(1,len(game['Move'])+1))
+            return ind,out
     else:
         return ind,None
 
-def process_one_file(filename,functions=[]):
+def process_one_file(filename,functions=[],game_wise=True):
     """
     Processes one file
     inputs:
     filename: name of the file to process
     functions: list of functions to apply to each game
+    game_wise: functions applied game-wise or move-wise?
     
     outputs:
     games: DataFrame containing the outputs
     """
 
     games={}
-    games['File']=[]
+    if game_wise:
+        games['File']=[]
 
     data=pd.read_csv(filename)
     if not 'WhiteFideId' in data:
@@ -104,19 +120,28 @@ def process_one_file(filename,functions=[]):
     ind=0
     while ind<len(data):
         # reads game and returns index of last line of the game (empty line)
-        ind,game=read_game(data,ind,functions=functions)
+        ind,game=read_game(data,ind,functions=functions,game_wise=game_wise)
         ind+=1
         # puts output of read_game in a dictionary that will be converted into csv at the end
         if game:
-            games['File'].append(filename)
+            if game_wise:
+                games['File'].append(filename)
             for key in game:
                 if key in games:
-                    games[key].append(game[key])
+                    if game_wise:
+                        games[key].append(game[key])
+                    else:
+                        games[key].extend(game[key])
+                        games[key].append('')
                 else:
-                    games[key]=[game[key]]
+                    if game_wise:
+                        games[key]=[game[key]]
+                    else: 
+                        games[key]=game[key]
+                        games[key].append('')
     return pd.DataFrame(games)
 
-def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
+def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,game_wise=True):
     """
     Processes all files, saves results in outfile as csv
     inputs:
@@ -125,6 +150,7 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
     functions: List of functions to apply to the games
     skip_if_processed: if True and outfile already exists, skips a file if already processed
 
+    good to process files game-wise and concatenate all outputs into one big file
     outputs: 
     None
     """
@@ -134,13 +160,10 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
         df=pd.read_csv(outfile)
     
     for i,file in enumerate(filenames):
-        print(file)
-        print(file in df['File'].values)
-        print(np.unique(df['File'].values))
         if found and file in df['File'].values and skip_if_processed:
             continue
         else:
-            df_new=process_one_file(file,functions)
+            df_new=process_one_file(file,functions,game_wise=game_wise)
 
             if found:
                 df=pd.concat([df, df_new])
@@ -153,36 +176,55 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True):
     
     return
 
+def rewrite_all_files(suffix,filenames=[],functions=[],skip_if_processed=True,game_wise=False):
+    """
+    Re-writes each filename adding it a suffix
+    else identical to process_all_files, just doesn't concatenate the outputs but makes a new file for each input file in filenames
+    Good to process games move-wise
+    """
+    
+    for file in filenames:
+        print(file)
+        outfile=os.path.splitext(file)[0]+suffix+'.csv'
+        if os.path.isfile(outfile) and skip_if_processed:
+            continue
+        
+        df_new=process_one_file(file,functions,game_wise=game_wise)
+        
+        df_new.to_csv(outfile)
+    
+    return
+
+
 if __name__ == "__main__":
 
-    filenames = sorted(glob.glob("../Analyzed_Games/twic*.csv"))
-
-    functions=[functions_anal.MovesBlack,
-               functions_anal.WhiteAvgEvaluation,
-               functions_anal.BlackAvgEvaluation]
+    filenames = sorted(glob.glob("../Analyzed_Games/twic*analyzed.csv"))
     
-    outfile='../Analyzed_Games/games.csv'
+    outfile='../Analyzed_Games/games_cleaned.csv'
 
-    process_all_files(outfile,filenames,[],skip_if_processed=True)
+    process_all_files(outfile,filenames,[functions_anal.Cleanup],skip_if_processed=True,game_wise=True)
 
-    filenames = sorted(glob.glob("../Analyzed_Games/twic*.csv"))[:10]
+    # filenames = sorted(glob.glob("../Analyzed_Games/twic*analyzed.csv"))[:10]
+    print(filenames)
 
-    functions=[functions_anal.MovesBlack,
-               functions_anal.WhiteAvgEvaluation,
-               functions_anal.BlackAvgEvaluation]
+    rewrite_all_files('_cleaned',filenames=filenames,functions=[functions_anal.Cleanup],skip_if_processed=True,game_wise=False)
+
+    # functions=[functions_anal.MovesBlack,
+    #            functions_anal.WhiteAvgEvaluation,
+    #            functions_anal.BlackAvgEvaluation]
     
-    outfile='../Analyzed_Games/avgeval_example.csv'
+    # outfile='../Analyzed_Games/avgeval_example.csv'
 
-    process_all_files(outfile,filenames,functions,skip_if_processed=True)
+    # process_all_files(outfile,filenames,functions,skip_if_processed=True)
 
-    functions=[functions_anal.Cleanup]
+    # functions=[functions_anal.Cleanup]
     
-    outfile='../Analyzed_Games/cleanup_example.csv'
+    # outfile='../Analyzed_Games/cleanup_example.csv'
 
-    process_all_files(outfile,filenames,functions,skip_if_processed=True)
+    # process_all_files(outfile,filenames,functions,skip_if_processed=True)
 
-    functions=[(functions_anal.NmoveMove,{'movenum':5})]
+    # functions=[(functions_anal.NmoveMove,{'movenum':5})]
     
-    outfile='../Analyzed_Games/additional_inputs_example.csv'
+    # outfile='../Analyzed_Games/additional_inputs_example.csv'
 
-    process_all_files(outfile,filenames,functions,skip_if_processed=True)
+    # process_all_files(outfile,filenames,functions,skip_if_processed=True)
