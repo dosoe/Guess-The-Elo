@@ -191,8 +191,9 @@ def rewrite_all_files(suffix,filenames=[],functions=[],skip_if_processed=True,ga
             continue
         
         df_new=process_one_file(file,functions,game_wise=game_wise)
-        if df_new:
-            df_new.to_csv(outfile,index=False)
+        if df_new is None:
+            continue
+        df_new.to_csv(outfile,index=False)
     
     return
 
@@ -203,12 +204,11 @@ if __name__ == "__main__":
     
     outfile='../Analyzed_Games/games_cleaned.csv'
 
-    process_all_files(outfile,filenames,[functions_anal.Cleanup],skip_if_processed=True,game_wise=True)
+    process_all_files(outfile=outfile,filenames=filenames,functions=[functions_anal.Cleanup],skip_if_processed=True,game_wise=True)
 
     # filenames = sorted(glob.glob("../Analyzed_Games/twic*analyzed.csv"))[:10]
-    print(filenames)
 
-    rewrite_all_files('_cleaned',filenames=filenames,functions=[functions_anal.Cleanup],skip_if_processed=True,game_wise=False)
+    rewrite_all_files(suffix='_cleaned',filenames=filenames,functions=[functions_anal.Cleanup],skip_if_processed=True,game_wise=False)
 
     # functions=[functions_anal.MovesBlack,
     #            functions_anal.WhiteAvgEvaluation,
