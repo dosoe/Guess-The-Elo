@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import glob,os
 import functions_anal
+import matplotlib.pyplot as plt
 
 def read_game(data,ind,functions=[],game_wise=True):
     """
@@ -155,7 +156,7 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,g
     None
     """
     found=False
-    if os.path.isfile(outfile):
+    if os.path.isfile(outfile) and skip_if_processed:
         found=True
         df=pd.read_csv(outfile)
     
@@ -204,11 +205,11 @@ if __name__ == "__main__":
     
     outfile='../Analyzed_Games/games_cleaned.csv'
 
-    process_all_files(outfile=outfile,filenames=filenames,functions=[functions_anal.Cleanup],skip_if_processed=True,game_wise=True)
+    process_all_files(outfile=outfile,filenames=filenames,functions=[functions_anal.Cleanup,functions_anal.MovesBlack,functions_anal.MovesWhite],skip_if_processed=True,game_wise=True)
 
     # filenames = sorted(glob.glob("../Analyzed_Games/twic*analyzed.csv"))[:10]
 
-    rewrite_all_files(suffix='_cleaned',filenames=filenames,functions=[functions_anal.Cleanup],skip_if_processed=True,game_wise=False)
+    rewrite_all_files(suffix='_cleaned',filenames=filenames,functions=[functions_anal.Cleanup],skip_if_processed=False,game_wise=False)
 
     # functions=[functions_anal.MovesBlack,
     #            functions_anal.WhiteAvgEvaluation,
