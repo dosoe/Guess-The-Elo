@@ -4,6 +4,28 @@ import glob,os
 import functions_anal
 import matplotlib.pyplot as plt
 
+# Function to convert 'Evaluation' to 'New_evaluations'
+def convert_evaluation(eval_str):
+    # eval_str = game['Evaluation']
+    
+    try:
+        return float(eval_str)
+    except:
+        pass
+    if eval_str in ['+M0', '-M0', 'M0']:
+        return 0.0  # Mate in 0 moves
+    elif eval_str.startswith('+M') or (eval_str.startswith('M') and not eval_str.startswith('-M')):
+        return 20.0  # White can mate
+    elif eval_str.startswith('-M'):
+        return -20.0  # Black can mate
+    else:
+        # Try to convert the evaluation to a float
+        try:
+            eval_float = float(eval_str)
+            return eval_float  # Numeric evaluation remains the same
+        except ValueError:
+            return None  # Unable to parse evaluation
+
 def read_game(data,ind,functions=[],game_wise=True):
     """
     df: csv that contains the games
@@ -56,13 +78,11 @@ def read_game(data,ind,functions=[],game_wise=True):
     while ind<len(data) and data.loc[ind,"GameID"]==gameid: # read game moves      
         if game_used:
             game_moves.append(data.loc[ind,"Move"])
-            try:
-                game_evals.append(float(data.loc[ind,"Evaluation"]))
-            except:
-                if data.loc[ind,"Evaluation"][0]=='-':
-                    game_evals.append(-7)
-                elif data.loc[ind,"Evaluation"][0]=='M':
-                    game_evals.append(7)
+            new_eval=convert_evaluation(data.loc[ind,"Evaluation"])
+            game_evals.append(new_eval)
+            if new_eval is None:
+                game_used=False
+            
         ind+=1
     
     if game_used:
@@ -88,12 +108,14 @@ def read_game(data,ind,functions=[],game_wise=True):
             return ind,game
         else:
             out={}
-            for key in ['WhiteName','BlackName','WhiteElo','BlackElo','WhiteFideId','BlackFideId','Year','Opening','Variation','Result']:
-                out[key]=[game[key]]+(len(game['Move'])-1)*['']
-                out['Move']=game['Move']
-                out['Evaluation']=game['Evaluation']
-                out['GameID']=(len(game['Move']))*[game['GameID']]
-                out['MoveNumber']=list(range(1,len(game['Move'])+1))
+            for key in game:
+                if key in ['WhiteName','BlackName','WhiteElo','BlackElo','WhiteFideId','BlackFideId','Year','Opening','Variation','Result','LineStart','LineEnd']:
+                    out[key]=[game[key]]+(len(game['Move'])-1)*['']
+                else:
+                    out[key]=game[key]
+            out['GameID']=(len(game['Move']))*[game['GameID']]
+            out['MoveNumber']=list(range(1,len(game['Move'])+1))
+
             return ind,out
     else:
         return ind,None
@@ -205,7 +227,7 @@ if __name__ == "__main__":
     
     outfile='../Analyzed_Games/games_cleaned.csv'
 
-    process_all_files(outfile=outfile,filenames=filenames,functions=[functions_anal.Cleanup,functions_anal.MovesBlack,functions_anal.MovesWhite],skip_if_processed=True,game_wise=True)
+    process_all_files(outfile=outfile,filenames=filenames,functions=[functions_anal.Cleanup,functions_anal.MovesBlack,functions_anal.MovesWhite],skip_if_processed=False,game_wise=True)
 
     # filenames = sorted(glob.glob("../Analyzed_Games/twic*analyzed.csv"))[:10]
 
