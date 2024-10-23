@@ -124,3 +124,95 @@
 2024-10-20 10:37:50,003 - INFO - Starting analysis for file: utf8_games/twic1469.pgn
 2024-10-20 10:38:28,583 - INFO - Using 10 worker(s) for analysis.
 2024-10-20 10:38:28,583 - INFO - Analysing 10627 games.
+2024-10-20 23:22:39,765 - INFO - Starting analysis for file: utf8_games/twic1357.pgn
+2024-10-20 23:22:39,765 - INFO - Starting analysis for file: utf8_games/twic1357.pgn
+2024-10-20 23:22:59,610 - INFO - Using 10 worker(s) for analysis.
+2024-10-20 23:22:59,610 - INFO - Analysing 3680 games.
+2024-10-20 23:23:37,005 - INFO - Starting analysis for file: utf8_games/twic1357.pgn
+2024-10-20 23:23:37,005 - INFO - Starting analysis for file: utf8_games/twic1357.pgn
+2024-10-20 23:23:57,367 - INFO - Using 12 worker(s) for analysis.
+2024-10-20 23:23:57,367 - INFO - Analysing 3680 games.
+2024-10-21 01:46:10,463 - INFO - Analysis complete for file: utf8_games/twic1357.pgn. Results saved to Analyzed_Games\twic1357_16_analyzed.csv.
+2024-10-21 01:46:10,522 - INFO - Completed analysis for file: utf8_games/twic1357.pgn. Results saved to Analyzed_Games\twic1357_16_analyzed.csv.
+2024-10-21 01:46:10,522 - INFO - Starting analysis for file: utf8_games/twic1358.pgn
+2024-10-21 01:46:10,522 - INFO - Starting analysis for file: utf8_games/twic1358.pgn
+2024-10-21 01:46:32,154 - INFO - Using 12 worker(s) for analysis.
+2024-10-21 01:46:32,154 - INFO - Analysing 4039 games.
+2024-10-21 04:15:27,180 - INFO - Analysis complete for file: utf8_games/twic1358.pgn. Results saved to Analyzed_Games\twic1358_16_analyzed.csv.
+2024-10-21 04:15:27,253 - INFO - Completed analysis for file: utf8_games/twic1358.pgn. Results saved to Analyzed_Games\twic1358_16_analyzed.csv.
+2024-10-21 04:15:27,253 - INFO - Starting analysis for file: utf8_games/twic1359.pgn
+2024-10-21 04:15:27,253 - INFO - Starting analysis for file: utf8_games/twic1359.pgn
+2024-10-21 04:15:55,881 - INFO - Using 12 worker(s) for analysis.
+2024-10-21 04:15:55,881 - INFO - Analysing 5195 games.
+2024-10-21 07:33:00,297 - INFO - Analysis complete for file: utf8_games/twic1359.pgn. Results saved to Analyzed_Games\twic1359_16_analyzed.csv.
+2024-10-21 07:33:00,394 - INFO - Completed analysis for file: utf8_games/twic1359.pgn. Results saved to Analyzed_Games\twic1359_16_analyzed.csv.
+2024-10-21 07:33:00,394 - INFO - Starting analysis for file: utf8_games/twic1360.pgn
+2024-10-21 07:33:00,395 - INFO - Starting analysis for file: utf8_games/twic1360.pgn
+2024-10-21 07:33:27,532 - INFO - Using 12 worker(s) for analysis.
+2024-10-21 07:33:27,533 - INFO - Analysing 5067 games.
+2024-10-21 10:41:20,168 - INFO - Analysis complete for file: utf8_games/twic1360.pgn. Results saved to Analyzed_Games\twic1360_16_analyzed.csv.
+2024-10-21 10:41:20,256 - INFO - Completed analysis for file: utf8_games/twic1360.pgn. Results saved to Analyzed_Games\twic1360_16_analyzed.csv.
+2024-10-21 10:41:20,258 - INFO - Starting analysis for file: utf8_games/twic1361.pgn
+2024-10-21 10:41:20,258 - INFO - Starting analysis for file: utf8_games/twic1361.pgn
+2024-10-21 10:41:48,499 - INFO - Using 12 worker(s) for analysis.
+2024-10-21 10:41:48,499 - INFO - Analysing 5193 games.
+2024-10-21 14:03:04,786 - INFO - Analysis complete for file: utf8_games/twic1361.pgn. Results saved to Analyzed_Games\twic1361_16_analyzed.csv.
+2024-10-21 14:03:04,875 - INFO - Completed analysis for file: utf8_games/twic1361.pgn. Results saved to Analyzed_Games\twic1361_16_analyzed.csv.
+2024-10-21 14:03:04,876 - INFO - Starting analysis for file: utf8_games/twic1362.pgn
+2024-10-21 14:03:04,876 - INFO - Starting analysis for file: utf8_games/twic1362.pgn
+2024-10-21 14:03:17,317 - INFO - Using 12 worker(s) for analysis.
+2024-10-21 14:03:17,317 - INFO - Analysing 2109 games.
+2024-10-21 15:25:24,107 - INFO - Analysis complete for file: utf8_games/twic1362.pgn. Results saved to Analyzed_Games\twic1362_16_analyzed.csv.
+2024-10-21 15:25:24,140 - INFO - Completed analysis for file: utf8_games/twic1362.pgn. Results saved to Analyzed_Games\twic1362_16_analyzed.csv.
+2024-10-21 15:25:24,141 - INFO - Starting analysis for file: utf8_games/twic1363.pgn
+2024-10-21 15:25:24,141 - INFO - Starting analysis for file: utf8_games/twic1363.pgn
+2024-10-21 15:26:17,392 - INFO - Using 12 worker(s) for analysis.
+2024-10-21 15:26:17,393 - INFO - Analysing 9772 games.
+2024-10-21 21:38:23,192 - INFO - Analysis complete for file: utf8_games/twic1363.pgn. Results saved to Analyzed_Games\twic1363_16_analyzed.csv.
+2024-10-21 21:38:23,377 - INFO - Completed analysis for file: utf8_games/twic1363.pgn. Results saved to Analyzed_Games\twic1363_16_analyzed.csv.
+2024-10-21 21:38:23,379 - INFO - Starting analysis for file: utf8_games/twic1364.pgn
+2024-10-21 21:38:23,379 - INFO - Starting analysis for file: utf8_games/twic1364.pgn
+2024-10-21 21:38:48,636 - INFO - Using 12 worker(s) for analysis.
+2024-10-21 21:38:48,636 - INFO - Analysing 4400 games.
+2024-10-22 00:43:54,232 - INFO - Analysis complete for file: utf8_games/twic1364.pgn. Results saved to Analyzed_Games\twic1364_16_analyzed.csv.
+2024-10-22 00:43:54,308 - INFO - Completed analysis for file: utf8_games/twic1364.pgn. Results saved to Analyzed_Games\twic1364_16_analyzed.csv.
+2024-10-22 00:43:54,309 - INFO - Starting analysis for file: utf8_games/twic1365.pgn
+2024-10-22 00:43:54,310 - INFO - Starting analysis for file: utf8_games/twic1365.pgn
+2024-10-22 00:44:28,064 - INFO - Using 12 worker(s) for analysis.
+2024-10-22 00:44:28,064 - INFO - Analysing 6020 games.
+2024-10-22 04:36:57,797 - INFO - Analysis complete for file: utf8_games/twic1365.pgn. Results saved to Analyzed_Games\twic1365_16_analyzed.csv.
+2024-10-22 04:36:57,901 - INFO - Completed analysis for file: utf8_games/twic1365.pgn. Results saved to Analyzed_Games\twic1365_16_analyzed.csv.
+2024-10-22 04:36:57,903 - INFO - Starting analysis for file: utf8_games/twic1366.pgn
+2024-10-22 04:36:57,903 - INFO - Starting analysis for file: utf8_games/twic1366.pgn
+2024-10-22 04:37:29,139 - INFO - Using 12 worker(s) for analysis.
+2024-10-22 04:37:29,139 - INFO - Analysing 6006 games.
+2024-10-22 08:01:27,749 - INFO - Analysis complete for file: utf8_games/twic1366.pgn. Results saved to Analyzed_Games\twic1366_16_analyzed.csv.
+2024-10-22 08:01:27,841 - INFO - Completed analysis for file: utf8_games/twic1366.pgn. Results saved to Analyzed_Games\twic1366_16_analyzed.csv.
+2024-10-22 08:01:27,841 - INFO - Starting analysis for file: utf8_games/twic1367.pgn
+2024-10-22 08:01:27,841 - INFO - Starting analysis for file: utf8_games/twic1367.pgn
+2024-10-22 08:01:50,988 - INFO - Using 12 worker(s) for analysis.
+2024-10-22 08:01:50,988 - INFO - Analysing 4218 games.
+2024-10-22 10:47:52,512 - INFO - Analysis complete for file: utf8_games/twic1367.pgn. Results saved to Analyzed_Games\twic1367_16_analyzed.csv.
+2024-10-22 10:47:52,582 - INFO - Completed analysis for file: utf8_games/twic1367.pgn. Results saved to Analyzed_Games\twic1367_16_analyzed.csv.
+2024-10-22 10:47:52,583 - INFO - Starting analysis for file: utf8_games/twic1368.pgn
+2024-10-22 10:47:52,583 - INFO - Starting analysis for file: utf8_games/twic1368.pgn
+2024-10-22 10:48:16,287 - INFO - Using 12 worker(s) for analysis.
+2024-10-22 10:48:16,287 - INFO - Analysing 4408 games.
+2024-10-22 13:35:20,134 - INFO - Analysis complete for file: utf8_games/twic1368.pgn. Results saved to Analyzed_Games\twic1368_16_analyzed.csv.
+2024-10-22 13:35:20,212 - INFO - Completed analysis for file: utf8_games/twic1368.pgn. Results saved to Analyzed_Games\twic1368_16_analyzed.csv.
+2024-10-22 13:35:20,212 - INFO - Starting analysis for file: utf8_games/twic1369.pgn
+2024-10-22 13:35:20,212 - INFO - Starting analysis for file: utf8_games/twic1369.pgn
+2024-10-22 13:35:39,986 - INFO - Using 12 worker(s) for analysis.
+2024-10-22 13:35:39,986 - INFO - Analysing 3361 games.
+2024-10-22 15:49:14,346 - INFO - Analysis complete for file: utf8_games/twic1369.pgn. Results saved to Analyzed_Games\twic1369_16_analyzed.csv.
+2024-10-22 15:49:14,402 - INFO - Completed analysis for file: utf8_games/twic1369.pgn. Results saved to Analyzed_Games\twic1369_16_analyzed.csv.
+2024-10-22 15:49:14,402 - INFO - Starting analysis for file: utf8_games/twic1370.pgn
+2024-10-22 15:49:14,403 - INFO - Starting analysis for file: utf8_games/twic1370.pgn
+2024-10-22 15:49:44,574 - INFO - Using 12 worker(s) for analysis.
+2024-10-22 15:49:44,574 - INFO - Analysing 5511 games.
+2024-10-22 19:20:50,856 - INFO - Analysis complete for file: utf8_games/twic1370.pgn. Results saved to Analyzed_Games\twic1370_16_analyzed.csv.
+2024-10-22 19:20:50,963 - INFO - Completed analysis for file: utf8_games/twic1370.pgn. Results saved to Analyzed_Games\twic1370_16_analyzed.csv.
+2024-10-22 19:20:50,965 - INFO - Starting analysis for file: utf8_games/twic1371.pgn
+2024-10-22 19:20:50,965 - INFO - Starting analysis for file: utf8_games/twic1371.pgn
+2024-10-22 19:21:30,795 - INFO - Using 12 worker(s) for analysis.
+2024-10-22 19:21:30,795 - INFO - Analysing 7377 games.
