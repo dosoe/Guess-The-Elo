@@ -74,7 +74,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
         return
 
     # Determine the number of worker processes
-    max_workers = 10  # Use the number of CPU cores
+    max_workers = 20  # Use the number of CPU cores
 
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
@@ -235,7 +235,7 @@ if __name__ == "__main__":
         exit(1)
     
     # Define the list of specific PGN files directly
-    specific_pgn_files = [f"../utf8_games/twic{num}.pgn" for num in range(1201, 1300 + 1)]
+    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1357, 1400 + 1)]
     #specific_pgn_files = ["utf8_games/example20.pgn"]
     
     # Specify the output directory for analyzed CSV files
@@ -243,7 +243,6 @@ if __name__ == "__main__":
     
     # Specify the depth for Stockfish analysis
     analysis_depth = 16  # Adjust based on your requirements and system capabilities
-    analysis_depth = 15  # Adjust based on your requirements and system capabilities
     
     # Start processing specific PGN files
     process_specific_pgn_files(
