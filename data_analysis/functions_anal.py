@@ -57,6 +57,13 @@ def MovesBlack(game):
             mv+=1.
     return {'MovesBlack':mv}
 
+def MovesWhite(game):
+    mv=0
+    for i in range(len(game['Move'])):
+        if i%2==0:
+            mv+=1.
+    return {'MovesWhite':mv}
+
 def NmoveMove(game,additional_inputs):
     """
     Example of function with additional arguments
@@ -81,7 +88,7 @@ def Cleanup(game):
     """
     if game['Result']=='*':
         return None
-    if len(game['Move'])<15:
+    if len(game['Move'])<15 and game['Result']=='1/2-1/2':
         return None
     else:
         return {}
