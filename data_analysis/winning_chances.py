@@ -18,6 +18,8 @@ def get_outcome(game): # convert outcome string into index
 # bin moves in blocks of 5
 bin_moves=5
 file_save='../Analyzed_Games/winning_chances_per_move_'+str(bin_moves)+'.pkl'
+# make bins for evaluations
+bins=np.arange(-20,20.1,0.1)
 
 # go through all games to get winning chances for each evaluation and move
 files=sorted(glob.glob("../Analyzed_Games/twic*_1[56]_analyzed.csv"))
@@ -37,9 +39,6 @@ else:
     # bin moves in blocks
     max_moves=max_moves//bin_moves
 
-    # make bins for evaluations
-    bins=np.arange(-20,20.1,0.1)
-    suffix='_winningchance'
 
     # make array for winning chances
     winchance_array=np.zeros((3,len(bins)+2,int(max_moves)+1)) # +2 to account for values out of bounds, +1 for moves that are bigger than max_moves//5 * 5 
