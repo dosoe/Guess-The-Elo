@@ -20,7 +20,7 @@ bin_moves=5
 file_save='../Analyzed_Games/winning_chances_per_move_'+str(bin_moves)+'.pkl'
 
 # go through all games to get winning chances for each evaluation and move
-files=sorted(glob.glob("../Analyzed_Games/twic*_1[56]_analyzed.csv"))[:10]
+files=sorted(glob.glob("../Analyzed_Games/twic*_1[56]_analyzed.csv"))
 
 if os.path.isfile(file_save):
     # Open the file in binary mode 
