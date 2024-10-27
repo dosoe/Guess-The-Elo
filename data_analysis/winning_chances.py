@@ -14,6 +14,28 @@ def get_outcome(game): # convert outcome string into index
         return 1   # Draw
     else:
         return None     # Exclude other results
+
+def smooth_lines(count_games,bins):
+
+    nonzerolines=np.where((count_games[1:-2]>100))
+    # print(nonzerolines)
+    zerolines=np.where((count_games[1:-2]<=100))
+    
+    # print(zerolines)
+    # print(bins[zerolines])
+    if len(zerolines[0])>0 and len(nonzerolines[0])>0:
+        for j in range(3):
+            # print(len(zerolines), len(nonzerolines))
+            # print(bins[1:][nonzerolines],winchance_array[j,1:-2,i][nonzerolines])
+            # print(bins[1:])
+            winchance_array[j,1:-2]=np.interp(bins[1:],bins[1:][nonzerolines],winchance_array[j,1:-2][nonzerolines]) 
+        winchance_array[:,0]=winchance_array[:,1]
+        winchance_array[:,-1]=winchance_array[:,-2]
+    
+    if len(nonzerolines[0])==0:
+        winchance_array[:,:]=1./3.
+    
+    return winchance_array
     
 def get_winning_chance(game,inputs): # make function that gives winning chance for each move using the array created previously
     winchance_array=inputs['winchance_array']
@@ -27,7 +49,7 @@ if __name__ == "__main__":
     file_prefix='../Analyzed_Games/winning_chances_per_move_'+str(bin_moves)+'_'
     file_suffix='.csv'
     # make bins for evaluations
-    bins=np.arange(-20,20.1,0.1)
+    bins=np.arange(-20.05,20.15,0.1)
 
     # go through all games to get winning chances for each evaluation and move
     files=sorted(glob.glob("../Analyzed_Games/twic*_1[56]_analyzed.csv"))
@@ -72,29 +94,16 @@ if __name__ == "__main__":
         winchance_array[i,:,:]=np.divide(winchance_array[i,:,:],count_games)
     
     for i in range(int(max_moves)+1):
-        nonzerolines=np.where((count_games[1:-2,i]>100))
-        # print(nonzerolines)
-        zerolines=np.where((count_games[1:-2,i]<=100))
+
+        out_line=winchance_array[:,:,i]
+        # out_line=smooth_lines(winchance_array[:,:,i],bins)
         
-        # print(zerolines)
-        # print(bins[zerolines])
-        if len(zerolines[0])>0 and len(nonzerolines[0])>0:
-            for j in range(3):
-                # print(len(zerolines), len(nonzerolines))
-                # print(bins[1:][nonzerolines],winchance_array[j,1:-2,i][nonzerolines])
-                # print(bins[1:])
-                winchance_array[j,1:-2,i]=np.interp(bins[1:],bins[1:][nonzerolines],winchance_array[j,1:-2,i][nonzerolines]) 
-            winchance_array[:,0,i]=winchance_array[:,1,i]
-            winchance_array[:,-1,i]=winchance_array[:,-2,i]
-        
-        if len(nonzerolines[0])==0:
-            winchance_array[:,:,i]=1./3.
         bins_new=bins.tolist()
         bins_new.insert(0,'-20-')
         bins_new.append('20+')
-        data=pd.DataFrame({'bins':bins_new,'WinningChance':winchance_array[0,:,i],
-                            'DrawChance':winchance_array[1,:,i],
-                            'LosingChance':winchance_array[2,:,i],
+        data=pd.DataFrame({'bins':bins_new,'WinningChance':out_line[0,:],
+                            'DrawChance':out_line[1,:],
+                            'LosingChance':out_line[2,:],
                             'TotalGames':count_games[:,i]})
         data=data[['bins','WinningChance','DrawChance','LosingChance','TotalGames']]
         data.to_csv(file_prefix+str(i)+file_suffix,index=False)
