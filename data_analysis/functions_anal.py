@@ -12,7 +12,7 @@ game['WhiteFideId']
 game['BlackFideId']
 game['Year']
 game['Opening']
-game['Variation']
+game['Variation']g
 game['Result']
 game['Move']
 game["Evaluation"]
