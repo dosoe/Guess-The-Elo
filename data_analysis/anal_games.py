@@ -26,99 +26,105 @@ def convert_evaluation(eval_str):
         except ValueError:
             return None  # Unable to parse evaluation
 
-def read_game(data,ind,functions=[],game_wise=True):
+def read_game(data, ind, functions=[], game_wise=True):
     """
     df: csv that contains the games
     ind: the line we are in right now
     functions: a list of functions to be applied on the game
     return:
     ind: The index of the line we ended on
-    game: a dictionary of the game preperties, including the result of functions
+    game: a dictionary of the game properties, including the result of functions
     None if the game is not valid. This happens
     either because one of the players doesn't have a fide id (it's a bot)
     or because the game has no moves
-    game_wise: are the outputs game-wise, i e one value per game, or move-wise i e one value per move
+    game_wise: are the outputs game-wise, i.e., one value per game, or move-wise, i.e., one value per move
 
-    Takes functions as input, these will be applied to each game if game_wise=True 
+    Takes functions as input; these will be applied to each game if game_wise=True 
     or to each move if game_wise=False
 
     Examples can be found in functions_anal.py
     Function outputs are stored in 
     game[function_name] (fetched with function.__name__)
     """
-    game={}
-    gameid=data.loc[ind,"GameID"]
-    game_used=True
-    try: # reject games with no Fide ID for black or white
-        if np.isnan(float(data.loc[ind,"WhiteFideId"])) or np.isnan(float(data.loc[ind,"BlackFideId"])):
-            game_used=False
-    except ValueError: # reject games where the file does not have FideIDs
-        game_used=False
-    if game_used: # read game metadata
-        game['GameID']=data.loc[ind,"GameID"]
-        game['WhiteName']=data.loc[ind,"WhiteName"]
-        game['BlackName']=data.loc[ind,"BlackName"]
-        game['WhiteElo']=data.loc[ind,"WhiteElo"]
-        game['BlackElo']=data.loc[ind,"BlackElo"]
-        game['LineStart']=ind
+    game = {}
+    gameid = data.loc[ind, "GameID"]
+    game_used = True
+    try:  # reject games with no Fide ID for black or white
+        if np.isnan(float(data.loc[ind, "WhiteFideId"])) or np.isnan(float(data.loc[ind, "BlackFideId"])):
+            game_used = False
+    except ValueError:  # reject games where the file does not have FideIDs
+        game_used = False
+    if game_used:  # read game metadata
+        game['GameID'] = data.loc[ind, "GameID"]
+        game['WhiteName'] = data.loc[ind, "WhiteName"]
+        game['BlackName'] = data.loc[ind, "BlackName"]
+        game['WhiteElo'] = data.loc[ind, "WhiteElo"]
+        game['BlackElo'] = data.loc[ind, "BlackElo"]
+        game['LineStart'] = ind
         try:
-            game['WhiteFideId']=int(data.loc[ind,"WhiteFideId"])
-            game['BlackFideId']=int(data.loc[ind,"BlackFideId"])
+            game['WhiteFideId'] = int(data.loc[ind, "WhiteFideId"])
+            game['BlackFideId'] = int(data.loc[ind, "BlackFideId"])
         except:
-            game_used=False
-        game['Year']=data.loc[ind,"Year"]
-        game['Opening']=data.loc[ind,"Opening"]
-        game['Variation']=data.loc[ind,"Variation"]
-        game['Result']=data.loc[ind,"Result"]
-        if game['Result']=='*':
-            game_used=False
-        game_moves=[]
-        game_evals=[]
+            game_used = False
+        game['Year'] = data.loc[ind, "Year"]
+        game['Opening'] = data.loc[ind, "Opening"]
+        game['Variation'] = data.loc[ind, "Variation"]
+        game['Result'] = data.loc[ind, "Result"]
+        if game['Result'] == '*':
+            game_used = False
+        game_moves = []
+        game_evals_original = []
+        game_evals_converted = []
 
-    while ind<len(data) and data.loc[ind,"GameID"]==gameid: # read game moves      
+    while ind < len(data) and data.loc[ind, "GameID"] == gameid:  # read game moves
         if game_used:
-            game_moves.append(data.loc[ind,"Move"])
-            new_eval=convert_evaluation(data.loc[ind,"Evaluation"])
-            game_evals.append(new_eval)
+            game_moves.append(data.loc[ind, "Move"])
+            eval_orig = data.loc[ind, "Evaluation"]
+            game_evals_original.append(eval_orig)
+            new_eval = convert_evaluation(eval_orig)
+            game_evals_converted.append(new_eval)
             if new_eval is None:
-                game_used=False
-            
-        ind+=1
-    
+                game_used = False
+
+        ind += 1
+
     if game_used:
-        game['Move']=game_moves
-        game["Evaluation"]=game_evals
-        for function in functions: # apply functions to games
-            if callable(function): # function is actually a function
-                out_tmp=function(game)
-            else: # function is a tuple containing the function and a dictionary containing additional inputs
-                out_tmp=function[0](game,function[1])
-            if out_tmp is None: # if output is None, game is rejected
-                game_used=False
+        game['Move'] = game_moves
+        game['Old_Evaluation'] = game_evals_original
+        game['Evaluation'] = game_evals_converted  # New evaluations are now in 'Evaluation'
+        for function in functions:  # apply functions to games
+            if callable(function):  # function is actually a function
+                out_tmp = function(game)
+            else:  # function is a tuple containing the function and a dictionary containing additional inputs
+                out_tmp = function[0](game, function[1])
+            if out_tmp is None:  # if output is None, game is rejected
+                game_used = False
                 continue
-            for key in out_tmp: # put outputs of functions to games
-                game[key]=out_tmp[key]
+            for key in out_tmp:  # put outputs of functions to games
+                game[key] = out_tmp[key]
         if game_wise:
             del game['Move']
             del game['Evaluation']
-        
-        game['LineEnd']=ind
+            del game['Old_Evaluation']
+
+        game['LineEnd'] = ind
     if game_used:
         if game_wise:
-            return ind,game
+            return ind, game
         else:
-            out={}
+            out = {}
             for key in game:
-                if key in ['WhiteName','BlackName','WhiteElo','BlackElo','WhiteFideId','BlackFideId','Year','Opening','Variation','Result','LineStart','LineEnd']:
-                    out[key]=[game[key]]+(len(game['Move'])-1)*['']
+                if key in ['WhiteName', 'BlackName', 'WhiteElo', 'BlackElo', 'WhiteFideId', 'BlackFideId', 'Year', 'Opening', 'Variation', 'Result', 'LineStart', 'LineEnd']:
+                    out[key] = [game[key]] + (len(game['Move']) - 1) * ['']
                 else:
-                    out[key]=game[key]
-            out['GameID']=(len(game['Move']))*[game['GameID']]
-            out['MoveNumber']=list(range(1,len(game['Move'])+1))
+                    out[key] = game[key]
+            out['GameID'] = (len(game['Move'])) * [game['GameID']]
+            out['MoveNumber'] = list(range(1, len(game['Move']) + 1))
 
-            return ind,out
+            return ind, out
     else:
-        return ind,None
+        return ind, None
+
 
 def process_one_file(filename,functions=[],game_wise=True):
     """
