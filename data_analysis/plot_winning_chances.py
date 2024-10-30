@@ -6,7 +6,7 @@ import matplotlib as mpl
 # supposes you ran winning_chances.py beforehand with 5 move bins. Else you need to adapt it a little, nothing difficult
 datas=[]
 for i in range(125):
-    datas.append(pd.read_csv('../Analyzed_Games/winning_chances_per_move_5_'+str(i)+'.csv'))
+    datas.append(pd.read_csv('../Analyzed_Games/winning_chances_per_move_5_001_'+str(i)+'.csv'))
 
 num_games=[]
 for i in range(125):

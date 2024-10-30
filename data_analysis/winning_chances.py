@@ -46,10 +46,10 @@ def get_winning_chance(game,inputs): # make function that gives winning chance f
 if __name__ == "__main__":
     # bin moves in blocks of 5
     bin_moves=5
-    file_prefix='../Analyzed_Games/winning_chances_per_move_'+str(bin_moves)+'_'
+    file_prefix='../Analyzed_Games/winning_chances_per_move_'+str(bin_moves)+'_001_'
     file_suffix='.csv'
     # make bins for evaluations
-    bins=np.arange(-20.05,20.15,0.1)
+    bins=np.arange(-20.005,20.015,0.01)
 
     # go through all games to get winning chances for each evaluation and move
     files=sorted(glob.glob("../Analyzed_Games/twic*_1[56]_analyzed.csv"))
