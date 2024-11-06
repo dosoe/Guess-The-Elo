@@ -88,7 +88,11 @@ def read_game(data, ind, functions=[], game_wise=True):
 
         ind += 1
 
+    if game_used and len(game_moves)==0:
+        game_used=False
+
     if game_used:
+        
         game['Move'] = game_moves
         game['Old_Evaluation'] = game_evals_original
         game['Evaluation'] = game_evals_converted  # New evaluations are now in 'Evaluation'
@@ -147,28 +151,42 @@ def process_one_file(filename,functions=[],game_wise=True):
         print(filename,'has no fide ids')
         return
     ind=0
+
+    output=pd.DataFrame()
     while ind<len(data):
         # reads game and returns index of last line of the game (empty line)
         ind,game=read_game(data,ind,functions=functions,game_wise=game_wise)
         ind+=1
-        # puts output of read_game in a dictionary that will be converted into csv at the end
         if game:
             if game_wise:
-                games['File'].append(filename)
-            for key in game:
-                if key in games:
-                    if game_wise:
-                        games[key].append(game[key])
-                    else:
-                        games[key].extend(game[key])
-                        games[key].append('')
-                else:
-                    if game_wise:
-                        games[key]=[game[key]]
-                    else: 
-                        games[key]=game[key]
-                        games[key].append('')
-    return pd.DataFrame(games)
+                game['File']=filename
+                game_df=pd.DataFrame([game])
+                output = pd.concat([output, game_df], ignore_index=True)
+            else:
+                for key in game:
+                    game[key].append('')
+                    # print(game[key])
+                game_df=pd.DataFrame.from_dict(game)
+                output = pd.concat([output, game_df], ignore_index=True)
+        # puts output of read_game in a dictionary that will be converted into csv at the end
+        # if game:
+        #     if game_wise:
+        #         games['File'].append(filename)
+        #     for key in game:
+        #         if key in games:
+        #             if game_wise:
+        #                 games[key].append(game[key])
+        #             else:
+        #                 games[key].extend(game[key])
+        #                 games[key].append('')
+        #         else:
+        #             if game_wise:
+        #                 games[key]=[game[key]]
+        #             else: 
+        #                 games[key]=game[key]
+        #                 games[key].append('')
+    # return pd.DataFrame(games)
+    return output
 
 def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,game_wise=True):
     """
