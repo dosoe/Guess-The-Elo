@@ -205,6 +205,8 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,g
     if os.path.isfile(outfile) and skip_if_processed:
         found=True
         df=pd.read_csv(outfile)
+    else:
+        df=pd.DataFrame()
     
     for i,file in enumerate(filenames):
         if found and file in df['File'].values and skip_if_processed:
@@ -220,6 +222,7 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,g
                 found=True
             if i%20==0:
                 df.to_csv(outfile,index=False)
+                
     df.to_csv(outfile,index=False)
     
     return
