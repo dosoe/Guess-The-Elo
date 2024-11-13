@@ -10,12 +10,15 @@ from sklearn.metrics import root_mean_squared_error
 moves=np.arange(0,700,10)
 lmoves=len(moves)-1
 
+# skip first 5 moves for each player
+
 for i_moves in range(lmoves):
 
     if os.path.isfile('WCL_'+str(moves[i_moves])+'_'+str(moves[i_moves+1])+'.csv'):
         data=pd.read_csv('WCL_'+str(moves[i_moves])+'_'+str(moves[i_moves+1])+'.csv')
     else:
         continue
+    print(moves[i_moves])
 
     data[["WhiteElo", "BlackElo"]] = data[["WhiteElo", "BlackElo"]].apply(pd.to_numeric)
 
