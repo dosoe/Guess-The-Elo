@@ -12,7 +12,7 @@ game['WhiteFideId']
 game['BlackFideId']
 game['Year']
 game['Opening']
-game['Variation']g
+game['Variation']
 game['Result']
 game['Move']
 game["Evaluation"]
@@ -68,6 +68,9 @@ def MovesWhite(game):
             mv+=1.
     return {'MovesWhite':mv}
 
+def MovesTotal(game):
+    return {'MovesAll':len(game['Move'])}
+
 def NmoveMove(game,additional_inputs):
     """
     Example of function with additional arguments
@@ -93,6 +96,8 @@ def Cleanup(game):
     if game['Result']=='*':
         return None
     if len(game['Move'])<15 and game['Result']=='1/2-1/2':
+        return None
+    if np.isnan(game['WhiteElo']) or np.isnan(game['BlackElo']):
         return None
     else:
         return {}
@@ -165,7 +170,7 @@ def WinChanceIncrease(game,additional_inputs):
 
     out={}
     out['white_WCL_'+str(0)]=0.
-    for i in range(1,num_moves):
+    for i in range(1,num_moves): # we want to shift it by one because the first move has a wcl=0.
         if i%2==0:
             if i==0:
                 continue
