@@ -15,7 +15,7 @@ for i in range(len(mistake_bins)-1):
 for i in range(0,600,5):
 
     # read wcl tables
-    file='../Cleaned_Analyzed_Games/wcl_train_'+str(i)+'-'+str(i+5)+'_by_player.csv'
+    file='../Cleaned_Analyzed_Games/wcl_train_all_'+str(i)+'-'+str(i+5)+'_by_player.csv'
     print(file)
     df=pd.read_csv(file)
 
@@ -23,7 +23,7 @@ for i in range(0,600,5):
     for label in mistake_labels:
         df[label]=0
 
-    for j in range(3,(i+5)//2): # look at moves from 0 to the end (could be changed easily)
+    for j in range(move_start,(i+5)//2): # look at moves from 0 to the end (could be changed easily)
         
         # get max of wcl and lcl
         df['a']=df[['LCL_'+str(j),'WCL_'+str(j)]].max(axis=1,skipna=False)
@@ -40,6 +40,6 @@ for i in range(0,600,5):
         df.drop(columns=['a'])
 
     # save output in new file
-    df.to_csv('../Cleaned_Analyzed_Games/wcl_and_mistakes_train_'+str(i)+'-'+str(i+5)+'_by_player.csv',index=False)
+    df.to_csv('../Cleaned_Analyzed_Games/wcl_and_mistakes_train_all_'+str(i)+'-'+str(i+5)+'_by_player.csv',index=False)
         
 

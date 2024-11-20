@@ -5,7 +5,7 @@ import numpy as np
 
 df=pd.read_csv('../Cleaned_Analyzed_Games/all_games_cleaned_train.csv')
 
-process_by_move=False
+process_by_move=True
 
 
 if process_by_move:
@@ -25,6 +25,9 @@ if process_by_move:
         df_moves=df.where(df['MovesAll']>=i)
         df_moves=df_moves.where(df['MovesAll']<i+5)
         df_moves.dropna(how='any',inplace=True)
+
+        if df_moves.shape[0]==0:
+            continue
 
         # get win chance loss table
         anal_games.process_game_list('../Cleaned_Analyzed_Games/wcl_train_'+str(i)+'-'+str(i+5)+'.csv',df_moves,functions=[(winning_chances_util.WinChanceIncrease,wc_tables)],skip_if_processed=True,game_wise=True)
@@ -84,6 +87,10 @@ if not process_by_move: # same for global winning chance tables (winning chances
         df_moves=df.where(df['MovesAll']>=i)
         df_moves=df_moves.where(df['MovesAll']<i+5)
         df_moves.dropna(how='any',inplace=True)
+
+        if df_moves.shape[0]==0:
+            continue
+
         anal_games.process_game_list('../Cleaned_Analyzed_Games/wcl_train_all_'+str(i)+'-'+str(i+5)+'.csv',df_moves,functions=[(winning_chances_util.WinChanceIncrease,wc_tables)],skip_if_processed=True,game_wise=True)
 
         print('../Cleaned_Analyzed_Games/wcl_train_all_'+str(i)+'-'+str(i+5)+'.csv')
