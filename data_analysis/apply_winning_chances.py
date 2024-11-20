@@ -4,7 +4,6 @@ import glob, os
 import pandas as pd
 import numpy as np
 
-
 def assemble_csvs_to_numpy(prefix,suffix,bin_moves):
     file_prefix=prefix
     file_suffix=suffix
