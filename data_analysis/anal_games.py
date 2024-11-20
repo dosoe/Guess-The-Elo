@@ -97,6 +97,7 @@ def read_game(data, ind, functions=[], game_wise=True):
         game['Old_Evaluation'] = game_evals_original
         game['Evaluation'] = game_evals_converted  # New evaluations are now in 'Evaluation'
         for function in functions:  # apply functions to games
+            # print(function)
             if callable(function):  # function is actually a function
                 out_tmp = function(game)
             else:  # function is a tuple containing the function and a dictionary containing additional inputs
@@ -205,6 +206,8 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,g
     if os.path.isfile(outfile) and skip_if_processed:
         found=True
         df=pd.read_csv(outfile)
+    else:
+        df=pd.DataFrame()
     
     for i,file in enumerate(filenames):
         if found and file in df['File'].values and skip_if_processed:
@@ -220,7 +223,64 @@ def process_all_files(outfile,filenames=[],functions=[],skip_if_processed=True,g
                 found=True
             if i%20==0:
                 df.to_csv(outfile,index=False)
+                
     df.to_csv(outfile,index=False)
+    
+    return
+
+def process_game_list(outfile,df_in,functions=[],skip_if_processed=True,game_wise=True):
+    """
+    Processes all games in a list, saves results in outfile as csv
+    inputs:
+    outfile: name of the file to store all the outputs
+    df_in: dataframe of games to process
+    functions: List of functions to apply to the games, wiht their arguments eventually
+    skip_if_processed: if True and outfile already exists, skips a file if already processed
+
+    good to process files game-wise and concatenate all outputs into one big file
+    outputs: 
+    None
+    """
+
+    if os.path.isfile(outfile) and skip_if_processed:
+        found=True
+        output=pd.read_csv(outfile)
+    else:
+        found=False
+        output=pd.DataFrame()
+    i_file=0
+    for file in df_in['File'].unique(): # loop over files
+        if found and file in output['File'].values and skip_if_processed:
+            continue
+        print(file)
+        data=pd.read_csv(file)
+        df_file=df_in.where(df_in['File']==file) # check which training games are in that file
+        df_file.dropna(how='any',inplace=True)
+        for line in df_file.iterrows(): # loop over games in training set from that file
+            data_line=line[1]
+            file=data_line['File']
+            ind=data_line['LineStart'] # starting line for the game
+            assert data.loc[ind, "GameID"]==data_line['GameID'] # sanity checks
+            assert not np.isnan(data.loc[ind, "WhiteElo"]) # sanity checks
+            ind,game=read_game(data,ind,functions=functions,game_wise=game_wise) # reads a game, rejects it if invalid, outputs a game dictionary
+            if game:
+                if game_wise:
+                    game['File']=file
+                    game_df=pd.DataFrame([game])
+                    output = pd.concat([output, game_df], ignore_index=True)
+                else:
+                    for key in game:
+                        game[key].append('')
+                        # print(game[key])
+                    game_df=pd.DataFrame.from_dict(game)
+                    output = pd.concat([output, game_df], ignore_index=True)
+
+        if i_file%20==0 and output.shape[0]>0:
+            output.to_csv(outfile,index=False)
+        i_file+=1
+                
+    if output.shape[0]>0:
+        output.to_csv(outfile,index=False)
     
     return
 
