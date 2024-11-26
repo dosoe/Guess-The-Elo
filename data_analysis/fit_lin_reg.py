@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import root_mean_squared_error
 
-moves=np.arange(0,700,10)
+moves=np.arange(60,80,10)
 lmoves=len(moves)-1
 
 # skip first 5 moves for each player
@@ -59,10 +59,26 @@ for i_moves in range(lmoves):
     residuals_black=data_test['BlackElo']-elo_pred_black
     print('RMS Black ', root_mean_squared_error(data_test['BlackElo'], elo_pred_black))
 
+    player_games=  data_test[(data_test['BlackElo'] >= 1400) & (data_test['BlackElo'] <= 1500)]
+
+    player_games = player_games.head(20)
+
+    out=lr_black.predict(player_games[features_black])
+
+    print(out)
+
     plt.figure()
     plt.scatter(elo_pred_white,residuals_white,label='White',s=.1)
     plt.scatter(elo_pred_black,residuals_black,label='Black',s=.1)
     plt.legend()
     plt.xlim([1750,2500])
     plt.savefig('Residuals_vs_predicted_'+str(moves[i_moves])+'_'+str(moves[i_moves+1])+'.png')
+
+    plt.figure()
+    plt.scatter(elo_pred_white,data_test['WhiteElo'],label='White',s=.1)
+    plt.scatter(elo_pred_black,data_test['BlackElo'],label='Black',s=.1)
+    plt.plot([1000,3000],[1000,3000])
+    plt.legend()
+    plt.xlim([1750,2500])
+    plt.savefig('true_vs_predicted_'+str(moves[i_moves])+'_'+str(moves[i_moves+1])+'.png')
     # plt.show()

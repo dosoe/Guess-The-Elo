@@ -177,7 +177,7 @@ if __name__ == "__main__":
         data=data[['bins','WinningChance','DrawChance','LosingChance','TotalGames']]
         data.to_csv(file_prefix+str(i)+file_suffix,index=False)
 
-def compute_winning_chance_table(game_list, intervals=np.arange(-13, 13.2, 0.2),movebins=np.arange(0,700,5),outdir='./'):
+def compute_winning_chance_table(game_list, intervals=np.arange(-13, 13.2, 0.2),movebins=np.arange(0,700,5),outdir='./',smooth=True):
     """
     Compute winning, drawing, and losing chances over specified evaluation intervals.
 
@@ -224,7 +224,7 @@ def compute_winning_chance_table(game_list, intervals=np.arange(-13, 13.2, 0.2),
                 if allbins:
                     move_bin=0
                 else:
-                    move_bin=np.digitize(j,bins=movebins)-1
+                    move_bin=np.digitize(j,bins=movebins)-1 # no negative moves
                 
                 # increment winchance, counter
                 winchance_array[get_outcome_num(game['Result']),i_bin,move_bin]+=1
@@ -251,7 +251,8 @@ def compute_winning_chance_table(game_list, intervals=np.arange(-13, 13.2, 0.2),
     # for each move bin, create a dataframe and save it
     if allbins: # if only one move bin
         out_line=winchance_array[:,:,0]
-        out_line=smooth_lines(winchance_array[:,:,0],count_games[:,0],intervals) # smooth win chance array to give values to evaluations where we don't have enough games
+        if smooth:
+            out_line=smooth_lines(winchance_array[:,:,0],count_games[:,0],intervals) # smooth win chance array to give values to evaluations where we don't have enough games
         
         # transform output into DataFrame and save
         data=pd.DataFrame({'Interval':bin_labels,'WinningChance':out_line[0,:],
@@ -263,10 +264,11 @@ def compute_winning_chance_table(game_list, intervals=np.arange(-13, 13.2, 0.2),
         data.to_csv(os.path.join(outdir,'winning_chances_all.csv'),index=False)
 
     else: # if several move bins
-        for i in range(len(movebins)-1): # store win chance array
+        for i in range(len(movebins)): # store win chance array
 
             out_line=winchance_array[:,:,i]
-            out_line=smooth_lines(winchance_array[:,:,i],count_games[:,i],intervals) # smooth win chance array to give values to evaluations where we don't have enough games
+            if smooth:
+                out_line=smooth_lines(winchance_array[:,:,i],count_games[:,i],intervals) # smooth win chance array to give values to evaluations where we don't have enough games
             
             # transform output into DataFrame and save
             data=pd.DataFrame({'Interval':bin_labels,'WinningChance':out_line[0,:],
@@ -275,7 +277,10 @@ def compute_winning_chance_table(game_list, intervals=np.arange(-13, 13.2, 0.2),
                                 'TotalGames':count_games[:,i]})
             results.append(data)
 
-            data.to_csv(os.path.join(outdir,'winning_chances_'+str(movebins[i])+'-'+str(movebins[i+1])+'.csv'),index=False)
+            if i <len(movebins)-1:
+                data.to_csv(os.path.join(outdir,'winning_chances_'+str(movebins[i])+'-'+str(movebins[i+1])+'.csv'),index=False)
+            else:
+                data.to_csv(os.path.join(outdir,'winning_chances_'+str(movebins[i])+'-.csv'),index=False)
 
     return results
 
@@ -289,7 +294,6 @@ def read_winning_tables(dir,movebins):
     Outputs: 
     additional_inputs: dictionary that can be used by WinCHanceIncrease
     """
-
 
     winchances={}
     bins_moves=[]
@@ -307,6 +311,7 @@ def read_winning_tables(dir,movebins):
     else: 
         for i in range(len(movebins)-1):
             files.append(os.path.join(dir,'winning_chances_'+str(movebins[i])+'-'+str(movebins[i+1])+'.csv'))
+        files.append(os.path.join(dir,'winning_chances_'+str(movebins[-1])+'-.csv')) #more moves than the max bin
     
     
     for i,file in enumerate(files):
@@ -314,11 +319,10 @@ def read_winning_tables(dir,movebins):
 
         # recover bins from filenames, should be same as input
         if type(movebins)==str and movebins=='all':
-            num_moves_end=100000
+            num_moves_start=0
         else:
             num_moves_start=int(filename.split('_')[-1].split('-')[0])
-            num_moves_end=int(filename.split('_')[-1].split('-')[1])
-        bins_moves.append(num_moves_end+1)
+        bins_moves.append(num_moves_start)
         data=pd.read_csv(file)
         if i==0:
 
@@ -334,9 +338,6 @@ def read_winning_tables(dir,movebins):
 
     # order numpy arrays by move bins
     bins_moves, winchances, losechances, drawchances=(list(t) for t in zip(*sorted(zip(bins_moves, winchances, losechances, drawchances))))
-
-    bins_moves.insert(0,0)
-    assert len(winchances[0])==len(bins_eval)+1
 
     bins_moves=np.array(bins_moves)
     winchances=np.array(winchances)
@@ -379,7 +380,7 @@ def WinChanceIncrease(game,additional_inputs):
         if one_bin: # bin move
             i_move=0
         else:
-            i_move=np.digitize(i,bins=bins_moves)-1 # annoying shift by 1 because first move has no evaluation
+            i_move=np.digitize(i,bins=bins_moves)-1 # annoying shift by 1 because moves start at 0
         
         winchance[i]=winchances[i_move,i_eval]
         losechance[i]=losechances[i_move,i_eval]
