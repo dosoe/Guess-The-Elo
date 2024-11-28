@@ -395,7 +395,8 @@ def create_summary_table(df, mistake_bins= [5, 10, 15, 20, 25, 30, 35, 40, 50, 6
     mistake_moves = df.dropna(subset=['MistakeInterval']).copy()
     mistake_moves['MistakeInterval'] = mistake_moves['MistakeInterval'].astype(str)
     mistake_counts = mistake_moves.groupby(['GameID', 'Player', 'MistakeInterval']).size().reset_index(name='MistakeCount')
-
+    average_a = df.groupby(['GameID', 'Player'])['a'].mean().reset_index(name='AWCL')
+    
     # Step 5: Pivot the data to get a summary table per game and player
     summary_table = mistake_counts.pivot_table(
         index=['GameID', 'Player'],
@@ -403,7 +404,7 @@ def create_summary_table(df, mistake_bins= [5, 10, 15, 20, 25, 30, 35, 40, 50, 6
         values='MistakeCount',
         fill_value=0
     ).reset_index()
-
+    summary_table = summary_table.merge(average_a, on=['GameID', 'Player'], how='left')
     # Flatten the column MultiIndex if necessary
     summary_table.columns.name = None
     summary_table.columns = [col if isinstance(col, str) else col for col in summary_table.columns]
@@ -473,7 +474,8 @@ def create_summary_table(df, mistake_bins= [5, 10, 15, 20, 25, 30, 35, 40, 50, 6
         include_lowest=True
     )
     # Rearranging columns for better readability
-    cols = ['GameID', 'Player', 'Name', 'Elo', 'FideId', 'Opening', 'Variation', 'Result', 'TotalMoves', 'TotalMovesInterval'] + mistake_labels
+    cols = ['GameID', 'Player', 'Name', 'Elo', 'FideId', 'Opening', 'Variation', 'Result',
+        'TotalMoves', 'TotalMovesInterval', 'AWCL'] + mistake_labels
     summary_table = summary_table[cols]
 
     return summary_table
@@ -508,4 +510,3 @@ def calculate_mistake_percentage(summary_table, interval_label):
     return percentage
 
 
-        data.to_csv(file_prefix+str(i*bin_moves)+'_'+str((i+1)*bin_moves)+file_suffix,index=False)
