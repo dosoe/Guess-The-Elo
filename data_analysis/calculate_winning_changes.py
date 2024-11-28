@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import glob, os
+import glob, os, sys
 import anal_games, functions_anal
 import pickle, re
 from sklearn.model_selection import train_test_split
@@ -21,9 +21,18 @@ for file in filenames_15:
 outfile='../Cleaned_Analyzed_Games/all_games_cleaned.csv'
 
 # make list of games 
-anal_games.process_all_files(outfile=outfile,filenames=filenames_to_process,functions=[functions_anal.MovesTotal,functions_anal.Cleanup,functions_anal.MovesBlack,functions_anal.MovesWhite],skip_if_processed=True,game_wise=True)
+# anal_games.process_all_files(outfile=outfile,filenames=filenames_to_process,functions=[functions_anal.MovesTotal,functions_anal.Cleanup,functions_anal.MovesBlack,functions_anal.MovesWhite],skip_if_processed=True,game_wise=True)
 
 df=pd.read_csv(outfile)
+
+dupes=df.duplicated(keep=False,subset=['GameID','File'])
+
+dupes=dupes.where(dupes) #
+dupes.dropna(how='any',inplace=True)
+print(len(dupes))
+print(dupes)
+
+sys.exit()
 
 df_train,df_test=train_test_split(df,test_size=0.2,random_state=100) # stratification with number of moves or elos doesn't work, as it needs at least two games for each unique value/combination of values. Binning doesn't help
 

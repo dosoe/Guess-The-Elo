@@ -6,6 +6,7 @@ from multiprocessing import Pool
 import copy
 import sys
 import concurrent.futures
+import functions_anal
 
 def WCL_by_player(mv_start,mv_end,all=False,train=True):
     filename='../Cleaned_Analyzed_Games/wcl_'
@@ -28,7 +29,8 @@ def WCL_by_player(mv_start,mv_end,all=False,train=True):
 
     # get data for white player
     data_white=df_out.filter(regex='White*',axis='columns')
-    for feature in ['Opening','Variation','Result','GameID','LineStart','File']: # Which additional features we want
+    print(list(df_out))
+    for feature in ['Opening','Variation','Result','GameID','LineStart','File','MovesWhite']: # Which additional features we want
         data_white[feature]=df_out[feature]
     # rename white player features
     for feature in data_white:
@@ -40,10 +42,12 @@ def WCL_by_player(mv_start,mv_end,all=False,train=True):
             data_white.drop(feature,axis=1,inplace=True)
 
     data_white['Player']='White'
+    data_white['Moves']='MovesWhite'
+    data_white.drop('MovesWhite',axis=1,inplace=True)
     
     # same for black player
     data_black=df_out.filter(regex='Black*',axis='columns')
-    for feature in ['Opening','Variation','Result','GameID','LineStart','File']:
+    for feature in ['Opening','Variation','Result','GameID','LineStart','File','MovesBlack']:
         data_black[feature]=df_out[feature]
     
     for feature in data_black:
@@ -54,6 +58,8 @@ def WCL_by_player(mv_start,mv_end,all=False,train=True):
             data_black[feature[5:]]=data_black[feature]
             data_black.drop(feature,axis=1,inplace=True)
     data_black['Player']='Black'
+    data_black['Moves']='MovesBlack'
+    data_black.drop('MovesBlack',axis=1,inplace=True)
 
     # merge and save black and white tables
     data=pd.concat([data_white, data_black], ignore_index=True)
@@ -106,13 +112,13 @@ for i in range(len(move_bins)-1):
 
     # only process games with moves in bin
     df_moves=df_train.where(df_train['MovesAll']>=move_bins[i])
-    df_moves=df_moves.where(df_train['MovesAll']<move_bins[i+1])
+    df_moves=df_moves.where(df_moves['MovesAll']<move_bins[i+1])
     df_moves.dropna(how='any',inplace=True)
 
     if df_moves.shape[0]==0:
         continue
 
-    args.append(('../Cleaned_Analyzed_Games/wcl_train_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+    args.append(('../Cleaned_Analyzed_Games/wcl_train_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],True,True))
     i_process+=1
 
 wc_tables_new=copy.deepcopy(wc_tables)
@@ -122,7 +128,7 @@ wc_tables_new['mv_max']=100000
 df_moves=df_train.where(df_train['MovesAll']>=move_bins[-1])
 df_moves=df_moves.where(df_train['MovesAll']<100000)
 df_moves.dropna(how='any',inplace=True)
-args.append(('../Cleaned_Analyzed_Games/wcl_train_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+args.append(('../Cleaned_Analyzed_Games/wcl_train_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],False,True))
 i_process+=1
 
 for i in range(len(move_bins)-1):
@@ -136,13 +142,13 @@ for i in range(len(move_bins)-1):
 
     # only process games with moves in bin
     df_moves=df_test.where(df_test['MovesAll']>=move_bins[i])
-    df_moves=df_moves.where(df_test['MovesAll']<move_bins[i+1])
+    df_moves=df_moves.where(df_moves['MovesAll']<move_bins[i+1])
     df_moves.dropna(how='any',inplace=True)
 
     if df_moves.shape[0]==0:
         continue
 
-    args.append(('../Cleaned_Analyzed_Games/wcl_test_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+    args.append(('../Cleaned_Analyzed_Games/wcl_test_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],True,True))
     i_process+=1
 
 wc_tables_new=copy.deepcopy(wc_tables)
@@ -152,7 +158,7 @@ wc_tables_new['mv_max']=100000
 df_moves=df_test.where(df_test['MovesAll']>=move_bins[-1])
 df_moves=df_moves.where(df_test['MovesAll']<100000)
 df_moves.dropna(how='any',inplace=True)
-args.append(('../Cleaned_Analyzed_Games/wcl_test_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+args.append(('../Cleaned_Analyzed_Games/wcl_test_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],True,True))
 i_process+=1
 
 with concurrent.futures.ProcessPoolExecutor(max_workers=num_workers) as executor:
@@ -191,13 +197,13 @@ for i in range(len(move_bins)-1):
 
     # only process games with moves in bin
     df_moves=df_train.where(df_train['MovesAll']>=move_bins[i])
-    df_moves=df_moves.where(df_train['MovesAll']<move_bins[i+1])
+    df_moves=df_moves.where(df_moves['MovesAll']<move_bins[i+1])
     df_moves.dropna(how='any',inplace=True)
 
     if df_moves.shape[0]==0:
         continue
 
-    args.append(('../Cleaned_Analyzed_Games/wcl_train_all_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+    args.append(('../Cleaned_Analyzed_Games/wcl_train_all_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],True,True))
     i_process+=1
 
 wc_tables_new=copy.deepcopy(wc_tables)
@@ -207,7 +213,7 @@ wc_tables_new['mv_max']=100000
 df_moves=df_train.where(df_train['MovesAll']>=move_bins[-1])
 df_moves=df_moves.where(df_train['MovesAll']<100000)
 df_moves.dropna(how='any',inplace=True)
-args.append(('../Cleaned_Analyzed_Games/wcl_train_all_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+args.append(('../Cleaned_Analyzed_Games/wcl_train_all_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],True,True))
 i_process+=1
 
 for i in range(len(move_bins)-1):
@@ -221,13 +227,13 @@ for i in range(len(move_bins)-1):
 
     # only process games with moves in bin
     df_moves=df_test.where(df_test['MovesAll']>=move_bins[i])
-    df_moves=df_moves.where(df_test['MovesAll']<move_bins[i+1])
+    df_moves=df_moves.where(df_moves['MovesAll']<move_bins[i+1])
     df_moves.dropna(how='any',inplace=True)
 
     if df_moves.shape[0]==0:
         continue
 
-    args.append(('../Cleaned_Analyzed_Games/wcl_test_all_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+    args.append(('../Cleaned_Analyzed_Games/wcl_test_all_'+str(move_bins[i])+'-'+str(move_bins[i+1])+'.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],True,True))
     i_process+=1
 
 wc_tables_new=copy.deepcopy(wc_tables)
@@ -237,7 +243,7 @@ wc_tables_new['mv_max']=100000
 df_moves=df_test.where(df_test['MovesAll']>=move_bins[-1])
 df_moves=df_moves.where(df_test['MovesAll']<100000)
 df_moves.dropna(how='any',inplace=True)
-args.append(('../Cleaned_Analyzed_Games/wcl_test_all_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new)],True,True))
+args.append(('../Cleaned_Analyzed_Games/wcl_test_all_'+str(move_bins[-1])+'-.csv',df_moves,[(winning_chances_util.WinChanceIncrease,wc_tables_new),functions_anal.MovesWhite,functions_anal.MovesBlack],True,True))
 i_process+=1
 
 with concurrent.futures.ProcessPoolExecutor(max_workers=num_workers) as executor:
