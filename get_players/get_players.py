@@ -15,14 +15,14 @@ def get_player_info(fide_id):
     Parameters: 
     - fide_id (int or str): FIDE id of the player
 
-    Outputs: 
-    - player (dict): dictionary with keys 
-    'Name': Name of the player
-    'Federation': Federation the player is affiliated to
-    'FIDE ID': FIDE id of the player
-    'B_Year': Birth year of the player
-    'Sex': Gender of the player
-    'FIDE title': FIDE title of the player, not available for all players
+    Returns: 
+    - dict: dictionary with keys 
+        'Name': Name of the player
+        'Federation': Federation the player is affiliated to
+        'FIDE ID': FIDE id of the player
+        'B_Year': Birth year of the player
+        'Sex': Gender of the player
+        'FIDE title': FIDE title of the player, not available for all players
     """
 
     # Fetch page of the player on the FIDE website
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     data=pd.read_csv('../Analyzed_Games/games.csv')
 
     # Fetch information for each player
-    allfideids=np.append(data['WhiteFideId'].to_numpy(dtype=int),data['BlackFideId'].to_numpy(dtype=int))
+    allfideids=data['FideId'].to_numpy(dtype=int)
 
     # Check if player file already exists
     found=False
