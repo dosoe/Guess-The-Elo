@@ -2,7 +2,6 @@
 import pandas as pd
 import numpy as np
 
-
 def cp_to_win_percent(cp):
     """
     Convert centipawn evaluation to win percentage using the Lichess formula.
@@ -157,7 +156,6 @@ def add_total_accuracy(df):
 
     return df
 
-
 def export_game_to_pgn(df, game_id, output_file="../game1.pgn"):
     import chess
     import chess.pgn
@@ -211,7 +209,6 @@ def export_game_to_pgn(df, game_id, output_file="../game1.pgn"):
     with open(output_file, 'w', encoding='utf-8') as f:
         exporter = chess.pgn.FileExporter(f)
         game.accept(exporter)
-
 
 def create_summary_table(df):
     # List of columns to remove

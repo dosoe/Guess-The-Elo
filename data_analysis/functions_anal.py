@@ -91,7 +91,8 @@ def Cleanup(game):
     Example of function just for cleaning up
     takes a game
     returns either None if the game is rejected or an empty dictionary
-    In this example, we reject games with no known results or games with less than 15 moves
+    In this example, we reject games with no known results, games with less than 15 moves
+    or games where the Elo of one of the players is missing, as this is indicative of a bot. 
     """
     if game['Result']=='*':
         return None
