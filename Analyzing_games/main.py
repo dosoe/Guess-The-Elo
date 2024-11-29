@@ -38,7 +38,7 @@ def setup_logging():
     logger.addHandler(f_handler)
 
 
-def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_file="analysis_results.csv"):
+def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_file="analysis_results.csv",max_workers=cpu_count()):
     """
     Analyzes multiple PGN games in parallel and computes evaluations for each move.
 
@@ -47,6 +47,7 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
     - stockfish_path (str): Path to the Stockfish executable.
     - depth (int): The depth for Stockfish analysis.
     - output_file (str): Path to the CSV file where results will be saved.
+    - max_workers (int): number of CPUs to run Stockfish on, capped at cpu_count()
 
     Outputs:
     - Writes analysis results to the specified CSV file.
@@ -72,9 +73,6 @@ def analyze_pgn_file_parallel(pgn_file_path, stockfish_path, depth=15, output_fi
     if not pgn_strings:
         logging.warning(f"No games found in the PGN file: {pgn_file_path}")
         return
-
-    # Determine the number of worker processes
-    max_workers = 18  # Use the number of CPU cores
 
     num_workers = min(cpu_count(), len(pgn_strings), max_workers)
     logging.info(f"Using {num_workers} worker(s) for analysis.")
@@ -235,20 +233,24 @@ if __name__ == "__main__":
         exit(1)
     
     # Define the list of specific PGN files directly
-    specific_pgn_files = [f"utf8_games/twic{num}.pgn" for num in range(1507, 1510 + 1)]
+    specific_pgn_files = [f"../utf8_games/twic{num}.pgn" for num in range(920, 1561 + 1)]
     #specific_pgn_files = ["utf8_games/example20.pgn"]
     
     # Specify the output directory for analyzed CSV files
-    output_directory = "Analyzed_Games"
+    output_directory = "../Analyzed_Games"
     
     # Specify the depth for Stockfish analysis
-    analysis_depth = 20  # Adjust based on your requirements and system capabilities
+    analysis_depth = 15  # Adjust based on your requirements and system capabilities
+
+    # Determine the number of worker processes
+    max_workers = 18  # Use the number of CPU cores
     
     # Start processing specific PGN files
     process_specific_pgn_files(
         specific_pgn_files=specific_pgn_files,
         stockfish_path=stockfish_path,
         depth=analysis_depth,  
-        output_directory=output_directory
+        output_directory=output_directory,
+        max_workers=max_workers
     )
   
