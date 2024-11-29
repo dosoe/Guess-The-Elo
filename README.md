@@ -1,4 +1,4 @@
-# Project's goal
+# Project goal
 
  Given a chess game, the goal is to predict the elo rating of the players.
 
