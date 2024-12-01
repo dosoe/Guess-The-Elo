@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import glob, os
 import anal_games, functions_anal
-import pickle, re
 from sklearn.model_selection import train_test_split
 
 
@@ -13,6 +12,16 @@ def get_outcome(result):
         return 'Loss'   # White lost
     elif result == '1/2-1/2':
         return 'Draw'   # Draw
+    else:
+        return None     # Exclude other results
+    
+def get_outcome_num(result):
+    if result == '1-0':
+        return 0    # White won
+    elif result == '0-1':
+        return 1   # White lost
+    elif result == '1/2-1/2':
+        return 2   # Draw
     else:
         return None     # Exclude other results
 
@@ -43,109 +52,7 @@ def get_winning_chance(game,inputs): # make function that gives winning chance f
     bins=inputs['bins']
     bin_moves=inputs['bin_moves']
     return {'WinningChance': winchance_array[0,np.digitize(game['Evaluation'],bins=bins),np.arange(len(game['Move']))//bin_moves].tolist()}
-
-if __name__ == "__main__":
-
-    # Get the list of filenames matching the patterns
-    filenames_15 = glob.glob("../Cleaned_Analyzed_Games/twic*_15_processed.csv")
-    filenames_16 = glob.glob("../Cleaned_Analyzed_Games/twic*_16_processed.csv")
-
-    # For dupes, use the bigger depth
-    filenames_to_process=filenames_16
-    for file in filenames_15:
-        if '_'.join(file.split('_')[:3])+'_16_processed.csv' in filenames_to_process:
-            continue
-        else:
-            filenames_to_process.append(file)
-    
-    outfile='../Cleaned_Analyzed_Games/all_games_cleaned.csv'
-
-    # make list of games 
-    anal_games.process_all_files(outfile=outfile,filenames=filenames_to_process,functions=[functions_anal.MovesTotal,functions_anal.Cleanup,functions_anal.MovesBlack,functions_anal.MovesWhite],skip_if_processed=True,game_wise=True)
-
-    df=pd.read_csv(outfile)
-
-    bin_moves=5
-
-    # bin moves, maybe
-    # movebins=np.arange(0,700,bin_moves)
-    # df['MovesBin']=pd.cut(df['MovesAll'],bins=movebins,include_lowest=True)
-
-    df_train,df_test=train_test_split(df,test_size=0.2,random_state=100) # stratification with number of moves or elos doesn't work, as it needs at least two games for each unique value/combination of values. Binning doesn't help
-
-    # save training set 
-    df_train.to_csv('../Cleaned_Analyzed_Games/all_games_cleaned_train.csv',index=False)
-    df_test.to_csv('../Cleaned_Analyzed_Games/all_games_cleaned_test.csv',index=False)
-    
-    # output files for winning chances
-    file_prefix='../Cleaned_Analyzed_Games/winning_chances_per_move_'+str(bin_moves)+'_001_'
-    file_suffix='.csv'
-    # make bins for evaluations
-    bins=np.arange(-20.05,20.15,0.1)
-
-    # Get maximum number of moves
-    df=pd.read_csv('../Cleaned_Analyzed_Games/all_games_cleaned_train.csv')
-    max_moves=df['MovesAll'].max()
-    # bin moves in blocks
-    max_moves=max_moves//bin_moves
-
-
-    # make array for winning chances
-    winchance_array=np.zeros((3,len(bins)+2,int(max_moves)+1)) # +2 to account for values out of bounds, +1 for moves that are bigger than max_moves//5 * 5 
-    count_games=np.zeros((len(bins)+2,int(max_moves)+1))
-
-    for file in df_train['File'].unique(): # loop over files
-        print(file)
-        data=pd.read_csv(file)
-        df_file=df_train.where(df_train['File']==file) # check which training games are in that file
-        df_file.dropna(how='any',inplace=True)
-        for line in df_file.iterrows(): # loop over games in training set from that file
-            data_line=line[1]
-            file=data_line['File']
-            ind=data_line['LineStart'] # starting line for the game
-            assert data.loc[ind, "GameID"]==data_line['GameID'] # sanity checks
-            assert not np.isnan(data.loc[ind, "WhiteElo"]) # sanity checks
-            ind,game=anal_games.read_game(data,ind,functions=[],game_wise=False) # reads a game, rejects it if invalid, outputs a game dictionary
-
-            if game is None or get_outcome(game) is None: # sanity check, should be taken care of earlier
-                continue
-            for j in range(len(game['Move'])): # bin output and move evaluation
-                i_bin=np.digitize(game['Evaluation'][j],bins=bins)
-                winchance_array[get_outcome(game),i_bin,j//5]+=1
-                count_games[i_bin,j//5]+=1
-
-    for i in range(3): # normalize win chance array
-        winchance_array[i,:,:]=np.divide(winchance_array[i,:,:],count_games)
-    
-    for i in range(int(max_moves)+1): # store win chance array
-
-        out_line=winchance_array[:,:,i]
-        out_line=smooth_lines(winchance_array[:,:,i],count_games[:,i],bins) # smooth win chance array to give values to evaluations where we don't have games
-        
-        # transform output into DataFrame and save
-        bins_new=bins.tolist()
-        bins_new.insert(0,'-20-')
-        bins_new.append('20+')
-        print(i,np.shape(bins_new),np.shape(winchance_array),np.shape(winchance_array[:,:,i]),np.shape(smooth_lines(winchance_array[:,:,i],count_games[:,i],bins)),np.shape(out_line),np.shape(out_line[0,:]),np.shape(out_line[1,:]),np.shape(out_line[2,:]),np.shape(count_games[:,i]))
-        data=pd.DataFrame({'bins':bins_new,'WinningChance':out_line[0,:],
-                            'DrawChance':out_line[1,:],
-                            'LosingChance':out_line[2,:],
-                            'TotalGames':count_games[:,i]})
-        data=data[['bins','WinningChance','DrawChance','LosingChance','TotalGames']]
-        data.to_csv(file_prefix+str(i)+file_suffix,index=False)
-
-
-    # # apply get_winning_chance to all games and create new files
-    # anal_games.rewrite_all_files(suffix='_winningchance',filenames=files,functions=[(get_winning_chance,{'winchance_array':winchance_array,
-    #                                                                                                     'bins':bins,
-    #                                                                                                     'bin_moves':bin_moves})],
-    #                                                                                                     skip_if_processed=False,game_wise=False)
-
-
-    # code that creates csv tables for each range of moves
-    # fill out missing values in increasing order, impose winning increase, losing decrease
-    # code that assemples csvs to numpy array and applies it to all games
-    
+   
 def convert_evaluation(row):
     """
     Convert the evaluation M to a numeric value.
@@ -501,20 +408,3 @@ def calculate_mistake_percentage(summary_table, interval_label):
     percentage = (number_with_mistake / total_games) * 100
     print(f"Percentage of games with at least one mistake in {interval_label} interval: {percentage:.2f}%")
     return percentage
-
-def train_test_split_games(df,train_size=0.8):
-    
-    df_games=df.dropna(how='any',inplace=False,subset=['WhiteElo'],ignore_index=True)
-
-    elobins=[1500,1800,2000,2200,2400,2600]
-    df_games['WhiteEloBin']=pd.cut(df_games['WhiteElo'],bins=elobins)
-    df_games['BlackEloBins']=pd.cut(df_games['BlackElo'],bins=elobins)
-
-    df_train,df_test=train_test_split(df_games,random_state=42,train_size=train_size,stratify=['WhiteEloBin','BlackEloBin'])
-
-    df_train_games=df.where(df['GameID']==df_train['GameID'])
-    df_test_games=df.where(df['GameID']==df_test['GameID'])
-
-    return df_train_games,df_test_games
-
-
