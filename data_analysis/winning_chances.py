@@ -172,8 +172,7 @@ def convert_evaluation(row):
             return eval_float  # Numeric evaluation remains the same
         except ValueError:
             return np.nan  # Unable to parse evaluation
-        
-    
+           
 def calculate_chances(df, lower_eval, upper_eval):
     """
     Calculate the chances of winning, drawing, and losing for positions within a specified evaluation range.
@@ -216,8 +215,6 @@ def calculate_chances(df, lower_eval, upper_eval):
         losing_chance = (outcome_counts.get('Loss', 0) / total_valid_games) * 100
     
     return [winning_chance, drawing_chance, losing_chance, total_valid_games,outcome_counts]
-
-
 
 def compute_winning_chance_table(df, intervals=np.arange(-13, 13.2, 0.2)):
     """
@@ -275,7 +272,6 @@ def compute_winning_chance_table(df, intervals=np.arange(-13, 13.2, 0.2)):
 
     return winning_chance_table
 
-   
 def process_chess_data(df, winning_chance_table=pd.read_csv('winning_chances_all_moves.csv'), intervals=np.arange(-13, 13.2, 0.2)):
     """
     Processes chess data by binning evaluation values, merging with winning chances,
@@ -345,8 +341,7 @@ def process_chess_data(df, winning_chance_table=pd.read_csv('winning_chances_all
     df['a'] = df[['WCL', 'LCL']].abs().max(axis=1)
 
     return df
-
-    
+  
 def create_summary_table(df, mistake_bins= [5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 100], winning_chance_table=None, intervals=None):
     """
     Processes the chess DataFrame to create a summary table of mistakes per interval per player per game.
@@ -480,8 +475,6 @@ def create_summary_table(df, mistake_bins= [5, 10, 15, 20, 25, 30, 35, 40, 50, 6
 
     return summary_table
 
-
-
 def calculate_mistake_percentage(summary_table, interval_label):
     """
     Calculates the percentage of games that have at least one mistake in the specified interval.
@@ -508,5 +501,20 @@ def calculate_mistake_percentage(summary_table, interval_label):
     percentage = (number_with_mistake / total_games) * 100
     print(f"Percentage of games with at least one mistake in {interval_label} interval: {percentage:.2f}%")
     return percentage
+
+def train_test_split_games(df,train_size=0.8):
+    
+    df_games=df.dropna(how='any',inplace=False,subset=['WhiteElo'],ignore_index=True)
+
+    elobins=[1500,1800,2000,2200,2400,2600]
+    df_games['WhiteEloBin']=pd.cut(df_games['WhiteElo'],bins=elobins)
+    df_games['BlackEloBins']=pd.cut(df_games['BlackElo'],bins=elobins)
+
+    df_train,df_test=train_test_split(df_games,random_state=42,train_size=train_size,stratify=['WhiteEloBin','BlackEloBin'])
+
+    df_train_games=df.where(df['GameID']==df_train['GameID'])
+    df_test_games=df.where(df['GameID']==df_test['GameID'])
+
+    return df_train_games,df_test_games
 
 
