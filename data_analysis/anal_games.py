@@ -174,7 +174,7 @@ def process_one_file(filename,functions=[],game_wise=True):
                 output = pd.concat([output, game_df], ignore_index=True)
             else:
                 for key in game:
-                    game[key].append('')
+                    game[key].append('') # every game ends with an empty line
                 game_df=pd.DataFrame.from_dict(game)
                 output = pd.concat([output, game_df], ignore_index=True)
     return output
