@@ -1,7 +1,5 @@
 import pandas as pd
 import numpy as np
-import glob, os
-import anal_games, functions_anal
 from sklearn.model_selection import train_test_split
 
 
@@ -376,6 +374,12 @@ def create_summary_table(df, mistake_bins= [5, 10, 15, 20, 25, 30, 35, 40, 50, 6
         include_lowest=True
     )
     # Rearranging columns for better readability
+    print(list(summary_table))
+    for label in mistake_labels:
+        if not label in summary_table:
+            summary_table[label]=0
+    
+    print(list(summary_table))
     cols = ['GameID', 'Player', 'Name', 'Elo', 'FideId', 'Opening', 'Variation', 'Result',
         'TotalMoves', 'TotalMovesInterval', 'AWCL'] + mistake_labels
     summary_table = summary_table[cols]
@@ -408,3 +412,36 @@ def calculate_mistake_percentage(summary_table, interval_label):
     percentage = (number_with_mistake / total_games) * 100
     print(f"Percentage of games with at least one mistake in {interval_label} interval: {percentage:.2f}%")
     return percentage
+
+def train_test_split_games(df,train_size=0.8,random_state=42):
+
+    df_game_headers=df.dropna(subset='WhiteElo',axis=0)
+
+    df_headers_train,df_headers_test=train_test_split(df_game_headers,train_size=train_size,random_state=random_state)
+
+    gameID_train=df_headers_train['GameID'].unique()
+    df_train=df.loc[df['GameID'] == gameID_train[0]]
+    new_index = max(df_train.index) + 1
+    df_train.loc[new_index] = ''
+    for i in gameID_train[1:]:
+        df_train_tmp=df.loc[df['GameID'] == i]
+        df_train=pd.concat([df_train,df_train_tmp])
+        new_index = max(df_train.index) + 1
+        df_train.loc[new_index] = ''
+
+    gameID_test=df_headers_test['GameID'].unique()
+    df_test=df.loc[df['GameID'] == gameID_test[0]]
+    new_index = max(df_test.index) + 1
+    df_test.loc[new_index] = ''
+    for i in gameID_test[1:]:
+        df_test_tmp=df.loc[df['GameID'] == i]
+        df_test=pd.concat([df_test,df_test_tmp])
+        new_index = max(df_test.index) + 1
+        df_test.loc[new_index] = ''
+
+    for feature in ['GameID','WhiteElo','BlackElo','LineStart','WhiteFideId','BlackFideId','Year','Evaluation','LineEnd','MoveNumber']:
+
+        df_train[feature]=pd.to_numeric(df_train[feature])
+        df_test[feature]=pd.to_numeric(df_test[feature])
+
+    return df_train,df_test
