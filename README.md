@@ -1,57 +1,76 @@
-# Guess The Elo
+# Guess the Elo
 
-Data Science project for the Erdos Institute Data Science Boot Camp Fall 2024
+## Investigating Correlation Between Game Performance and Player Rating in Chess
 
-Foivos Chnaras, Dorian Soergel, Lang Song
+Team: Dorian Soergel, Foivos Chnaras, Lang Song
 
-## Project goal
+## Background and Project Overview
 
-Chess uses the [Elo rating system](https://en.wikipedia.org/wiki/Elo_rating_system) to calculate relative skill levels of players. The Elo system gives each player a score and the score difference gives the win probability of a player against another. After every game, the Elo of both players is adjusted, with the winner gaining points and the loser losing points.
+ Our project, inspired by the popular chess YouTube series ["Guess the Elo"](https://www.youtube.com/playlist?list=PLBRObSmbZluRiGDWMKtOTJiLy3q0zIfd7) explores the relationship between game performance and player ratings in chess. [Elo](https://en.wikipedia.org/wiki/Elo_rating_system) is a widely used rating system that measures a player’s skill based on their game results. With increasing allegations of cheating in chess, often justified using game performance metrics, our work seeks to investigate the validity of such claims and explore the potential for developing predictive and anti-cheating tools.
 
-One would thus expect the Elo of a player to depend on the way he plays. Our project aims to predict the Elo of a player given one or more games.
+## Our Goal
+
+- Analyze the correlation between chess performance metrics and Elo ratings.
+- Develop insights into whether single-game performance metrics can indicate cheating.
+- Predict Elo ratings using performance metrics aggregated across multiple games.
 
 ## Stakeholders
 
-Cheating is an ever present threat in chess. Having a way to infer the Elo of a player from some of his games would provide a way to assess whether a player plays at a level consistent with their Elo and could thus be used to complement existing cheating detection algorithms.
-
-Online chess platform, like any online game, have an interest in providing matchmaking that is as balanced as possible. Having a way to estimate the Elo of a new player after a few games would therefore be of interest to provide balanced games as quickly as possible.
-
-Getting an approximate Elo estimation could also be of interest for individual players curious to assess their level.
-
-## KPI  
-
-The two metrics we focus for this project are:
-
-- the accuracy of the elo estimator
-- the number of games needed to make an accurate guess
-
-## Database
-
-We use the games from [The Week in Chess](https://theweekinchess.com/twic). That includes approximately 2.8 million games. These games are competition games that are played over the board (i. e. in person, not online).
-We analyze them using [Stockfish](https://stockfishchess.org/). Future plans is to perhaps use [leela zero](https://lczero.org/).
-We have another database from [chessok](https://shop.chessok.com/index.php?main_page=index&cPath=7_54) of 5 million games, but those will not be analyzed. They may be used to study the openings.
+- Chess platforms and organizations for anti-cheating insights.
+- Developers and researchers interested in Elo prediction algorithms.
+- The general chess community and enthusiasts for engagement and learning.
 
 ## Methodology
 
-### Data Processing and Cleaning
+- Data Collection: Analyzed 1 million games from [The Week in Chess](https://theweekinchess.com/twic), with a focus on games around 2200 Elo.
+- Game Processing: Used [Stockfish](https://stockfishchess.org/), a state-of-the-art chess engine, to compute centipawn loss and evaluate positions. Approximately 30k games were processed at depth 20 for higher accuracy.
 
-1. We use the game analyser from [Stockfish](https://stockfishchess.org/) to get an evaluation of the successive position in each of our games. This is done [here](https://github.com/foivoshn/Guess-The-Elo/tree/main/Analyzing_games).
-2. We clean the data, eliminating all pre-arranged games, games played by bots or games with no recorded outcome. This is done [here](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/Cleaning.ipynb).
-3. We calculate winning chance statistics for each position, to get a winning probability for each evaluation range. This has been done several times, using different training sets and once using the whole dataset, to check for differences. The differences being very small, we have decided to use the whole dataset, as it provides us with more flexibility to split the dataset in different ways later down the line. This is done [here](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/winning_chances.ipynb)
-4. For each move, using that winning probability, we calculate the decrease in winning probability (WCL, Winning Chance Loss) for each move, thus getting a quantitative metric of the quality of each move. This is done [here](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/winning_chances.ipynb)
+## Metrics Development
 
-### Data Fitting
+- Replicated [Lichess.org](lichess.org)’s Accuracy score and analyzed its correlation with Elo.
+- Developed custom metrics, including "Winning Chance Loss," which quantifies the severity of mistakes by evaluating changes in winning probability between moves.
+- Classified errors into bins of 5% for nuanced analysis.
 
-We chose two main routes to predict the Elo of a player:
+## Results
 
-- Either performing a fit directly on the WCL of each move. This has the advantage of using directly the WCL, but the downside of being tied to the number of moves: The fit needs to be done several times, once for each game length.
-- Or by binning the WCL and counting the number of mistakes per game and their gravity. This has the downside of adding a step of processing, but it makes more sense in terms of chess and can be done directly on the whole dataset without the need to split by game length.
+### Single Game Analysis
 
-For the reasons listed above, we have decided to go with the latter.
+Showes weak correlation between performance metrics and Elo, questioning the reliability of using single-game metrics for cheating accusations.
 
-In addition to the WCL, we also use the following features, all categorical: Game Result, Opening, Opening Variation and Color.
-We did not use the Elo of the opponent, as most games are balanced and the Elo of the opponent is thus closely matched with the Elo of the player.
+### Multiple Game Analysis
 
-We perform a linear regression on these features, as well as a Random Forest Regressor. Both give similar root mean square error, but Random Forest tends to be more accurate on both ends of the Elo distribution.
+Aggregated performance metrics across 10 games per player. Regression analysis revealed significantly stronger correlations, indicating that long-term patterns are better predictors of Elo.
 
-We also classify the games by player and perform a regression using 10 games rather than one. The results show a spectacular improvement in fit.
+### Sample Size Concerns
+
+Despite starting with a large database, grouping games by player reduced the effective sample size to 20k, which limits the robustness of findings.
+
+## Future Work
+
+- Expand the database and analyze games at greater depths.
+- Incorporate additional features, such as opening and endgame mistakes.
+- Leverage deep learning to explore position complexity and refine predictive models.
+- Develop a web application for Elo prediction, accessible to the general public.
+
+## Conclusion
+
+ While single-game metrics lack reliability in predicting Elo or detecting cheating, aggregated data across multiple games holds significant potential. With further research and advanced computational techniques, this work could contribute to fair play in chess and enhance the experience of chess enthusiasts worldwide.
+
+## Example Run
+
+For performance reasons, we will show an example on how to run the processing with only chess games analysed with a depth of 20.
+
+- Analyse the Games using [Analyzing_Games](https://github.com/foivoshn/Guess-The-Elo/tree/main/Analyzing_games). This has already been done, the results are in [Analysed_Games](https://github.com/foivoshn/Guess-The-Elo/tree/main/Analyzed_games).
+- Clean the games, removing games played by bots, pre-arranged draws and games with unknown result by running [data_analysis/Cleaning.ipynb](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/Cleaning.ipynb)
+- Concatenate all games in one big CSV file by running [data_analysis/combine_files.ipynb](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/combine_files.ipynb)
+- Get the WCL tables and the linear regression of it by running [data_analysis/Linear_Regression.ipynb](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/Linear_Regression.ipynb)
+- Reproduce the results of the platform [Lichess.org](lichess.org) by running [data_analysis/lichess.ipynb](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/lichess.ipynb)
+- Perform further linear regression with different predictors by running [data_analysis/elo_prediction_langsong.ipynb](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/elo_prediction_langsong.ipynb)
+- Perform Ramdom Forest regression by running [data_analysis/RandomForest.ipynb](https://github.com/foivoshn/Guess-The-Elo/blob/main/data_analysis/RandomForest.ipynb)
+
+
+## Aknowledgements
+
+- This project uses data from the [Lichess API](https://lichess.org/api)
+- This project uses the [Stockfish Chess Engine](https://stockfishchess.org/)
+- This project uses the [python-chess](https://python-chess.readthedocs.io/en/latest/)  Package
