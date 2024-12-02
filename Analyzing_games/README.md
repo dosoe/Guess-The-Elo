@@ -10,6 +10,8 @@
 2) Add environment variable `STOCKFISH_PATH`
 with the path to the binary file (`.exe` on windows) of stockfish, alternatively provide the path to the binary in the code as     `stockfish_path`.
 
+Run: `python3 main.py`
+
 
 # Multiprocessing
 
